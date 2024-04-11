@@ -1,0 +1,6 @@
+# Ignore specific files
+test_curl.php
+gpt-neo-test.php
+
+# Ignore everything in the Blog_assets directory
+Blog_assets/
