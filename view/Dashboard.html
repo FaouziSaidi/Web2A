@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<!--=== Coding by CodingLab | www.codinglabweb.com === -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!----======== CSS ======== -->
+    <link rel="stylesheet" href="../assets/css/styleDash.css">
+    <!----===== Iconscout CSS ===== -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <title>Admin Dashboard Panel</title> 
+</head>
+<body>
+    <nav>
+        <div class="image-container">
+            <img src="../img/masar.png" alt="Logo Masar" width="80">
+        </div>
+        
+
+        <div class="menu-items">
+            <ul class="nav-links">
+                <li><a href="#">
+                    <i class="uil uil-estate"></i>
+                    <span class="link-name">Dahsboard</span>
+                </a></li>
+                <li><a href="#">
+                    <i class="uil uil-user"></i>
+                    <span class="link-name">users</span>
+                </a></li>
+                <li><a href="#">
+                    <i class="uil uil-comment-alt-lines"></i>
+                    <span class="link-name">blog manegemnt</span>
+                </a></li>
+                <li><a href="#">
+                    <i class="uil uil-file-contract"></i>
+                    <span class="link-name">listecontrat</span>
+                </a></li>
+                <li><a href="#">
+                    <i class="uil uil-briefcase"></i>
+                    <span class="link-name">job manegment</span>
+                </a></li>
+                <li><a href="#">
+                    <i class="uil uil-file-alt"></i>
+                    <span class="link-name">cv manegement</span>
+                </a></li>
+                <li><a href="#">
+                    <i class="uil uil-medal"></i>
+                    <span class="link-name">badge manegement</span>
+                </a></li>
+            </ul>
+            
+            <ul class="logout-mode">
+                <li><a href="#">
+                    <i class="uil uil-signout"></i>
+                    <span class="link-name">Logout</span>
+                </a></li>
+
+                <li class="mode">
+                    <a href="#">
+                        <i class="uil uil-moon"></i>
+                    <span class="link-name">Dark Mode</span>
+                </a>
+
+                <div class="mode-toggle">
+                  <span class="switch"></span>
+                </div>
+            </li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="dashboard">
+        <div class="top">
+            <i class="uil uil-bars sidebar-toggle"></i>
+
+            <div class="search-box">
+                <i class="uil uil-search"></i>
+                <input type="text" placeholder="Search here...">
+            </div>
+        </div>
+
+        <div class="dash-content" id="dash-content">
+            <!-- Le contenu initial de votre dashboard -->
+            <div class="overview">
+                <div class="title">
+                    <i class="uil uil-tachometer-fast-alt"></i>
+                    <span class="text">Dashboard</span>
+                </div>
+
+                <div class="boxes">
+                    <div class="box box1">
+                        <i class="uil uil-thumbs-up"></i>
+                        <span class="text">Total Likes</span>
+                        <span class="number">50,120</span>
+                    </div>
+                    <div class="box box2">
+                        <i class="uil uil-comments"></i>
+                        <span class="text">Comments</span>
+                        <span class="number">20,120</span>
+                    </div>
+                    <div class="box box3">
+                        <i class="uil uil-share"></i>
+                        <span class="text">Total Share</span>
+                        <span class="number">10,120</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="../assets/scriptDash.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const menuLinks = document.querySelectorAll('.nav-links a');
+            const dashContent = document.getElementById('dash-content');
+
+            menuLinks.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const target = this.querySelector('.link-name').textContent.trim().toLowerCase().replace(/\s/g, '-');
+                    const filePath = target + ".php"; // Supposez que chaque élément du menu a un fichier HTML correspondant avec le contenu à charger
+
+                    fetch(filePath)
+                        .then(response => response.text())
+                        .then(data => {
+                            dashContent.innerHTML = data;
+                        })
+                        .catch(error => {
+                            console.error('Une erreur s\'est produite lors du chargement du contenu:', error);
+                        });
+                });
+            });
+        });
+        document.addEventListener("DOMContentLoaded", function() {
+        // Charge le contenu de listecontrat.php initialement
+        fetch('listecontrat.php')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('dash-content').innerHTML = data;
+            })
+            .catch(error => {
+                console.error('Une erreur s\'est produite lors du chargement du contenu:', error);
+            });
+    });
+        
+    </script>
+</body>
+</html>
