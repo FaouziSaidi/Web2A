@@ -1,0 +1,87 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: white;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+
+h1 {
+    text-align: center; /* Center the title */
+    color: #2a6b30; /* Keep the green color */
+    margin-bottom: 20px;
+}
+
+
+p, a {
+    color: #333; /* Dark grey text for readability */
+    line-height: 1.6;
+}
+
+img {
+    align-items: center;
+    max-width: 250px; /* Maximum width */
+    max-height: 250px; /* Maximum height */
+    display: block;
+    margin: 0 auto; /* Center the image */
+}
+
+.comment {
+    width: 50%; /* Make the comment box half the size horizontally */
+    margin: 20px auto; /* Center the comment box */
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.comment p {
+    margin: 10px 0;
+}
+p.author-id, p.author-name, p.publication-date {
+    color: #2a6b30; /* Green color */
+    font-weight: bold; /* Make text bold */
+}
+
+
+.comment strong {
+    color: #2a6b30; /* Green color for author name */
+}
+
+form {
+    background-color: white;
+    padding: 20px;
+    border: 2px solid #a4d7a2; /* Light green border */
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+input[type="text"], textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+input[type="submit"], button {
+    background-color: #2a6b30; /* Green background for buttons */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover, button:hover {
+    background-color: #1e4620; /* Darker green on hover */
+}
+
+a {
+    text-decoration: none;
+    color: #2a6b30;
+}
+
+a:hover {
+    text-decoration: underline;
+}

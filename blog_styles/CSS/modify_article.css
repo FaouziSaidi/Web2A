@@ -1,0 +1,62 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: white;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+
+h1 {
+    text-align: center;
+    font-size: 24px; /* Slightly smaller than the frontpage for a more subdued look */
+    color: #2a6b30;
+    margin-bottom: 20px;
+}
+
+form {
+    background-color: #f9f9f9; /* Light background for the form */
+    padding: 20px;
+    border: 2px solid #a4d7a2; /* Smooth light green border */
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 800px; /* Max width for form */
+    margin: 20px auto; /* Center form */
+}
+
+input[type="text"], textarea, select {
+    width: 100%; /* Full width */
+    padding: 10px;
+    margin-top: 10px; /* Space between inputs */
+    margin-bottom: 20px; /* Space below inputs */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+}
+
+input[type="submit"] {
+    background-color: #2a6b30;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #3c8f47;
+}
+
+a {
+    display: inline-block; /* Allows padding and margin */
+    margin-top: 20px;
+    padding: 5px 10px;
+    background-color: #2a6b30;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+a:hover {
+    background-color: #3c8f47;
+}
