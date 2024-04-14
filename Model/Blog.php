@@ -1,15 +1,5 @@
 <?php
 
-class Blog
-{
-    // Define properties, constructor, and methods here
-
-    public function __construct()
-    {
-        // Initialize any necessary variables or connections here
-    }
-}
-
 class Articles
 {
     private $id_article;
@@ -18,9 +8,11 @@ class Articles
     private $contenu;
     private $date_publication;
     private $id_auteur;
+    private $nom_auteur_article;
     private $image_url;
+    private $post_thumbnail;
 
-    public function __construct($id_article, $titre,$summary_article, $contenu, $date_publication, $id_auteur, $iamge_url)
+    public function __construct($id_article, $titre,$summary_article, $contenu, $date_publication, $id_auteur,$nom_auteur_article, $image_url, $post_thumbnail)
     {
         $this->id_article = $id_article;
         $this->titre = $titre;
@@ -28,7 +20,9 @@ class Articles
         $this->contenu = $contenu;
         $this->date_publication = $date_publication;
         $this->id_auteur = $id_auteur;
+        $this->nom_auteur_article = $nom_auteur_article;
         $this->image_url = $image_url;
+        $this->post_thumbnail = $post_thumbnail;
     }
 
     public function getIdArticle()
@@ -89,6 +83,14 @@ class Articles
     {
         $this->id_auteur = $id_auteur;
     }
+    public function getNomAuteurArticle()
+    {
+        return $this->nom_auteur_article;
+    }
+    public function setNomAuteurArticle($nom_auteur_article)
+    {
+        $this->nom_auteur_article = $nom_auteur_article;
+    }
     public function getImage_url()
     {
         return $this->image_url;
@@ -96,6 +98,14 @@ class Articles
     public function setImage_url($image_url)
     {
         $this->image_url = $image_url;
+    }
+    public function getPost_thumbnail()
+    {
+        return $this->post_thumbnail;
+    }
+    public function setPost_thumbnail($post_thumbnail)
+    {
+        $this->post_thumbnail = $post_thumbnail;
     }
 }
 
