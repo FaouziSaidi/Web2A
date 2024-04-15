@@ -7,7 +7,31 @@ function makeEditable(commentId) {
         document.getElementById('editCommentForm' + commentId).submit();
     };
 }
+function deleteComment(commentId, articleId) {
+    if (!confirm('Are you sure you want to delete this comment?')) return;
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "../Commentaires/delete_comment.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onload = function () {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            document.getElementById('editCommentForm' + commentId).style.display = 'none';
+        } else {
+            alert("Failed to delete comment.");
+        }
+    };
+    xhr.send("ID_commentaire=" + commentId + "&ID_article=" + articleId);
+}
 </script>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article Details</title>
+    <link rel="stylesheet" href="../../blog_styles/CSS/article_details.css">
+</head>
 <?php
 require_once '../../Controller/Blog/ArticleC.php';
 require_once '../../Controller/Blog/CommentaireC.php';
@@ -40,7 +64,7 @@ if ($article) {
     echo '<p>Author ID: ' . htmlspecialchars($article['ID_auteur']) . '</p>';
     echo '<p>Author Name: ' . htmlspecialchars($article['nom_auteur_article']) . '</p>';
 
-    // Form for adding a comment
+    // Form pour adding a comment
     echo '<form action="../Commentaires/add_comment.php" method="post">';
     echo '<input type="hidden" name="ID_article" value="' . htmlspecialchars($ID_article) . '"/>';
     echo '<input type="text" name="ID_auteur" placeholder="Your ID"/>';
@@ -49,9 +73,9 @@ if ($article) {
     echo '<input type="submit" name="submit_comment" value="Add Comment"/>';
     echo '</form>';
 
-    // Display comments
-    $commentaires = $commentaireController->listCommentaires();
-    echo '<div id="commentsSection">';
+// Display comments
+$commentaires = $commentaireController->listCommentaires();
+echo '<div id="commentsSection">';
 
     // the loop where comments are displayed
     foreach ($commentaires as $commentaire) {
@@ -62,18 +86,19 @@ if ($article) {
             echo '<div class="comment" ondblclick="makeEditable('.$commentaire['ID_commentaire'].')">';
             echo '<p><strong>Author:</strong> '.htmlspecialchars($commentaire['nom_auteur']).'</p>';
             echo '<p><strong>Posted on:</strong> '.htmlspecialchars($commentaire['date_publication_commentaire']).'</p>';
+            // Display the comment content
             echo '<p id="commentContent'.$commentaire['ID_commentaire'].'" style="cursor: pointer;">'.nl2br(htmlspecialchars($commentaire['contenu'])).'</p>';
-            echo '<a href="Commentaires/delete_comment.php?ID_commentaire='.$commentaire['ID_commentaire'].'&ID_article='.$ID_article.'" onclick="return confirm(\'Are you sure you want to delete this comment?\');"><button type="button">Delete Comment</button></a>';
+            echo '<button type="button" onclick="deleteComment('.$commentaire['ID_commentaire'].', '.$ID_article.')">Delete Comment</button>';
             echo '</div>';
-            echo '<input type="hidden" name="contenu" value="">'; // This will be set by JavaScript
-            echo '<input type="submit" name="submit" value="Save" style="display: none;"/>'; // Hidden submit button
+            echo '<input type="hidden" name="contenu" value="">';
+            echo '<input type="submit" name="submit" value="Save" style="display: none;"/>';
             echo '</form>';
         }
     }
 
-    echo '</div>';
+echo '</div>';
 
-    echo '<a href="../blogs_frontpage.php"><button>Go back to the frontpage</button></a>';
+echo '<a href="../blogs_frontpage.php"><button>Go back to the frontpage</button></a>';
 } else {
     echo 'Article not found.';
 }

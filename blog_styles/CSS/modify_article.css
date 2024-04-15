@@ -8,29 +8,29 @@ body {
 
 h1 {
     text-align: center;
-    font-size: 24px; /* Slightly smaller than the frontpage for a more subdued look */
+    font-size: 24px;
     color: #2a6b30;
     margin-bottom: 20px;
 }
 
 form {
-    background-color: #f9f9f9; /* Light background for the form */
+    background-color: #f9f9f9; 
     padding: 20px;
-    border: 2px solid #a4d7a2; /* Smooth light green border */
+    border: 2px solid #a4d7a2;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    max-width: 800px; /* Max width for form */
-    margin: 20px auto; /* Center form */
+    max-width: 800px; 
+    margin: 20px auto;
 }
 
 input[type="text"], textarea, select {
-    width: 100%; /* Full width */
+    width: 100%;
     padding: 10px;
-    margin-top: 10px; /* Space between inputs */
-    margin-bottom: 20px; /* Space below inputs */
+    margin-top: 10px;
+    margin-bottom: 20px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    box-sizing: border-box; /* Include padding and border in element's total width and height */
+    box-sizing: border-box;
 }
 
 input[type="submit"] {
@@ -48,7 +48,7 @@ input[type="submit"]:hover {
 }
 
 a {
-    display: inline-block; /* Allows padding and margin */
+    display: inline-block;
     margin-top: 20px;
     padding: 5px 10px;
     background-color: #2a6b30;

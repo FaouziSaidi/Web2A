@@ -42,66 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajouter_article']))
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Article</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        form {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-        }
-        h2 {
-            text-align: center;
-            color: #333;
-        }
-        label {
-            font-weight: bold;
-            display: block;
-            margin-top: 10px;
-        }
-        input[type="text"], input[type="date"], input[type="number"], textarea {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-            box-sizing: border-box; /* Added this to include padding in input width */
-        }
-        button {
-            background-color: #0056b3;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            display: block;
-            width: 100%;
-            margin-top: 20px;
-        }
-        button:hover {
-            background-color: #004494;
-        }
-        a {
-            display: block;
-            text-align: center;
-            margin-top: 20px;
-            color: #0056b3;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <link rel="stylesheet" href="../../blog_styles/CSS/add_article.css">
+
 </head>
 <body>
     <!-- Add Article Form -->
@@ -136,37 +78,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajouter_article']))
             const date_publication = new Date(document.getElementById("date_publication").value);
             const nom_auteur_article = document.getElementById("nom_auteur_article").value;
             const today = new Date();
-            today.setHours(0, 0, 0, 0); // Remove time part
+            today.setHours(0, 0, 0, 0); // Remove el time part mel newly created date object.
     
             let errorMessages = "";
     
-            // Title length validation
             if (titre.length < 1 || titre.length > 255) {
                 errorMessages += "The title must be between 1 and 255 characters.\n";
             }
     
-            // Summary length validation
             if (summary_article.length > 255) {
                 errorMessages += "The article summary must be 255 characters or less.\n";
             }
     
-            // Content length validation
             if (contenu.length <= summary_article.length) {
                 errorMessages += "The article content must be longer than the article summary.\n";
             }
     
-            // Publication date validation
             if (date_publication > today) {
                 errorMessages += "The publication date cannot be in the future.\n";
             }
     
-            // Author name validation
             if (!isNaN(nom_auteur_article) || nom_auteur_article.trim().length === 0) {
                 errorMessages += "Author name cannot be numbers only.\n";
             }
     
             if (errorMessages.length > 0) {
-                event.preventDefault(); // Prevent form submission
+                event.preventDefault(); 
                 alert(errorMessages);
             }
         });

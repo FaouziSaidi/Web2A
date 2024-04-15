@@ -1,62 +1,62 @@
 body {
     font-family: 'Arial', sans-serif;
-    background-color: white; /* Consistent background color */
+    background-color: white; 
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-    color: #333; /* Consistent text color */
+    color: #333; 
 }
 form {
     background-color: white;
-    padding: 30px; /* Increased padding for a bigger content box */
-    border: 2px solid #a4d7a2; /* Smooth light green border like in blogs_frontpage */
-    border-radius: 10px; /* Consistent border-radius */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Softer shadow for light theme */
+    padding: 30px; 
+    border: 2px solid #a4d7a2; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
     width: 100%;
-    max-width: 500px; /* Slightly bigger form */
+    max-width: 500px;
 }
 h2 {
     text-align: center;
-    font-size: 28px; /* Adjusted font size for consistency */
-    color: #2a6b30; /* Professional sober green */
-    margin-bottom: 20px; /* Adjusted space */
+    font-size: 28px; 
+    color: #2a6b30; 
+    margin-bottom: 20px; 
 }
 label {
     font-weight: bold;
     display: block;
-    margin-top: 15px; /* Adjusted margin for better spacing */
-    color: #1e4620; /* Darker green for better readability */
+    margin-top: 15px; 
+    color: #1e4620; 
 }
 input[type="text"], input[type="date"], input[type="number"], textarea {
     width: 100%;
-    padding: 10px; /* Consistent padding */
-    margin-top: 10px; /* Adjusted margin for consistency */
-    border-radius: 5px; /* Consistent border-radius */
+    padding: 10px; 
+    margin-top: 10px;
+    border-radius: 5px;
     border: 1px solid #ddd;
     box-sizing: border-box;
 }
 button {
-    background-color: #2a6b30; /* Consistent button color with blogs_frontpage */
+    background-color: #2a6b30;
     color: white;
     padding: 10px 15px;
     border: none;
-    border-radius: 5px; /* Consistent border-radius */
+    border-radius: 5px;
     cursor: pointer;
     display: block;
     width: 100%;
-    margin-top: 25px; /* Adjusted margin for better spacing */
-    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+    margin-top: 25px;
+    transition: background-color 0.3s ease; 
 }
 button:hover {
-    background-color: #3c8f47; /* Darker green on hover for consistency */
+    background-color: #3c8f47; 
 }
 a {
     display: block;
     text-align: center;
     margin-top: 20px;
-    color: #0056b3; /* Keeping the link color for consistency */
+    color: #0056b3; 
     text-decoration: none;
 }
 a:hover {
