@@ -93,5 +93,18 @@ class UserC
             die('Error: ' . $e->getMessage());
         }
     }
+
+    public function getLastInsertedID()
+    {
+        $sql = "SELECT id FROM users ORDER BY id DESC LIMIT 1";
+        $db = config::getConnexion();
+        try {
+            $query = $db->query($sql);
+            $result = $query->fetch(PDO::FETCH_ASSOC);
+            return $result['id'];
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+    }
 }
 ?>

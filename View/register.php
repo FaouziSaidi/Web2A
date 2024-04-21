@@ -35,7 +35,7 @@ if (
             $_POST['tel']
         );
         $userC->addUser($user);
-        header('Location:index.html');
+        header('Location:chooseProfile.php');
     } else
         $error = "Missing information";
 }
@@ -64,7 +64,7 @@ if (
             
             <input type="text" id="lastname" name="lastname" placeholder="Last name" class="input" required>
             <br>
-            <span id="lnSpan" class="sp"></span>
+            
 
             <input type="email" id="email" name="email" placeholder="Email" class="input" required>
             <br>
