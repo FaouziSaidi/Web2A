@@ -50,17 +50,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajouter_article']))
     <form method="POST" action="" enctype="multipart/form-data">
         <h2>Add Article</h2>
         <label for="titre">Title:</label>
-        <input type="text" id="titre" name="titre" required>
+        <input type="text" id="titre" name="titre" >
         <label for="summary_article">Summary:</label>
-        <input type="text" id="summary_article" name="summary_article" required>
+        <input type="text" id="summary_article" name="summary_article" >
         <label for="contenu">Content:</label>
-        <textarea id="contenu" name="contenu" required></textarea> 
+        <textarea id="contenu" name="contenu" ></textarea> 
         <label for="date_publication">Publication Date:</label>
-        <input type="date" id="date_publication" name="date_publication" required>
+        <input type="date" id="date_publication" name="date_publication" >
         <label for="id_auteur">Author ID:</label>
-        <input type="number" id="id_auteur" name="id_auteur" required>
+        <input type="number" id="id_auteur" name="id_auteur" >
         <label for="nom_auteur_article">Author Name:</label>
-        <input type="text" id="nom_auteur_article" name="nom_auteur_article" required>
+        <input type="text" id="nom_auteur_article" name="nom_auteur_article" >
         <label for="image">Article Image:</label>
         <input type="file" id="image" name="image">
         <label for="post_thumbnail">Post Thumbnail:</label>

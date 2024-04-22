@@ -25,6 +25,8 @@ h1 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: flex-start;
+    margin-right: 200px; /* Adjusted to prevent overlap with the last-visited-articles box */
+    margin-left: 10px;
 }
 .post_thumbnail {
     flex: 0 0 auto;
@@ -81,4 +83,89 @@ input[type="text"], select {
     border-radius: 5px;
     border: 1px solid #ddd;
     box-sizing: border-box;
+}
+/* Last Articles */
+.last-visited-articles {
+    position: fixed;
+    top: 50px; /* Adjust based on header/nav size, reduced by 20% */
+    right: 16px; /* Reduced by 20% */
+    width: 160px; /* Adjust width as needed, reduced by 20% */
+    background-color: white;
+    border: 2px solid #a4d7a2;
+    border-radius: 8px; /* Reduced by 20% */
+    box-shadow: 0 3.2px 6.4px rgba(0, 0, 0, 0.1); /* Shadow adjusted to match size reduction */
+    padding: 16px; /* Padding reduced by 20% */
+    z-index: 1000; /* Ensure it stays above other content */
+}
+
+.last-visited-articles h2 {
+    font-size: 16px; /* Reduced by 20% */
+    color: #2a6b30;
+    margin-bottom: 12px; /* Reduced by 20% */
+}
+
+.last-visited-articles ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.last-visited-articles li {
+    margin-bottom: 8px; /* Reduced by 20% */
+}
+
+.last-visited-articles li a {
+    color: #1e4620;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.last-visited-articles li a:hover {
+    color: #3c8f47;
+}
+/* Chatbot Styles */
+#chat-container {
+    position: fixed;
+    bottom: 5px; /* Increased to create space between the chatbot and the last visited articles box */
+    right: 16px; /* Align with the right margin of the last visited articles box */
+    width: 160px; /* Match the width of the last visited articles box */
+    background-color: white;
+    border: 2px solid #a4d7a2;
+    border-radius: 8px; /* Match the border radius */
+    box-shadow: 0 3.2px 6.4px rgba(0, 0, 0, 0.1); /* Match the shadow */
+    padding: 16px; /* Match the padding */
+    z-index: 999; /* Ensure it's below the last visited articles if they overlap */
+    margin-top: 30px; /* Add space between the last visited articles box and chatbot */
+}
+
+/* Adjust the chat input and button to match the overall style */
+#chat-input, #send-btn {
+    width: calc(100% - 32px); /* Adjust width to account for padding */
+    padding: 8px; /* Comfortable padding for typing */
+    margin-bottom: 10px; /* Space between input and button */
+    border-radius: 4px; /* Match the border radius */
+    border: 1px solid #ddd; /* Subtle border */
+}
+
+#send-btn {
+    background-color: #2a6b30;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#send-btn:hover {
+    background-color: #3c8f47;
+}
+
+/* Ensure the chat messages scroll within a fixed height container */
+#chat-box {
+    max-height: 150px; /* Limit height to ensure it doesn't grow too large */
+    overflow-y: auto; /* Allow scrolling */
+    margin-bottom: 10px; /* Space above the input box */
+    padding: 5px; /* Padding inside the message area */
+    background-color: #f9f9f9; /* Slightly off-white for contrast */
+    border: 1px solid #ddd; /* Subtle border */
+    border-radius: 5px; /* Rounded corners for consistency */
 }

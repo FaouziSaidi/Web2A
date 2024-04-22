@@ -35,6 +35,7 @@ function deleteComment(commentId, articleId) {
 <?php
 require_once '../../Controller/Blog/ArticleC.php';
 require_once '../../Controller/Blog/CommentaireC.php';
+session_start();
 
 $blogController = new ArticleC();
 $commentaireController = new CommentaireC();
@@ -57,6 +58,29 @@ if (isset($_POST['submit_comment'])) {
     exit;
 }
 
+
+$ID_article = $_GET['ID_article'];
+// Fetch the article data based on ID_article
+$article = $blogController->fetchArticleById($ID_article);
+
+// Check if the article exists before trying to add it to the session
+if ($article) {
+    // Initialize the session array if it doesn't exist
+    if (!isset($_SESSION['last_visited_articles'])) {
+        $_SESSION['last_visited_articles'] = [];
+    }
+
+    // Add the current article ID to the session array if it's not already present
+    if (!in_array($ID_article, $_SESSION['last_visited_articles'])) {
+        $_SESSION['last_visited_articles'][] = $ID_article;
+
+        // Optional: Limit the size of the array to the last X articles, e.g., 5
+        $_SESSION['last_visited_articles'] = array_slice($_SESSION['last_visited_articles'], -5);
+    }
+}
+
+
+// Continue with the rest of your article_details.php code...
 if ($article) {
     echo '<h1>' . htmlspecialchars($article['titre']) . '</h1>';
     echo '<p>' . nl2br(htmlspecialchars($article['contenu'])) . '</p>';

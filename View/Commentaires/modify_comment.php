@@ -2,7 +2,8 @@
 require_once '../../Controller/Blog/CommentaireC.php';
 $commentaireController = new CommentaireC();
 
-if (isset($_POST['submit']) && isset($_POST['ID_commentaire']) && isset($_POST['contenu'])) {
+if (isset($_POST['submit']) && isset($_POST['ID_commentaire']) && isset($_POST['contenu'])) 
+{
     $ID_commentaire = $_POST['ID_commentaire'];
     $contenu = $_POST['contenu'];
     $ID_auteur = $_POST['ID_auteur']; 
@@ -14,7 +15,8 @@ if (isset($_POST['submit']) && isset($_POST['ID_commentaire']) && isset($_POST['
 
     header("Location: ../Articles/article_details.php?ID_article=$ID_article");
     exit;
-} else {
+} else 
+{
     echo "Required information is missing.";
 }
 ?>
