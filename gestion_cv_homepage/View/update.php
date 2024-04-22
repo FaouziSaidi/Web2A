@@ -2,38 +2,43 @@
 include '../Controller/cvC.php';
 
 $error = "";
+$id_utl = '';
+$id_exp = '';
+$diplome = '';
+$formation = '';
+
 
 $cvC = new cvC();
 $cv = null; 
 
 
-if (isset($_GET["id_cv"]) && !empty($_GET["id_cv"])) {
-    $cvId = $_GET["id_cv"];
+if (isset($_GET["id"]) && !empty($_GET["id"])) {
+    $cvId = $_GET["id"];
     $cv = $cvC->getCvById($cvId); 
     
 }
 
 
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if (isset($_POST["cv"]) && isset($_POST["utl"]) && isset($_POST["exp"]) && isset($_POST["dipl"]) && isset($_POST["forma"])) {
     if (
-        !empty($_POST["id_cv"]) &&
-        !empty($_POST["id_utl"]) &&
-        !empty($_POST["id_exp"]) &&
-        !empty($_POST["diplome"]) &&
-        !empty($_POST["formation"])
+        !empty($_POST["cv"]) &&
+        !empty($_POST["utl"]) &&
+        !empty($_POST["exp"]) &&
+        !empty($_POST["dipl"]) &&
+        !empty($_POST["forma"])
     ) {
         
         
-        $cvToUpdate = new cv(
-            $_POST['id_cv'],
-            $_POST['id_utl'],
-            $_POST['id_exp'],
-            $_POST['diplome'],
-            $_POST['formation']
+        $cvToUpdate = new Cv(
+            $_POST['cv'],
+            $_POST['utl'],
+            $_POST['exp'],
+            $_POST['dipl'],
+            $_POST['forma']
         );
-        $cvC->updateCv($cvToUpdate, $_POST["id_cv"]);
-        header('Location: ListCv.php'); 
+        $cvC->updateCv($cvToUpdate, $_POST["id"]);
+        header('Location: listCv.php'); 
         
         exit;
     } else {
@@ -41,6 +46,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -58,10 +76,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <?php if ($cv): ?>
         <form action="" method="POST">
-            <input type="hidden" name="id_cv" value="<?php echo $cv['id_cv']; ?>">
+            <input type="hidden" name="cv" value="<?php echo $cv['id_cv']; ?>">
             <div>
                 <label for="id_utl">User ID:</label>
-                <input type="text" name="id_utl" value="<?php echo $cv['id_utl']; ?>">
+                <input type="number" name="utl" value="<?php echo $cv['id_utl']; ?>">
+            </div>
+            <div>
+                <label for="id_exp">Exp ID:</label>
+                <input type="number" name="exp" value="<?php echo $cv['id_exp']; ?>">
+            </div>
+            <div>
+                <label for="dip">Diplome:</label>
+                <input type="text" name="dipl" value="<?php echo $cv['diplome']; ?>">
+            </div>
+            <div>
+                <label for="forma">Formation:</label>
+                <input type="text" name="Forma" value="<?php echo $cv['formation']; ?>">
             </div>
             <div>
                 <input type="submit" value="Update">

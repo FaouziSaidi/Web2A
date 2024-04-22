@@ -1,12 +1,8 @@
 <?php
-include_once '../Controller/cvC.php';
 include_once '../Controller/expC.php';
-$cvC = new cvC();
-$list = $cvC->listCv();
+$expC = new expC();
+$list = $expC->listexp();
 ?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -106,44 +102,43 @@ $list = $cvC->listCv();
             </div>
             <div class="container">
             <h2>List of CVs : </h2>
-            <br>
-            <a class="btn btn-primary" href="/Gestion_Cv/View/listexp.php" role="button">Experience</a>
+            
             <br>
             <table class="table"> 
                 <thead>
                     <tr>
                         <th>
-                            id_cv
-                        </th>
-                        <th>
-                            id_utl
-                        </th>
-                        <th>
                             id_exp
                         </th>
                         <th>
-                            diplome
+                            id_cv
                         </th>
                         <th>
-                            formation
+                            etablissement
+                        </th>
+                        <th>
+                            dofs
+                        </th>
+                        <th>
+                            dofe
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                 <?php
-        foreach ($list as $cv) {
+        foreach ($list as $exp) {
         ?>
                     <tr>
-                        <td><?= $cv['id_cv']; ?></td>
-                        <td><?= $cv['id_utl']; ?></td>
-                        <td><?= $cv['id_exp']; ?></td>
-                        <td><?= $cv['diplome']; ?></td>
-                        <td><?= $cv['formation']; ?></td>
+                        <td><?= $exp['id_exp']; ?></td>
+                        <td><?= $exp['id_cv']; ?></td>
+                        <td><?= $exp['etablissement']; ?></td>
+                        <td><?= $exp['dofs']; ?></td>
+                        <td><?= $exp['dofe']; ?></td>
                         <td>
-            <a class="btn btn-danger btn-sm " href="/Gestion_CV/View/deleteCV.php?id=<?php echo $cv['id_cv']; ?>" role="button">
+            <a class="btn btn-danger btn-sm " href="/gestion_exp/View/deleteExp.php?id=<?php echo $exp['id_exp']; ?>" role="button">
                 Delete
             </a>
-            </td>
+                        </td>
                     </tr>
                 </tbody>
                 <?php }?>

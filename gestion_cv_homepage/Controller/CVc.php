@@ -48,30 +48,22 @@ class cvC
         }
     }
 
-    function updateCv($cv, $id) {
+    function updateCv(Cv $cv, $id_cv) {
+        $db = config::getConnexion();
+        $sql="UPDATE cv SET 
+        id_utl = :id_utl, 
+        id_exp = :id_exp, 
+        diplome = :diplome, 
+        formation = :formation
+    WHERE id_cv = :id_cv";
         try {
-            $db = config::getConnexion();
-            $query = $db->prepare(
-                "UPDATE cv SET 
-                    id_utl = :id_utl, 
-                    id_exp = :id_exp, 
-                    diplome = :diplome, 
-                    formation = :formation
-                WHERE id_cv = :id_cv"
-            );
-            var_dump([
-                ':id_cv' => $id,
-                ':id_utl' => $cv->getIdUtl(), 
-                ':id_exp' => $cv->getIdExp(),
-                ':diplome' => $cv->getDiplome(),
-                ':formation' => $cv->getFormation()
-            ]);
+            $query = $db->prepare($sql);
             $query->execute([
-                ':id_cv' => $id,
-                ':id_utl' => $cv->getID_UTL(), 
-                ':id_exp' => $cv->getID_EXP(),
-                ':diplome' => $cv->getDiplom(),
-                ':formation' => $cv->getFormation()
+                'id_cv' => $id_cv,
+                'id_utl' => $cv->getID_UTL(), 
+                'id_exp' => $cv->getID_EXP(),
+                'diplome' => $cv->getDiplom(),
+                'formation' => $cv->getFormation()
             ]);
             echo $query->rowCount() . " records UPDATED successfully <br>";
         } catch (PDOException $e) {
@@ -102,7 +94,7 @@ function getCvById($id) {
     $db = config::getConnexion();
     try {
         $query = $db->prepare($sql);
-        $query->execute([':id_cv' => $id]);
+        $query->execute([':id' => $id]);
         $cv = $query->fetch(PDO::FETCH_ASSOC);
         return $cv;
     } catch (Exception $e) {

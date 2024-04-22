@@ -87,6 +87,9 @@ if (
                 <input type="text" class="form-control" name ="forma" value="<?php echo $formation; ?>">
             </div>
         </div>
+        <br>
+        <a class="btn btn-primary" href="/gestion_cv_homepage/View/addExp.php" role="button">Add exp</a>
+        <br>
         <div class="row mb-3">
             <div class="offset-sm-3 col-sm-3 d-grid">
                 <button type="submit" class="btn btn-primary">Submit</button>

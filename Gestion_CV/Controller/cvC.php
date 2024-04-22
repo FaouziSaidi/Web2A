@@ -1,6 +1,6 @@
 <?php
-include '../config.php';
-include '../Model/cv.php';
+include_once '../config.php';
+include_once '../Model/cv.php';
 
 class cvC
 {
@@ -28,7 +28,7 @@ class cvC
         } catch (Exception $e) {
             die('Error:' . $e->getMessage());
         }
-    }
+}
 
     function addCv($cv)
     {

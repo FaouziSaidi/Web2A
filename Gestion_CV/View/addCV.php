@@ -21,7 +21,7 @@ if (
     isset($_POST["dip"]) &&
     isset($_POST["forma"])
 ) {
-    if (
+    if ( 
         !empty($_POST["user"]) &&
         !empty($_POST["exp"]) &&
         !empty($_POST["dip"]) &&
