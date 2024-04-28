@@ -108,9 +108,31 @@
         }
     }
 		
+
+
+function updaterep($reponse, $id_réponse) {
+    $db = config::getConnexion();
+    $sql="UPDATE réponse SET 
+    email = :email, 
+    objet = :objet, 
+    contenu = :contenu, 
+    id_reclamtion = :id_reclamtion
+WHERE id_réponse = :id_réponse";
+    try {
+        $query = $db->prepare($sql);
+        $query->execute([
+            'id_réponse' => $id_réponse,
+            'email' => $reponse->getemail(), 
+            'objet' => $reponse->getobjet(),
+            'contenu' => $reponse->getcontenu(),
+            'id_reclamation' => $reponse->getid_reclamation()
+        ]);
+        echo $query->rowCount() . " records UPDATED successfully <br>";
+    } catch (PDOException $e) {
+        die("Error: " . $e->getMessage());
+    }
 }
 
-
-
+ }
 
 ?>

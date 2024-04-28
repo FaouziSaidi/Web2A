@@ -9,9 +9,10 @@ class Reponse
 	private $contenu;
 	private $id_reclamation;
 
-	function __construct($email,$objet,$contenu,$id_reclamation)
+	function __construct($id_réponse,$email,$objet,$contenu,$id_reclamation)
 	{
     
+		$this->id_réponse= $id_réponse;
         $this->email=$email ;
         $this->objet=$objet;
 		$this->contenu=$contenu;

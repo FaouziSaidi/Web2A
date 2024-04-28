@@ -32,7 +32,7 @@ if (
     ) {
         
         
-        $Reponse = new $Reponse(
+        $Reponse = new Reponse(
             null,
             $_POST['emailL'],
             $_POST['objetT'],
@@ -59,7 +59,7 @@ if (
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         <!----======== CSS ======== -->
-        <link rel="stylesheet" href="styleDash.css" />
+        <link rel="stylesheet" href="../assets/styleDash.css" />
 
         <!----===== Iconscout CSS ===== -->
         <link
@@ -72,7 +72,7 @@ if (
     <body>
         <nav>
             <div class="image-container">
-                <img src="/reclamation/view/assets/masar.png" alt="Logo Masar" width="80" />
+                <img src="../assets/masar.png" alt="Logo Masar" width="80" />
             </div>
 
             <div class="menu-items">
@@ -160,7 +160,7 @@ if (
     </div>
     <form action="" method="POST">
         <div class="row mb-3">
-            <label class="col-sm-3 col-form-label">email:</label>
+            <label class="col-sm-3 col-form-label"> Email:</label>
             <div class="col-sm-6">
                 <input type="text" class="form-control" name ="emailL" value="<?php echo $email; ?>">
             </div>
@@ -190,13 +190,91 @@ if (
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
             <div class=" col-sm-3 d-grid">
-                <a class ="btn btn-outline-primary" href="/reclamation/view/back/afficherReponse.php" role="button">Cancel</a>
+                <a class ="btn btn-outline-primary" href="afficherReponse.php" role="button">Cancel</a>
             </div>
         </div>
     </div>
         </section>
 
-        <script src="scriptDash.js"></script>
+
+
+        <script>
+    // Function to validate email
+    function validateEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
+    // Function to handle input event on email input field
+    function handleEmailInput(event) {
+        const emailInput = event.target;
+        const email = emailInput.value;
+        const isValid = validateEmail(email);
+
+        if (!isValid) {
+            emailInput.setCustomValidity('Please enter a valid email address.');
+        } else {
+            emailInput.setCustomValidity('');
+        }
+    }
+
+    // Get the email input element and add event listener
+    const emailInput = document.querySelector('input[name="emailL"]');
+    emailInput.addEventListener('input', handleEmailInput);
+</script>
+
+
+<script>
+    // Function to validate non-empty fields
+    function validateInput(inputValue, fieldName) {
+        if (!inputValue.trim()) {
+            return `${fieldName} cannot be empty.`;
+        }
+        return '';
+    }
+
+    // Function to handle form submission
+    function handleFormSubmission(event) {
+        const objetInput = document.querySelector('input[name="objetT"]');
+        const contenuInput = document.querySelector('input[name="contenuU"]');
+        const idReclamationInput = document.querySelector('input[name="id_rec"]');
+
+        const objetValue = objetInput.value;
+        const contenuValue = contenuInput.value;
+        const idReclamationValue = idReclamationInput.value;
+
+        const objetValidationMessage = validateInput(objetValue, 'Objet');
+        const contenuValidationMessage = validateInput(contenuValue, 'Contenu');
+        const idReclamationValidationMessage = validateInput(idReclamationValue, 'ID Réclamation');
+
+        objetInput.setCustomValidity(objetValidationMessage);
+        contenuInput.setCustomValidity(contenuValidationMessage);
+        idReclamationInput.setCustomValidity(idReclamationValidationMessage);
+
+        if (!objetValidationMessage && !contenuValidationMessage && !idReclamationValidationMessage) {
+            // If all fields are filled, submit the form
+            return true;
+        } else {
+            // If any field is empty, prevent form submission
+            event.preventDefault();
+            return false;
+        }
+    }
+
+    // Get the form element and add event listener for form submission
+    const form = document.querySelector('form');
+    form.addEventListener('submit', handleFormSubmission);
+
+    // Reset custom validity when input fields are filled
+    const inputFields = document.querySelectorAll('input[name="objetT"], input[name="contenuU"], input[name="id_rec"]');
+    inputFields.forEach(input => {
+        input.addEventListener('input', function() {
+            this.setCustomValidity('');
+        });
+    });
+</script>
+
+        <script src="../assets/scriptDash.js"></script>
     </body>
 </html>
 

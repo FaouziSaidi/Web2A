@@ -14,7 +14,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         <!----======== CSS ======== -->
-        <link rel="stylesheet" href="styleDash.css" />
+        <link rel="stylesheet" href="../assets/styleDash.css" />
 
         <!----===== Iconscout CSS ===== -->
         <link
@@ -27,7 +27,7 @@
     <body>
         <nav>
             <div class="image-container">
-                <img src="masar.png" alt="Logo Masar" width="80" />
+                <img src="../assets/masar.png" alt="Logo Masar" width="80" />
             </div>
 
             <div class="menu-items">
@@ -112,8 +112,8 @@
             <div class="container">
             <h2>List of Reclamations : </h2>
             <br>
-            <a class="btn btn-primary" href="/reclamation/view/back/afficherreclamation.php" role="button">Relation</a>
-            <a class="btn btn-primary" href="/reclamation/view/back/ajouterReponse.php" role="button">Add</a>
+            <a class="btn btn-primary" href="afficherreclamation.php" role="button">Reclamation</a>
+            <a class="btn btn-primary" href="ajouterReponse.php" role="button">Add</a>
             <br>
             <table class="table"> 
                 <thead>
@@ -146,8 +146,11 @@
                         <td><?= $Reponse['contenu']; ?></td>
                         <td><?= $Reponse['id_reclamation']; ?></td>
                         <td>
-                        <a class="btn btn-danger btn-sm " href="/reclamation/view/back/supprimerReponse.php?id=<?php echo $Reponse['id_réponse']; ?>" role="button">
+                        <a class="btn btn-danger btn-sm " href="supprimerReponse.php?id=<?php echo $Reponse['id_réponse']; ?>" role="button">
                 Delete
+            </a>
+            <a class="btn btn-secondary btn-sm " href="modifierReponse.php?id=<?php echo $Reponse['id_réponse']; ?>" role="button">
+                Update
             </a>
             </td>
                     </tr>
@@ -157,6 +160,6 @@
         </div>
         </section>
 
-        <script src="scriptDash.js"></script>
+        <script src="../assets/scriptDash.js"></script>
     </body>
 </html>

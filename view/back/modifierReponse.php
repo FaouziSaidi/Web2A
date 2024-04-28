@@ -1,15 +1,12 @@
 <?php
-include_once '../../model/Reclamation.php';
-include_once '../../controller/ReclamationC.php';
-include_once '../../model/Réponse.php';
 include_once '../../controller/RéponseC.php';
 
 $error = "";
 
-$email = '';
+$email = "";
 $objet = '';
 $contenu = '';
-$etat = '';
+$id_reclamation = '';
 
 
 $reponseC = new reponseC();
@@ -17,34 +14,30 @@ $Reponse = null;
 
 
 if (isset($_GET["id_réponse"]) && !empty($_GET["id_réponse"])) {
-    $repID = $_GET["id_réponse"];
-    $Reponse = $reponseC->getrepbyid($repID); 
+    $repId = $_GET["id_réponse"];
+    $Reponse = $reponseC->getrepById($repId); 
     
 }
 
 
 
-if (isset($_POST["idD"]) &&
-	isset($_POST["emailL"]) &&
-  	isset($_POST["objetT"]) &&
-	isset($_POST["contenuU"]) &&
-	isset($_POST["idrecC"])) {
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (
-        !empty($_POST["idD"]) &&
-        !empty($_POST["emailL"]) &&
-        !empty($_POST["objetT"]) &&
-        !empty($_POST["contenuU"]) &&
-        !empty($_POST["idrecC"])
+        !empty($_POST["id_réponse"]) &&
+        !empty($_POST["email"]) &&
+        !empty($_POST["objet"]) &&
+        !empty($_POST["contenu"]) &&
+        !empty($_POST["id_reclamation"]) 
     ) {
         
-        
-        $repToUpdate = new $Reponse(
-            $_POST['emailL'],
-            $_POST['objetT'],
-            $_POST['contenuU'],
-            $_POST['idrecC']
+        $repToUpdate = new Reponse(
+            $_POST['id_réponse'],
+            $_POST['email'],
+            $_POST['objet'],
+            $_POST['contenu'],
+            $_POST['id_reclamation']
         );
-        $reponseC->modifierreponse($repToUpdate, $_POST["id_réponse"]);
+        $reponseC->updaterep($repToUpdate, $_POST["id_réponse"]);
         header('Location: afficherReponse.php'); 
         
         exit;
@@ -59,6 +52,14 @@ if (isset($_POST["idD"]) &&
 
 
 
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -67,29 +68,31 @@ if (isset($_POST["idD"]) &&
     <title>Update Reponse</title>
 </head>
 <body>
+    <button><a href="afficherReponse.php">Back to list</a></button>
     <hr>
     <div id="error">
         <?php echo $error; ?>
     </div>
 
     <?php if ($Reponse): ?>
+        <?php echo "test"; ?>
         <form action="" method="POST">
-            <input type="hidden" name="idD" value="<?php echo $cv['id_réponse']; ?>">
+            <input type="hidden" name="id_réponse" id="id_réponse" value="<?php echo $Reponse['id_réponse']; ?>">
             <div>
-                <label for="id_utl">User ID:</label>
-                <input type="number" name="emailL" value="<?php echo $cv['email']; ?>">
+                <label for="email">Email :</label>
+                <input type="text" name="email" id="email" value="<?php echo $Reponse['email']; ?>">
             </div>
             <div>
-                <label for="id_exp">Exp ID:</label>
-                <input type="number" name="objetT" value="<?php echo $cv['objet']; ?>">
+                <label for="objet">Objet :</label>
+                <input type="text" name="objet" id="objet" value="<?php echo $Reponse['objet']; ?>">
             </div>
             <div>
-                <label for="dip">Diplome:</label>
-                <input type="text" name="contenuU" value="<?php echo $cv['contenu']; ?>">
+                <label for="contenu">Contenu:</label>
+                <input type="text" name="contenu"  id="contenu"  value="<?php echo $Reponse['contenu']; ?>">
             </div>
             <div>
-                <label for="forma">Formation:</label>
-                <input type="text" name="idrecC" value="<?php echo $cv['id_reclamation']; ?>">
+                <label for="id_reclamation">ID reclamation:</label>
+                <input type="text" name="id_reclamation"  id="id_reclamation"  value="<?php echo $Reponse['id_reclamation']; ?>">
             </div>
             <div>
                 <input type="submit" value="Update">
@@ -97,9 +100,34 @@ if (isset($_POST["idD"]) &&
             </div>
         </form>
     <?php else: ?>
-        <p>reponse not found.</p>
+        no Reponse found
     <?php endif; ?>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

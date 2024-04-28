@@ -19,22 +19,19 @@ $reclamationC = new reclamationC();
 if (
     isset($_POST["emailL"]) &&
     isset($_POST["objetT"]) &&
-    isset($_POST["contenuU"]) &&
-    isset($_POST["etatT"])
+    isset($_POST["contenuU"]) 
 ) {
     if (
         !empty($_POST["emailL"]) &&
         !empty($_POST["objetT"]) &&
-        !empty($_POST["contenuU"]) &&
-        !empty($_POST["etatT"])
+        !empty($_POST["contenuU"])
     ) {
         
-        $reclamation = new $reclamation(
-            null,
+        $reclamation = new reclamation(
+
             $_POST['emailL'],
             $_POST['objetT'],
-            $_POST['contenuU'],
-            $_POST['etatT']
+            $_POST['contenuU']
         );
         $reclamationC->ajouterreclamation($reclamation);
         header('Location:afficherreclamation.php');
@@ -82,12 +79,6 @@ if (
                 <input type="text" class="form-control" name ="contenuU" value="<?php echo $contenu; ?>">
             </div>
         </div>
-        <div class="row mb-3">
-            <label class="col-sm-3 col-form-label">Etat:</label>
-            <div class="col-sm-6">
-                <input type="text" class="form-control" name ="etatT" value="<?php echo $etat; ?>">
-            </div>
-        </div>
         <br>
         <br>
         <div class="row mb-3">
@@ -95,10 +86,69 @@ if (
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
             <div class=" col-sm-3 d-grid">
-                <a class ="btn btn-outline-primary" href="/reclamation/view//back/afficherreclamation.php" role="button">Cancel</a>
+                <a class ="btn btn-outline-primary" href="#" role="button">Cancel</a>
             </div>
         </div>
     </div>
+
+
+    <script>
+    // Function to validate email
+    function validateEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
+    // Function to validate non-empty fields
+    function validateInput(inputValue, fieldName) {
+        if (!inputValue.trim()) {
+            return `${fieldName} cannot be empty.`;
+        }
+        return '';
+    }
+
+    // Function to handle form submission
+    function handleFormSubmission(event) {
+        const emailInput = document.querySelector('input[name="emailL"]');
+        const objetInput = document.querySelector('input[name="objetT"]');
+        const contenuInput = document.querySelector('input[name="contenuU"]');
+
+        const emailValue = emailInput.value;
+        const objetValue = objetInput.value;
+        const contenuValue = contenuInput.value;
+
+        const emailValidationMessage = validateEmail(emailValue) ? '' : 'Please enter a valid email address.';
+        const objetValidationMessage = validateInput(objetValue, 'Objet');
+        const contenuValidationMessage = validateInput(contenuValue, 'Contenu');
+
+        emailInput.setCustomValidity(emailValidationMessage);
+        objetInput.setCustomValidity(objetValidationMessage);
+        contenuInput.setCustomValidity(contenuValidationMessage);
+
+        if (!emailValidationMessage && !objetValidationMessage && !contenuValidationMessage) {
+            // If all fields are filled and email is valid, submit the form
+            return true;
+        } else {
+            // If any field is empty or email is invalid, prevent form submission
+            event.preventDefault();
+            return false;
+        }
+    }
+
+    // Get the form element and add event listener for form submission
+    const form = document.querySelector('form');
+    form.addEventListener('submit', handleFormSubmission);
+
+    // Reset custom validity when input fields are filled
+    const inputFields = document.querySelectorAll('input[name="emailL"], input[name="objetT"], input[name="contenuU"]');
+    inputFields.forEach(input => {
+        input.addEventListener('input', function() {
+            this.setCustomValidity('');
+        });
+    });
+</script>
+
+
 </body>
 </html>
 

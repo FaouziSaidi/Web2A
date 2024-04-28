@@ -15,7 +15,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         <!----======== CSS ======== -->
-        <link rel="stylesheet" href="styleDash.css" />
+        <link rel="stylesheet" href="../assets/styleDash.css" />
 
         <!----===== Iconscout CSS ===== -->
         <link
@@ -28,7 +28,7 @@
     <body>
         <nav>
             <div class="image-container">
-                <img src="/reclamation/view/assets/masar.png" alt="Logo Masar" width="80" />
+                <img src="../assets/masar.png" alt="Logo Masar" width="80" />
             </div>
 
             <div class="menu-items">
@@ -113,7 +113,7 @@
             <div class="container">
             <h2>List of Reclamations : </h2>
             <br>
-            <a class="btn btn-primary" href="/reclamation/view/back/afficherReponse.php" role="button">Reponse</a>
+            <a class="btn btn-primary" href="afficherReponse.php" role="button">Reponse</a>
             <br>
             <table class="table"> 
                 <thead>
@@ -146,7 +146,7 @@
                         <td><?= $Reclamation['contenu']; ?></td>
                         <td><?= $Reclamation['etat']; ?></td>
                         <td>
-            <a class="btn btn-danger btn-sm " href="/reclamation/view/back/supprimerreclamation.php?id=<?php echo $Reclamation['id']; ?>" role="button">
+            <a class="btn btn-danger btn-sm " href="supprimerreclamation.php?id=<?php echo $Reclamation['id']; ?>" role="button">
                 Delete
             </a>
             </td>
@@ -158,6 +158,6 @@
         
         </section>
 
-        <script src="/reclamation/view/assets/scriptDash.js"></script>
+        <script src="../assets/scriptDash.js"></script>
     </body>
 </html>
