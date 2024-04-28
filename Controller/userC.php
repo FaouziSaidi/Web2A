@@ -2,6 +2,9 @@
 include '../config.php';
 include '../Model/User.php';
 
+
+
+
 class UserC
 {
     public function listUsers()
@@ -18,17 +21,45 @@ class UserC
 
     function deleteUser($id)
     {
-        $sql = "DELETE FROM users WHERE id = :id";
         $db = config::getConnexion();
-        $req = $db->prepare($sql);
-        $req->bindValue(':id', $id);
-
-        try {
-            $req->execute();
-        } catch (Exception $e) {
-            die('Error:' . $e->getMessage());
+    
+        // Vérifier si l'ID existe dans la table employe
+        $sqlEmploye = "SELECT * FROM employe WHERE id_user = :id";
+        $stmtEmploye = $db->prepare($sqlEmploye);
+        $stmtEmploye->bindValue(':id', $id);
+        $stmtEmploye->execute();
+        $employe = $stmtEmploye->fetch();
+    
+        // Si l'ID est trouvé dans la table employe, supprimer l'entrée correspondante
+        if ($employe) {
+            $sqlDeleteEmploye = "DELETE FROM employe WHERE id_user = :id";
+            $stmtDeleteEmploye = $db->prepare($sqlDeleteEmploye);
+            $stmtDeleteEmploye->bindValue(':id', $id);
+            $stmtDeleteEmploye->execute();
+        } else {
+            // Si l'ID n'est pas trouvé dans la table employe, vérifier s'il existe dans la table employeur
+            $sqlEmployeur = "SELECT * FROM employeur WHERE id_user = :id";
+            $stmtEmployeur = $db->prepare($sqlEmployeur);
+            $stmtEmployeur->bindValue(':id', $id);
+            $stmtEmployeur->execute();
+            $employeur = $stmtEmployeur->fetch();
+    
+            // Si l'ID est trouvé dans la table employeur, supprimer l'entrée correspondante
+            if ($employeur) {
+                $sqlDeleteEmployeur = "DELETE FROM employeur WHERE id_user = :id";
+                $stmtDeleteEmployeur = $db->prepare($sqlDeleteEmployeur);
+                $stmtDeleteEmployeur->bindValue(':id', $id);
+                $stmtDeleteEmployeur->execute();
+            }
         }
+    
+        // Enfin, supprimer l'entrée dans la table users
+        $sqlDeleteUser = "DELETE FROM users WHERE id = :id";
+        $stmtDeleteUser = $db->prepare($sqlDeleteUser);
+        $stmtDeleteUser->bindValue(':id', $id);
+        $stmtDeleteUser->execute();
     }
+    
 
     function addUser($user)
     {
@@ -107,4 +138,62 @@ class UserC
         }
     }
 }
+
+function checkEmailPassword($email, $password) {
+    $sql_request = "SELECT * FROM users WHERE email = :email";
+    $db = config::getConnexion();
+    $request = $db->prepare($sql_request);
+    $request->bindValue(":email", $email);
+    
+    try {
+        $request->execute();
+        $result = $request->fetchAll();
+        if (count($result) > 0 && password_verify($password, $result[0]["password"])) {
+            return $result[0]; 
+        } else {
+            return NULL;
+        }
+    } catch (Exception $e) {
+        die("Error: " . $e->getMessage());
+    }
+}
+
+
+
+function get_role_by_id($id) {
+    
+
+    // Obtenir la connexion à la base de données en utilisant la méthode statique de la classe config
+    $pdo = config::getConnexion();
+
+    // Préparation de la requête SQL pour vérifier l'existence de l'ID dans la table employe
+    $sqlEmploye = "SELECT * FROM employe WHERE id_user = :id";
+    $stmtEmploye = $pdo->prepare($sqlEmploye);
+    $stmtEmploye->execute(['id' => $id]);
+    $employe = $stmtEmploye->fetch();
+
+    // Si l'ID est trouvé dans la table employe, retourner "employe"
+    if ($employe) {
+        return "employe";
+    }
+
+    // Préparation de la requête SQL pour vérifier l'existence de l'ID dans la table employeur
+    $sqlEmployeur = "SELECT * FROM employeur WHERE id_user = :id";
+    $stmtEmployeur = $pdo->prepare($sqlEmployeur);
+    $stmtEmployeur->execute(['id' => $id]);
+    $employeur = $stmtEmployeur->fetch();
+
+    // Si l'ID est trouvé dans la table employeur, retourner "employeur"
+    if ($employeur) {
+        return "employeur";
+    }
+
+    // Si l'ID n'est trouvé dans aucune des tables, retourner null
+    return null;
+}
+
+
+
+
+
 ?>

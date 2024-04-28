@@ -33,7 +33,63 @@ class EmployeurC
     }
 }
 
-    
+function showEmployeur($id)
+{
+    $sql = "SELECT * FROM employeur WHERE id_user = $id";
+    $db = config::getConnexion();
+    try {
+        $query = $db->prepare($sql);
+        $query->execute();
+
+        $user = $query->fetch();
+        return $user;
+    } catch (Exception $e) {
+        die('Error: ' . $e->getMessage());
+    }
+}
+
+function updateEmployeur($id_employeur, $nom_entreprise, $adresse_entreprise, $id_user)
+{
+    try {
+        $db = config::getConnexion();
+        $query = $db->prepare(
+            'UPDATE employeur 
+             SET nom_entreprise = :nom_entreprise, 
+                 adresse_entreprise = :adresse_entreprise
+             WHERE id_employeur = :id_employeur AND id_user = :id_user'
+        );
+        $query->execute([
+            'id_employeur' => $id_employeur,
+            'nom_entreprise' => $nom_entreprise,
+            'adresse_entreprise' => $adresse_entreprise,
+            'id_user' => $id_user
+        ]);
+        echo $query->rowCount() . " records UPDATED successfully <br>";
+    } catch (PDOException $e) {
+        echo $e->getMessage(); // Affichez les erreurs pour le débogage
+    }
+}
+
+function getEmployeurIdByUserId($userId)
+{
+    try {
+        $db = config::getConnexion();
+        $query = $db->prepare('SELECT id_employeur FROM employeur WHERE id_user = :userId');
+        $query->execute(['userId' => $userId]);
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+        
+        if ($result) {
+            return $result['id_employeur'];
+        } else {
+            return null; // Retourne null si aucun employeur correspondant à l'ID utilisateur n'est trouvé
+        }
+    } catch (PDOException $e) {
+        // Gérer les exceptions
+        echo "Error: " . $e->getMessage();
+        return null;
+    }
+}
+
 
 }
 ?>

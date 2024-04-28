@@ -15,6 +15,7 @@ class Employe {
         return $this->id_employe;
     }
 
+
     public function getDiplome(): string {
         return $this->diplome;
     }

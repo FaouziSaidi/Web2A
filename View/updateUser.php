@@ -1,14 +1,21 @@
 <?php
 
 include '../Controller/userC.php';
+include '../Controller/employeC.php';
+include '../Controller/employeurC.php';
 
 $error = "";
 
 // create user
 $user = null;
+$employeur = null;
+$employe = null;
 
 // create an instance of the controller
 $userC = new UserC();
+$employeurC=new EmployeurC();
+$employeC=new EmployeC();
+
 if (
     isset($_POST["id"]) &&
     isset($_POST["first_name"]) &&
@@ -34,12 +41,43 @@ if (
             '',
             $_POST['telephone']
         );
+
+        
+
+        // Vérifier le rôle de l'utilisateur
+        $role = get_role_by_id($_POST["id"]);
+
+        // Mettre à jour les données spécifiques selon le rôle
+        if ($role === "employe") {
+            $employeId = $employeC->getEmployeIdByUserId($_POST["id"]);
+            // Mettre à jour les données de l'employé
+            $employe = new Employe(
+                $employeId ,
+                $_POST['diplome'],
+                $_POST['id']
+            );
+            $employeC->updateEmploye($employeId, $_POST['diplome'],$_POST['id']);
+echo "La fonction updateEmploye a été appelée avec succès.";
+
+        } elseif ($role === "employeur") {
+            // Mettre à jour les données de l'employeur
+            $employeId = $employeurC->getEmployeurIdByUserId($_POST["id"]);
+            $employeur = new Employeur(
+                $employeId ,
+                $_POST['nom_entreprise'],
+                $_POST['adresse_entreprise'],
+                $_POST['id']
+            );
+            $employeurC->updateEmployeur($employeId,$_POST['nom_entreprise'],$_POST['adresse_entreprise'],$_POST['id']);
+            echo "La fonction updateEmploye a été appelée avec succès.";
+        }
         $userC->updateUser($user, $_POST["id"]);
         header('Location:Dashboard.html');
     } else {
         $error = "Missing information";
     }
 }
+
 ?>
 <html lang="en">
 
@@ -47,6 +85,70 @@ if (
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Display</title>
+    
+    <style>
+    form {
+        margin-top: 20px;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 80%;
+        margin: 0 auto;
+        border: white;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    input[type="number"],
+    input[type="text"],
+    input[type="date"],
+    input[type="email"] {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[type="submit"],
+    input[type="reset"] {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 15px;
+        background-color: #00BFA6;
+        color: white;
+        cursor: pointer;
+    }
+
+    input[type="submit"]:hover,
+    input[type="reset"]:hover {
+        background-color: #17645a;
+    }
+
+    td {
+        padding: 10px;
+        border-bottom: none;
+    }
+    th, td {
+    padding: 10px; 
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    border-bottom: none;
+}
+    span {
+        color: red;
+    }
+
+    /* Style pour la première colonne */
+    td:first-child {
+        background-color: #f2f2f2; /* Gris clair */
+        width: auto; /* Taille ajustée aux informations */
+    }
+</style>
+    
 </head>
 
 <body>
@@ -60,7 +162,8 @@ if (
     <?php
     if (isset($_POST['id'])) {
         $user = $userC->showUser($_POST['id']);
-
+         // Vérifier le rôle de l'utilisateur
+        $role = get_role_by_id($user['id']);
     ?>
 
         <form action="" method="POST">
@@ -117,6 +220,41 @@ if (
                     </td>
                     <td><span id="span_tel"></span></td>
                 </tr>
+                <?php if ($role === "employe") { 
+                     
+                    $employe = $employeC->showEmploye($user['id']);
+                    ?>
+                
+                <!-- Champs spécifiques pour un employé -->
+                <tr>
+                    <td>
+                        <label for="diplome">Diplôme:
+                        </label>
+                    </td>
+                    <td><input type="text" name="diplome" id="diplome" value="<?php echo $employe['diplome']; ?>" maxlength="50"></td>
+                    <td><span id="span_diplome"></span></td>
+                </tr>
+            <?php } elseif ($role === "employeur") { 
+                 $employeur = $employeurC->showEmployeur($user['id']);
+                ?>
+                <!-- Champs spécifiques pour un employeur -->
+                <tr>
+                    <td>
+                        <label for="nom_entreprise">Nom de l'entreprise:
+                        </label>
+                    </td>
+                    <td><input type="text" name="nom_entreprise" id="nom_entreprise" value="<?php echo $employeur['nom_entreprise']; ?>" maxlength="50"></td>
+                    <td><span id="span_nom_entreprise"></span></td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="adresse_entreprise">Adresse de l'entreprise:
+                        </label>
+                    </td>
+                    <td><input type="text" name="adresse_entreprise" id="adresse_entreprise" value="<?php echo $employeur['adresse_entreprise']; ?>" maxlength="100"></td>
+                    <td><span id="span_adresse_entreprise"></span></td>
+                </tr>
+            <?php } ?>
                 <tr>
                     <td></td>
                     <td>
