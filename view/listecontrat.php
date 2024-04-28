@@ -5,6 +5,7 @@ $list = $contratC->listContrats();
 ?>
 <html>
 
+<<<<<<< HEAD
 <head>
 <style>
 table {
@@ -45,11 +46,15 @@ th {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 </head>
+=======
+<head></head>
+>>>>>>> e8a46e4650dcaf814d49380350c4f07a146724e2
 
 <body>
 
     <center>
         <h1>List of contracts</h1>
+<<<<<<< HEAD
         <h4>
         <a href="addcontrat.php" class="add-contract">
             <i class="fas fa-plus-circle add-icon"></i>
@@ -58,6 +63,23 @@ th {
     </h4>
     </center>
 
+=======
+        <h2>
+            <a href="addcontrat.php">Add Contract</a>
+        </h2>
+    </center>
+    <style>
+        table {
+    border-collapse: collapse;
+    border-radius: 10px;
+}
+
+table, th, td {
+    border: 1px solid black;
+    padding: 5px 20px;
+}
+    </style>
+>>>>>>> e8a46e4650dcaf814d49380350c4f07a146724e2
     <table border="1" align="center" width="70%">
         <tr>
             <th>Contract ID</th>
@@ -87,17 +109,26 @@ th {
                 <td><?= $contrat['Date_expiration']; ?></td>
                 <td align="center">
                     <form method="POST" action="updatecontrat.php">
+<<<<<<< HEAD
                     <button type="submit" name="update" class="update-btn">
             <i class="fas fa-edit"></i> </button>
+=======
+                        <input type="submit" name="update" value="Update">
+>>>>>>> e8a46e4650dcaf814d49380350c4f07a146724e2
                         <input type="hidden" value=<?PHP echo $contrat['id']; ?> name="id">
                     </form>
                 </td>
                 <td>
+<<<<<<< HEAD
     <a href="deletecontrat.php?id=<?php echo $contrat['id']; ?>">
     <i class="fas fa-trash-alt delete-icon"></i>
     </a>
 </td>
 
+=======
+                    <a href="deletecontrat.php?id=<?php echo $contrat['id']; ?>">Delete</a>
+                </td>
+>>>>>>> e8a46e4650dcaf814d49380350c4f07a146724e2
             </tr>
         <?php
         }

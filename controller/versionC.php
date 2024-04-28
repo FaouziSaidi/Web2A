@@ -69,6 +69,7 @@ class VersionC
                 return false; 
             }
         }
+<<<<<<< HEAD
 
         public function ajouterVersionParUpdate($id_contrat, $date_de_modification)
 {
@@ -87,6 +88,8 @@ class VersionC
     }
 }
 
+=======
+>>>>>>> e8a46e4650dcaf814d49380350c4f07a146724e2
         
 }
 

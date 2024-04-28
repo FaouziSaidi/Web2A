@@ -1,7 +1,10 @@
 <?php
 include '../config.php';
 include '../model/contrat.php';
+<<<<<<< HEAD
 require_once('../tcpdf/tcpdf.php');
+=======
+>>>>>>> e8a46e4650dcaf814d49380350c4f07a146724e2
 
 class ContratC
 {
@@ -57,6 +60,7 @@ class ContratC
     {
         try {
             $db = config::getConnexion();
+<<<<<<< HEAD
             // Vérifiez d'abord si le contrat existe avant de le mettre à jour
             $check_query = $db->prepare('SELECT id FROM contrat WHERE id = :id');
             $check_query->execute(['id' => $id]);
@@ -95,6 +99,36 @@ class ContratC
         }
     }
     
+=======
+            $query = $db->prepare(
+                'UPDATE contrat SET 
+                    ID_employe = :ID_employe, 
+                    ID_employeur = :ID_employeur, 
+                    Titre_poste = :Titre_poste, 
+                    temps_travail = :temps_travail, 
+                    salaire = :salaire, 
+                    typec = :typec, 
+                    Date_de_debut = :Date_de_debut, 
+                    Date_expiration = :Date_expiration 
+                WHERE id = :id'
+            );
+            $query->execute([
+                'id' => $id,
+                'ID_employe' => $contrat->getIdEmploye(),
+                'ID_employeur' => $contrat->getIdEmployeur(),
+                'Titre_poste' => $contrat->getTitrePoste(),
+                'temps_travail' => $contrat->getTempsTravail(),
+                'salaire' => $contrat->getSalaire(),
+                'typec' => $contrat->getTypec(),
+                'Date_de_debut' => $contrat->getDateDeDebut()->format('Y-m-d'),
+                'Date_expiration' => $contrat->getDateExpiration()->format('Y-m-d')
+            ]);
+            echo $query->rowCount() . " records UPDATED successfully <br>";
+        } catch (PDOException $e) {
+            $e->getMessage();
+        }
+    }
+>>>>>>> e8a46e4650dcaf814d49380350c4f07a146724e2
 
     function showContrat($id)
     {
@@ -123,6 +157,7 @@ class ContratC
     }
 }
 
+<<<<<<< HEAD
 
 
 
@@ -197,5 +232,7 @@ function createContractPDF($Contrat) {
 
 
 
+=======
+>>>>>>> e8a46e4650dcaf814d49380350c4f07a146724e2
 }
 ?>

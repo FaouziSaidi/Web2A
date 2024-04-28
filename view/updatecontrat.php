@@ -42,10 +42,16 @@ if (
             new DateTime($_POST["Date_de_debut"]),
             new DateTime($_POST["Date_expiration"])
         );
+<<<<<<< HEAD
         $updated = $contratC->updateContrat($contrat, $_POST["id"]);
         
         $versionController = new VersionC();
         $id_contrat = $_POST["id"];
+=======
+        $contratC->updateContrat($contrat, $_POST["id"]);
+        $versionController = new VersionC();
+        $id_contrat = $contratC->getLastInsertedID();
+>>>>>>> e8a46e4650dcaf814d49380350c4f07a146724e2
         $date_modification = date('Y-m-d H:i:s');
         $versionController->ajouterVersion($id_contrat,$date_modification);
         header('Location: Dashboard.html');
@@ -60,6 +66,7 @@ if (
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Display</title>
+<<<<<<< HEAD
     <style>
     form {
         margin-top: 20px;
@@ -121,6 +128,8 @@ if (
         width: auto; /* Taille ajustée aux informations */
     }
 </style>
+=======
+>>>>>>> e8a46e4650dcaf814d49380350c4f07a146724e2
 </head>
 
 <body>
