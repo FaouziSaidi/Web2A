@@ -15,6 +15,7 @@ $blogController = new ArticleC();
 if (isset($_GET['ID_article'])) {
     $ID_article = $_GET['ID_article'];
     $article = $blogController->fetchArticleById($ID_article);
+    $tags = isset($article['tags']) ? $article['tags'] : '';
 
     echo '<form action="update_article.php" method="post">';
     echo '<input type="text" name="id_article" value="' . htmlspecialchars($article['ID_article']) . '"/>';
@@ -24,6 +25,7 @@ if (isset($_GET['ID_article'])) {
     echo 'Publication Date: <input type="date" name="date_publication" value="' . htmlspecialchars($article['date_publication']) . '"/><br/>';
     echo 'Author ID: <input type="text" name="id_auteur" value="' . htmlspecialchars($article['ID_auteur']) . '"/><br/>';
     echo 'Author Name: <input type="text" name="nom_auteur_article" value="' . htmlspecialchars($article['nom_auteur_article']) . '"/><br/>';    
+    echo 'Tags: <input type="text" name="tags" value="' . htmlspecialchars($tags) . '"/><br/>'; 
     echo '<input type="submit" value="Confirm Modifications"/>';
     echo '</form>';
     echo '<a href="../blogs_frontpage.php">Cancel</a>';

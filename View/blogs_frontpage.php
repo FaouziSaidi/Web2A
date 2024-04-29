@@ -29,6 +29,12 @@
 require_once '../Controller/Blog/ArticleC.php';
 require_once 'mistral-tard.php';
 session_start();
+// Check if this is a new session by looking for a specific session variable, e.g., 'session_started'
+if (!isset($_SESSION['session_started'])) {
+    // This is a new session, so reset 'last_visited_articles'
+    $_SESSION['last_visited_articles'] = array(); // Reset to an empty array
+    $_SESSION['session_started'] = true; // Set the flag indicating the session has started
+}
 $blogController = new ArticleC();
 $sortOption = isset($_GET['sort']) ? $_GET['sort'] : 'mostRecent';
 $posts = $blogController->listArticles($sortOption); 
@@ -39,6 +45,7 @@ if (!empty($posts)) {
         echo '<h2 class="article-title"><a href="Articles/article_details.php?ID_article=' . htmlspecialchars($post['ID_article']) . '">' . htmlspecialchars($post['titre']) . '</a></h2>';
         echo '<p class="article-summary">' . nl2br(htmlspecialchars($post['summary_article'])) . '</p>';
         echo '<p class="article-author">Articles Author: ' . htmlspecialchars($post['nom_auteur_article']) . '</p>';
+        echo '<p class="article-tags">Tags: ' . htmlspecialchars($post['tags']) . '</p>';
         echo '<form action="Articles/delete_article.php" method="post">';
         echo '<input type="hidden" name="ID_article" value="' . htmlspecialchars($post['ID_article']) . '"/>';
         echo '<a class="post_thumbnail" href="Articles/article_details.php?ID_article=' . htmlspecialchars($post['ID_article']) . '"> <img width="256" height="256" src="' . htmlspecialchars($post['post_thumbnail']) . '" alt="Article thumbnail"'. '></a>';
@@ -157,6 +164,5 @@ $(document).ready(function() {
         ?>
     </ul>
 </div>
-
 </body>
 </html>

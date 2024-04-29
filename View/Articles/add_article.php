@@ -12,6 +12,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajouter_article']))
     $date_publication = $_POST['date_publication']; 
     $id_auteur = $_POST['id_auteur'];
     $nom_auteur_article = $_POST['nom_auteur_article'];
+    $nbr_vues = $_POST['nbr_vues'];
+    $tags = isset($_POST['tags']) ? explode(',', $_POST['tags']) : []; // Splitting tags by comma
+
 
     // Handling file uploads
     $image_url = '';
@@ -30,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajouter_article']))
         // move_uploaded_file($_FILES['post_thumbnail']['tmp_name'], $post_thumbnail);
     }
 
-    $articleC->ajouter_article($titre, $summary_article, $contenu, $date_publication, $id_auteur, $nom_auteur_article, $image_url, $post_thumbnail);
+    $articleC->ajouter_article($titre, $summary_article, $contenu, $date_publication, $id_auteur, $nom_auteur_article, $image_url, $post_thumbnail, $nbr_vues, $tags);
 }
 ?>
 
@@ -65,6 +68,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajouter_article']))
         <input type="file" id="image" name="image">
         <label for="post_thumbnail">Post Thumbnail:</label>
         <input type="file" id="post_thumbnail" name="post_thumbnail">
+        <label for="tags">Tags (comma-separated):</label>
+        <input type="text" id="tags" name="tags" placeholder="Example: AI,Employment,Btala">
         <button type="submit" name="ajouter_article">Add Article</button>
         <a href="../blogs_frontpage.php">Go back to all the articles</a>
     </form>

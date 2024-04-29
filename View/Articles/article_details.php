@@ -1,29 +1,3 @@
-<script>
-function makeEditable(commentId) {
-    var contentElement = document.getElementById('commentContent' + commentId);
-    contentElement.contentEditable = true;
-    contentElement.focus();
-    contentElement.onblur = function() {
-        document.getElementById('editCommentForm' + commentId).submit();
-    };
-}
-function deleteComment(commentId, articleId) {
-    if (!confirm('Are you sure you want to delete this comment?')) return;
-
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "../Commentaires/delete_comment.php", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.onload = function () {
-        if (xhr.status >= 200 && xhr.status < 300) {
-            document.getElementById('editCommentForm' + commentId).style.display = 'none';
-        } else {
-            alert("Failed to delete comment.");
-        }
-    };
-    xhr.send("ID_commentaire=" + commentId + "&ID_article=" + articleId);
-}
-</script>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -87,7 +61,9 @@ if ($article) {
     echo '<img src="../' . htmlspecialchars($article['image_url']) . '" alt="Article Image">';
     echo '<p>Author ID: ' . htmlspecialchars($article['ID_auteur']) . '</p>';
     echo '<p>Author Name: ' . htmlspecialchars($article['nom_auteur_article']) . '</p>';
-
+    if (!empty($article['tags'])) {
+        echo '<p>Tags: ' . htmlspecialchars($article['tags']) . '</p>';
+    }
     // Form pour adding a comment
     echo '<form action="../Commentaires/add_comment.php" method="post">';
     echo '<input type="hidden" name="ID_article" value="' . htmlspecialchars($ID_article) . '"/>';
@@ -112,6 +88,7 @@ echo '<div id="commentsSection">';
             echo '<p><strong>Posted on:</strong> '.htmlspecialchars($commentaire['date_publication_commentaire']).'</p>';
             // Display the comment content
             echo '<p id="commentContent'.$commentaire['ID_commentaire'].'" style="cursor: pointer;">'.nl2br(htmlspecialchars($commentaire['contenu'])).'</p>';
+            echo '<a href="../Commentaires/modify_comment.php?ID_commentaire='.$commentaire['ID_commentaire'].'"><button type="button">Modify Comment</button></a>';
             echo '<button type="button" onclick="deleteComment('.$commentaire['ID_commentaire'].', '.$ID_article.')">Delete Comment</button>';
             echo '</div>';
             echo '<input type="hidden" name="contenu" value="">';
@@ -127,3 +104,20 @@ echo '<a href="../blogs_frontpage.php"><button>Go back to the frontpage</button>
     echo 'Article not found.';
 }
 ?>
+<script>
+function deleteComment(commentId, articleId) {
+    if (!confirm('Are you sure you want to delete this comment?')) return;
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "../Commentaires/delete_comment.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onload = function () {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            document.getElementById('editCommentForm' + commentId).style.display = 'none';
+        } else {
+            alert("Failed to delete comment.");
+        }
+    };
+    xhr.send("ID_commentaire=" + commentId + "&ID_article=" + articleId);
+}
+</script>

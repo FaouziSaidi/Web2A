@@ -54,7 +54,23 @@ class CommentaireC
         $req->bindValue(':ID_article', $ID_article);
         $req->execute();
     }
-
+    public function fetchCommentById($ID_commentaire)
+    {
+        $db = database_configuration::getConnexion();
+        $sql = "SELECT * FROM commentaires WHERE ID_commentaire = :ID_commentaire";
+        $req = $db->prepare($sql);
+        $req->bindValue(':ID_commentaire', $ID_commentaire);
+        try {
+            $req->execute();
+            if ($req->rowCount() > 0) {
+                return $req->fetch(PDO::FETCH_ASSOC);
+            } else {
+                return null;
+            }
+        } catch (Exception $e) {
+            die('Erreur : ' . $e->getMessage());
+        }
+    }
     public function modifier_commentaire($ID_auteur, $contenu, $date_publication_commentaire, $nom_auteur, $ID_article, $ID_commentaire)
     {
         $db = database_configuration::getConnexion();

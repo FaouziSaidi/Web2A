@@ -10,8 +10,10 @@ class Articles
     private $nom_auteur_article;
     private $image_url;
     private $post_thumbnail;
+    private $nbr_vues;
+    private $tags;
 
-    public function __construct($id_article, $titre,$summary_article, $contenu, $date_publication, $id_auteur,$nom_auteur_article, $image_url, $post_thumbnail)
+    public function __construct($id_article, $titre,$summary_article, $contenu, $date_publication, $id_auteur,$nom_auteur_article, $image_url, $post_thumbnail, $nbr_vues, $tags)
     {
         $this->id_article = $id_article;
         $this->titre = $titre;
@@ -22,6 +24,8 @@ class Articles
         $this->nom_auteur_article = $nom_auteur_article;
         $this->image_url = $image_url;
         $this->post_thumbnail = $post_thumbnail;
+        $this->nbr_vues = $nbr_vues;
+        $this->tags = $tags;
     }
 
     public function getIdArticle()
@@ -105,6 +109,22 @@ class Articles
     public function setPost_thumbnail($post_thumbnail)
     {
         $this->post_thumbnail = $post_thumbnail;
+    }
+    public function getNbr_vues()
+    {
+        return $this->nbr_vues;
+    }
+    public function setNbr_vues($nbr_vues)
+    {
+        $this->nbr_vues = $nbr_vues;
+    }
+    public function getTags()
+    {
+        return $this->tags;
+    }
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
     }
 }
 ?>
