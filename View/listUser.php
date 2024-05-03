@@ -17,6 +17,22 @@ $employeurC = new EmployeurC();
 $listEmployeur = $employeurC->listEmployeur();
 ?>
 
+<?php
+// Inclure le fichier contenant la fonction searchUser() ici
+
+
+
+// Utilisation de la fonction de recherche lors de la soumission du formulaire de recherche
+if (isset($_POST['search'])) {
+    $searchTerm = $_POST['searchTerm'];
+    $searchResults = searchUser($searchTerm);
+    // Affichez les résultats de la recherche dans votre interface utilisateur
+    foreach ($searchResults as $userC) {
+        // Affichez les détails de chaque utilisateur trouvé
+        echo $userC['first_name'] . ' ' . $userC['last_name'] . '<br>';
+    }
+}
+?>
 
 
 <html>
@@ -32,6 +48,17 @@ $listEmployeur = $employeurC->listEmployeur();
 
 
 <body>
+    
+        <div class="top">
+            <i class="uil uil-bars sidebar-toggle"></i>
+
+            <div class="search-box">
+                <button type="submit" name="search"><i class="uil uil-search"></i></button>
+                <input type="text" name="search" id="search" placeholder="Search here...">
+            </div>
+        </div>
+
+       
 
     <center>
         <h1>List of users</h1>
@@ -68,7 +95,7 @@ $listEmployeur = $employeurC->listEmployeur();
                 </td>
                 <td>
                 
-                <a href="deletecontrat.php?id=<?php echo $contrat['id']; ?>">
+                <a href="deleteUser.php?id=<?php echo $user['id']; ?>">
                 <i class="fas fa-trash-alt delete-icon"></i>
                 </a>
             
@@ -79,8 +106,72 @@ $listEmployeur = $employeurC->listEmployeur();
         ?>
     </table>
     <br>
+    <center>
+        <h1>List of employees</h1>
+    </center>
+    <table border="1" align="center" width="70%">
+        <tr>
+            <th>User ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>date of birth</th>
+            <th>Email</th>
+            <th>Telephone</th>
+            <th>diplome</th>            
+        </tr>
+        <?php
+        foreach ($listEmploye as $employe) {
+        ?>
+            <tr>
+                <td><?= $employe['id']; ?></td>
+                <td><?= $employe['first_name']; ?></td>
+                <td><?= $employe['last_name']; ?></td>
+                <td><?= $employe['dob']; ?></td>
+                <td><?= $employe['email']; ?></td>
+                <td><?= $employe['telephone']; ?></td>
+                <td><?= $employe['diplome']; ?></td>
+                
+            </tr>
+        <?php
+        }
+        ?>
+    </table>
+    <br>
+    <center>
+        <h1>List of employers</h1>
+    </center>
+    <table border="1" align="center" width="70%">
+        <tr>
+            <th>User ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>date of birth</th>
+            <th>Email</th>
+            <th>Telephone</th>
+            <th>nom entreprise</th>
+            <th>Adresse entreprise</th>            
+        </tr>
+        <?php
+        foreach ($listEmployeur as $employeur) {
+        ?>
+            <tr>
+                <td><?= $employeur['id']; ?></td>
+                <td><?= $employeur['first_name']; ?></td>
+                <td><?= $employeur['last_name']; ?></td>
+                <td><?= $employeur['dob']; ?></td>
+                <td><?= $employeur['email']; ?></td>
+                <td><?= $employeur['telephone']; ?></td>
+                <td><?= $employeur['nom_entreprise']; ?></td>
+                <td><?= $employeur['adresse_entreprise']; ?></td>
+                
+            </tr>
+        <?php
+        }
+        ?>
+    </table>
     
- 
+    
+
 
 
 </body>

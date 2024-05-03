@@ -24,4 +24,23 @@ th {
         cursor: pointer;
     }
 
+
+    .search-box {
+        margin-bottom: 20px; /* Espacement en bas pour séparer visuellement la boîte de recherche */
+    }
+    
+    #searchInput {
+        padding: 10px; /* Rembourrage intérieur pour plus de confort lors de la saisie */
+        width: 200px; /* Largeur de la zone de saisie */
+        border: 1px solid #ccc; /* Bordure grise */
+        border-radius: 5px; /* Coins arrondis */
+        font-size: 16px; /* Taille de police */
+    }
+    
+    #searchInput:focus {
+        outline: none; /* Supprimer l'effet de mise au point (soulignement ou boîte) */
+        border-color: #007bff; /* Couleur de la bordure lorsqu'il est en focus */
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Ombre légère lorsqu'il est en focus */
+    }
+    
    

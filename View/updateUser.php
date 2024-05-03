@@ -282,6 +282,7 @@ echo "La fonction updateEmploye a été appelée avec succès.";
         var dob = document.getElementById("dob").value.trim();
         var email = document.getElementById("email").value.trim();
         var telephone = document.getElementById("telephone").value.trim();
+        
 
         // Validation des champs
         var regex = /^[a-zA-Z]+$/;
@@ -331,6 +332,42 @@ echo "La fonction updateEmploye a été appelée avec succès.";
             isValid = false;
         } else {
             clearError("span_tel");
+        }
+
+        
+
+
+        var role = "<?php echo $role; ?>";
+        if (role === "employe") {
+            var diplome = document.getElementById("diplome").value.trim();
+
+            if (diplome.length === 0 || !regex.test(diplome)) {
+            displayError("span_diplome", "Veuillez entrer un diplome valide (lettres uniquement)");
+            isValid = false;
+        } else {
+            clearError("span_diplome");
+        }
+
+        } else if (role === "employeur") {
+
+            var adresse_entreprise = document.getElementById("adresse_entreprise").value.trim();
+
+            if (adresse_entreprise.length === 0 || !regex.test(adresse_entreprise)) {
+            displayError("span_adresse_entreprise", "Veuillez entrer un adresse d'entreprise valide (lettres uniquement)");
+            isValid = false;
+        } else {
+            clearError("span_adresse_entreprise");
+        }
+
+        var nom_entreprise = document.getElementById("nom_entreprise").value.trim();
+
+            if (nom_entreprise.length === 0 || !regex.test(nom_entreprise)) {
+            displayError("span_nom_entreprise", "Veuillez entrer un nom d'entreprise valide (lettres uniquement)");
+            isValid = false;
+        } else {
+            clearError("span_nom_entreprise");
+        }
+        
         }
 
         // Si toutes les validations sont réussies, soumettre le formulaire

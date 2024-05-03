@@ -5,18 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
     <link rel="stylesheet" href="../assets/css/register.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
     <div class="container">
         <img src="../img/masar.png" width="60">
         <div class="heading" >Login </div>
         <link rel="stylesheet" href="../assets/css/login.css">
-        <form class="form" action="../view/login.php">
+        <form class="form" action="../View/login.php" method="POST">
           <input placeholder="E-mail" id="email" name="email" type="email" class="input" required=""/>
     
           <input placeholder="Password" id="password" name="password" type="password" class="input" required=""/>
-    
-          
+          <br>
+          <br>
+          <label for="rememberMe" style="display: flex; align-items: center; font-size: 12px; line-height: 1.5; margin-top: 5px; margin-bottom: -12px;">
+                <input type="checkbox" id="rememberMe" name="rememberMe" style="margin-right: 5px;">
+                Remember me
+            </label>
+          <br>
+          <br>
+          <div class="g-recaptcha" data-sitekey="6LdDWx4pAAAAADcWOAOv76zKmKlf3Ul3fKzmHNp3" data-type="image" data-callback="recaptchaCallback"></div>
           <input value="Login" type="submit" class="login-button" />
         </form>
         <div class="social-account-container">
@@ -61,7 +69,7 @@
           </div>
         </div>
         <a href="register.php" id="log">Don't have an account ?</a>
-        <a href="#" id="log">Forgot Password?</a>
+        <a href="forget.php" id="log">Forgot Password?</a>
       </div>
       
 </body>
@@ -71,39 +79,65 @@
 <?php
 include '../Controller/userC.php';
 
-session_start();
 
-// Vérification si le formulaire est soumis
+session_start();                                                                           
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Vérification de la présence des champs du formulaire
-    if (isset($_POST["email"]) && !empty($_POST["email"]) && isset($_POST["password"]) && !empty($_POST["password"])) {
-        // Récupération des données du formulaire
-        $email = $_POST["email"];
-        $password = $_POST["password"];
-        
-        
-        // Appel de la fonction de vérification
-        $user = checkEmailPassword($email, $password);
+    if (!empty($_POST["email"]) && !empty($_POST["password"])) {
+      $recaptcha_secret = '6LdDWx4pAAAAAEIrnB48hVDJu_A5DSajYoqAXxA3';
+            $recaptcha_response = $_POST['g-recaptcha-response'];
+            $recaptcha_url = "https://www.google.com/recaptcha/api/siteverify";
+            $recaptcha_data = [
+                'secret' => $recaptcha_secret,
+                'response' => $recaptcha_response,
+            ];
+            $options = [
+                'http' => [
+                    'header' => "Content-type: application/x-www-form-urlencoded\r\n",
+                    'method' => 'POST',
+                    'content' => http_build_query($recaptcha_data),
+                ],
+            ];
+            $context = stream_context_create($options);
+            $result = file_get_contents($recaptcha_url, false, $context);
+            $recaptcha_response = json_decode($result, true);
+            if ($recaptcha_response['success'] == true) {
+          $email = $_POST["email"];
+          $password = $_POST["password"];
 
-        // Gestion du résultat
-        if ($user) {
-            // Les informations d'identification sont correctes
-            $_SESSION["user_id"] = $user["id"]; // Exemple: Stocker l'ID de l'utilisateur dans la session
-            $_SESSION["user_email"] = $user["email"]; // Exemple: Stocker l'email de l'utilisateur dans la session
-            // Vous pouvez stocker d'autres informations de l'utilisateur dans la session selon vos besoins
-            
-            // Redirection vers la page d'accueil
-            header("Location: index.php");
-            exit();
-        } else {
-            // Les informations d'identification sont incorrectes
-            $error_message = "Adresse e-mail ou mot de passe incorrect.";
-        }
+          echo "Email: " . $_POST["email"] . "<br>";
+          echo "Password: " . $_POST["password"] . "<br>";
+          // Hache le mot de passe
+          //$passwordHash = password_hash($password, PASSWORD_DEFAULT);
+          $uC = new UserC();
+          $userData = $uC->checkEmailPassword($email, $password); // Envoie le mot de passe haché
+          echo "userData: " .$userData . "<br>";
+          if ($userData) {
+              $_SESSION["id"] = $userData["id"];
+              $_SESSION["fullname"] = $userData["first_name"] . " " . $userData["last_name"];
+              /*if (isset($_POST["rememberMe"]) && $_POST["rememberMe"] == "on") {
+                $payload = array(
+                    "id" => $array["id"],
+                    "fullname" => $array["name"]." ".$array["last_name"]
+                );
+                $jwt = encryptJWT($payload);
+                setcookie("jwt_token", $jwt, time() + (7 * 24 * 60 * 60), "/");
+            }*/
+              header("location:index.php");
+              exit; // Assurez-vous qu'aucun autre code ne s'exécute après la redirection
+          } else {
+            echo '<script>
+            alert("WRONG USERNAME OR PASSWORD");
+        </script>';
+          }
+      }
     } else {
-        // Les champs du formulaire sont manquants ou vides
-        $error_message = "Veuillez remplir tous les champs du formulaire.";
-    }
+      echo '<script>
+              alert("reCAPTCHA verification failed.");
+          </script>';
+
+  }
 }
+
 ?>
 
 

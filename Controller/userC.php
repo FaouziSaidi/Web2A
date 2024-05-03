@@ -137,26 +137,68 @@ class UserC
             die('Error: ' . $e->getMessage());
         }
     }
+
+
+    public function emailExists($email) {
+        $sql_request = "SELECT * FROM users WHERE email = :email";
+        $db = config::getConnexion();
+
+        $request = $db->prepare($sql_request);
+        $request->bindValue(":email", $email);
+
+        try {
+            $request->execute();
+            $result = $request->fetchAll();
+            return $result;
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+    }
+
+    function checkEmailPassword($email, $password) {
+        $sql_request = "SELECT * FROM users WHERE email = :email AND password = :password";
+        $db = config::getConnexion();
+        $request = $db->prepare($sql_request);
+        $request->bindValue(":email", $email);
+        $request->bindValue(":password", $password);
+        
+        try {
+            $request->execute();
+            $result = $request->fetchAll();
+            if (count($result) > 0) {
+                return $result[0]; 
+            } else {
+                return NULL;
+            }
+        } catch (Exception $e) {
+            die("Error: " . $e->getMessage());
+        }
+    }
+
+
+    public function emailExists($email) {
+        $sql_request = "SELECT * FROM users WHERE email = :email";
+        $db = config::getConnexion();
+
+        $request = $db->prepare($sql_request);
+        $request->bindValue(":email", $email);
+
+        try {
+            $request->execute();
+            $result = $request->fetchAll();
+            return $result;
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+    }
+    
+    
+    
 }
 
-function checkEmailPassword($email, $password) {
-    $sql_request = "SELECT * FROM users WHERE email = :email";
-    $db = config::getConnexion();
-    $request = $db->prepare($sql_request);
-    $request->bindValue(":email", $email);
-    
-    try {
-        $request->execute();
-        $result = $request->fetchAll();
-        if (count($result) > 0 && password_verify($password, $result[0]["password"])) {
-            return $result[0]; 
-        } else {
-            return NULL;
-        }
-    } catch (Exception $e) {
-        die("Error: " . $e->getMessage());
-    }
-}
+
+
+
 
 
 

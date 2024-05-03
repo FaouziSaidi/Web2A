@@ -73,15 +73,7 @@
     </nav>
 
     <section class="dashboard">
-        <div class="top">
-            <i class="uil uil-bars sidebar-toggle"></i>
-
-            <div class="search-box">
-                <i class="uil uil-search"></i>
-                <input type="text" placeholder="Search here...">
-            </div>
-        </div>
-
+        
         <div class="dash-content" id="dash-content">
             <!-- Le contenu initial de votre dashboard -->
             <div class="overview">
@@ -111,39 +103,6 @@
         </div>
     </section>
     <script src="../assets/scriptDash.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const menuLinks = document.querySelectorAll('.nav-links a');
-            const dashContent = document.getElementById('dash-content');
-
-            menuLinks.forEach(link => {
-                link.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    const target = this.querySelector('.link-name').textContent.trim().toLowerCase().replace(/\s/g, '-');
-                    const filePath = target + ".php"; // Supposez que chaque élément du menu a un fichier HTML correspondant avec le contenu à charger
-
-                    fetch(filePath)
-                        .then(response => response.text())
-                        .then(data => {
-                            dashContent.innerHTML = data;
-                        })
-                        .catch(error => {
-                            console.error('Une erreur s\'est produite lors du chargement du contenu:', error);
-                        });
-                });
-            });
-        });
-        document.addEventListener("DOMContentLoaded", function() {
-        // Charge le contenu de listeUser.php initialement
-        fetch('listUser.php')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('dash-content').innerHTML = data;
-            })
-            .catch(error => {
-                console.error('Une erreur s\'est produite lors du chargement du contenu:', error);
-            });
-    });
-    </script>
+    
 </body>
 </html>
