@@ -64,7 +64,7 @@ class UserC
     function addUser($user)
     {
         $sql = "INSERT INTO users  
-        VALUES (NULL, :first_name, :last_name, :dob, :email, :password, :telephone)";
+        VALUES (NULL, :first_name, :last_name, :dob, :email, :password, :telephone,NULL,NULL)";
         $db = config::getConnexion();
         try {
             $query = $db->prepare($sql);
@@ -175,7 +175,7 @@ class UserC
         }
     }
 
-
+/*
     public function emailExists($email) {
         $sql_request = "SELECT * FROM users WHERE email = :email";
         $db = config::getConnexion();
@@ -192,7 +192,7 @@ class UserC
         }
     }
     
-    
+    */
     
 }
 

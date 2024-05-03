@@ -319,3 +319,7 @@ ul{
     fill: #c13584;
   }
   
+
+  .profile-image {
+    margin-right: 50px; /* Ajustez la marge droite selon vos besoins */
+}

@@ -74,54 +74,48 @@
 
 <?php
 include '../Controller/userC.php';
-
-include "mail.php";
-
+require '../View/mail.php'; 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($_POST["email"]) && isset($_POST["email"])) {
-        $uC = new userC();
-        if (count($uC->emailExists($_POST["email"])) > 0){
-            $user_info =  $uC->emailExists($_POST["email"])[0];
-            $randomPassword = bin2hex(random_bytes(16));
-            $user = new User(
-                null,
-                $user_info['first_name'],
-                $user_info['last_name'],
-                $user_info['dob'],
-                $user_info['email'],
-                $randomPassword,
-                $user_info['telephone']
-            );
-            $html = '
-                <h2>PASSWORD RESET</h2>
-                <p>Please Use this password to log in to your account, please update your password as fast as possible</p>
-                <p><b>fullname: </b>'.$user_info["first_name"].'." ".'.$user_info["last_name"].'</p>
-                <p><b>PASSWORD: </b>'.$randomPassword.'</p>
-                <h3>Masar TEAM</h3>
-                <blockquote class="imgur-embed-pub" lang="en" data-id="a/H7Uywz3" data-context="false" ><a href="//imgur.com/a/H7Uywz3"></a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
-            ';
-            $uC->updateUser($user, $user_info["id"]);
-            sendEmail($_POST["email"], "PASSWORD RESET", $html, $user_info["name"].' '.$user_info["last_name"]);
-            echo '<script>
-                var ehs = document.getElementById("errorHandlingSpan");
-                ehs.innerHTML = "&#10003; Password reset email sent. Please check your email. Redirecting you to login page.";
-                
-                setTimeout(function(){
-                    window.location.href = "login.php";
-                }, 5000);
-            </script>';
-        } else {
-            echo '<script>
-            var ehs = document.getElementById("errorHandlingSpan");
-            ehs.innerHTML = "Email Does not exist";
-            </script>';
+        $email = $_POST["email"];
+
+        $token = bin2hex(random_bytes(16));
+        $token_hash = hash("sha256", $token);
+        $expiry = date("Y-m-d H:i:s", time() + 60 * 30);
+
+        $sql = "UPDATE users
+                    SET reset_token_hash = :token_hash,
+                        reset_token_expires_at = :expiry
+                    WHERE email = :email";
+        $db = config::getConnexion();
+
+        try {
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':token_hash', $token_hash);
+            $stmt->bindParam(':expiry', $expiry);
+            $stmt->bindParam(':email', $email);
+            
+            if ($stmt->execute()) {
+                // Envoi de l'email avec PHPMailer
+                $mail->setFrom("ounaissarra@gmail.com");
+                $mail->addAddress($email);
+                $mail->Subject = "Password Reset";
+                $mail->Body = "
+                    Click <a href='http://localhost/gestion_utilisateur/View/reset_password.php?token=$token'>here</a> 
+                    to reset your password.
+                ";
+
+                $mail->send();
+                echo "Message sent, please check your inbox.";
+            } else {
+                echo "Error updating record: " . $pdo->errorInfo()[2];
+            }
+        } catch (PDOException $e) {
+            echo "Database error: " . $e->getMessage();
+        } catch (Exception $e) {
+            echo "Email error: " . $e->getMessage();
         }
     }
-} else {
-    die();
 }
-
-
-
 ?>
