@@ -1,45 +1,41 @@
 <?php
-error_reporting(E_ALL);
 include '../config.php';
-include '../controller/versionC.php';
-
+include '../controller/VersionC.php';
 $id_contrat = null;
+// Initialisation de la variable pour stocker les dates de modification
+$dates_modification = array();
 $versionController = new VersionC();
-
-function affiche($id_contrat)
-{
-    $sql = "SELECT v.id_version, v.date_de_modification, v.pdf, c.ID_employe, c.ID_employeur
-            FROM version v
-            INNER JOIN contrat c ON v.id_contrat = c.id
-            WHERE v.id_contrat = :id_contrat";
-    $db = config::getConnexion();
-    try {
-        $query = $db->prepare($sql);
-        $query->bindParam(':id_contrat', $id_contrat, PDO::PARAM_INT);
-        $query->execute();
-        return $query->fetchAll(PDO::FETCH_ASSOC);
-    } catch (Exception $e) {
-        die('Error: ' . $e->getMessage());
-    }
-}
-
+// Vérification si un ID de contrat est soumis
 if(isset($_POST['id_contrat'])) {
+    // Récupération de l'ID du contrat soumis
     $id_contrat = $_POST['id_contrat'];
 
+    // Instanciation de la classe VersionC
+    
+
+    // Vérification si l'ID du contrat existe
     if($versionController->contratExists($id_contrat)) {
-        $dates_modification = affiche($id_contrat);
-        //var_dump($dates_modification);
+        // Appel de la fonction afficherDatesModificationContrat avec l'ID du contrat spécifié
+        $dates_modification = $versionController->afficherDatesModificationContrat($id_contrat);
     } else {
         $message = "L'ID du contrat $id_contrat n'existe pas.";
     }
 }
 
+// Traitement de la suppression d'une version
 if(isset($_POST['delete_version'])) {
     $id_version = $_POST['delete_version'];
+    // Appel de la méthode de suppression dans le contrôleur
     $versionController->supprimerVersion($id_version);
+    // Actualisation de la page pour refléter les modifications
     header("Location: version.php");
     exit;
 }
+
+
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -69,36 +65,24 @@ if(isset($_POST['delete_version'])) {
     <?php if(isset($message)): ?>
         <p><?php echo $message; ?></p>
     <?php elseif(isset($dates_modification) && !empty($dates_modification)): ?>
-        <h2>Les versions du Contrat</h2>
+        <h2>Dates de Modification du Contrat</h2>
         <table>
             <thead>
                 <tr>
-                    <th>id version</th>
                     <th>Date de Modification</th>
                     <th>idantifiant de l'employe</th>
                     <th>idantifiant de l'employeur</th>
-                    <th>pdf</th>
-                    <th>ppp</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($dates_modification as $data): ?>
                     <tr>
-                        <td><?php echo $data['id_version']; ?></td>
                         <td><?php echo $data['date_de_modification']; ?></td>
                         <td><?php echo $data['ID_employe']; ?></td>
                         <td><?php echo $data['ID_employeur']; ?></td>
-                        <td><?php echo $data['pdf']; ?></td>
-                        <?php $filename = $data['pdf'];
-                              $path = 'http://localhost/met/view/pdf/' . $filename;  ?>
                         <td>
-                            
-                            <a href="<?= $path; ?>" target="_blank">
-                            <svg viewBox="0 0 24 24" height="24" width="24" xmlns="http://www.w3.org/2000/svg" class="icon">
-                                <path d="M0 0h24v24H0z" fill="none"/>
-                                <path d="M18 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-5 15h-4v-2h4v2zm4-4H7v-2h10v2zm0-3H7V8h10v2z" fill="red"/> <!-- Ajout de la propriété fill="red" -->
-                            </svg>
-
+                            <a href="pdf/<?php echo $data['pdf']; ?>" target="_blank">Ouvrir le Contrat</a>
                         </td>
 
                         <td>

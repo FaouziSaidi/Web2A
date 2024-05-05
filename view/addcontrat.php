@@ -43,9 +43,11 @@ if (
         $contratC->addContrat($contrat);
         $versionController = new VersionC();
         $id_contrat = $contratC->getLastInsertedID();
+        $contrat->set_id($id_contrat);
         $date_modification = date('Y-m-d H:i:s');
-        $versionController->ajouterVersion($id_contrat,$date_modification);
-        header('Location: Dashboard.html');
+        $filename_path = $contratC->createContractPDF($contrat);
+        $versionController->ajouterVersion($id_contrat,$date_modification,$filename_path);
+        header('Location: recherche.php');
     } else
         $error = "Missing information";
 }
@@ -58,10 +60,74 @@ if (
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Display</title>
+    <style>
+    form {
+        margin-top: 20px;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 80%;
+        margin: 0 auto;
+        border: white;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    input[type="number"],
+    input[type="text"],
+    input[type="date"] {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[type="submit"],
+    input[type="reset"] {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 15px;
+        background-color: #00BFA6;
+        color: white;
+        cursor: pointer;
+    }
+
+    input[type="submit"]:hover,
+    input[type="reset"]:hover {
+        background-color: #17645a;
+    }
+
+    td {
+        padding: 10px;
+        border-bottom: none;
+    }
+    th, td {
+    padding: 10px; 
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    border-bottom: none;
+}
+    span {
+        color: red;
+    }
+
+    /* Style pour la première colonne */
+    td:first-child {
+        background-color: #f2f2f2; /* Gris clair */
+        width: auto; /* Taille ajustée aux informations */
+    }
+</style>
+
+
+
 </head>
 
 <body>
-    <a href="listecontrat.php">Back to list </a>
+    <a href="recherche.php">Back to list </a>
     <hr>
 
     <div id="error">
@@ -73,7 +139,7 @@ if (
 
             <tr>
                 <td>
-                    <label for="ID_employe">Employee ID:
+                    <label for="ID_employe">Employee ID
                     </label>
                 </td>
                 <td><input type="number" name="ID_employe" id="ID_employe"></td>
@@ -81,7 +147,7 @@ if (
             </tr>
             <tr>
                 <td>
-                    <label for="ID_employeur">Employer ID:
+                    <label for="ID_employeur">Employer ID
                     </label>
                 </td>
                 <td><input type="number" name="ID_employeur" id="ID_employeur"></td>
@@ -89,7 +155,7 @@ if (
             </tr>
             <tr>
                 <td>
-                    <label for="Titre_poste">Job Title:
+                    <label for="Titre_poste">Job Title
                     </label>
                 </td>
                 <td><input type="text" name="Titre_poste" id="Titre_poste" maxlength="50"></td>
@@ -97,7 +163,7 @@ if (
             </tr>
             <tr>
                 <td>
-                    <label for="temps_travail">Work Hours:
+                    <label for="temps_travail">Work Hours
                     </label>
                 </td>
                 <td><input type="number" name="temps_travail" id="temps_travail"></td>
@@ -105,7 +171,7 @@ if (
             </tr>
             <tr>
                 <td>
-                    <label for="salaire">Salary:
+                    <label for="salaire">Salary
                     </label>
                 </td>
                 <td><input type="number" name="salaire" id="salaire"></td>
@@ -113,7 +179,7 @@ if (
             </tr>
             <tr>
                 <td>
-                    <label for="typec">Contract Type:
+                    <label for="typec">Contract Type
                     </label>
                 </td>
                 <td><input type="text" name="typec" id="typec" maxlength="20"></td>
@@ -121,7 +187,7 @@ if (
             </tr>
             <tr>
                 <td>
-                    <label for="Date_de_debut">Start Date:
+                    <label for="Date_de_debut">Start Date
                     </label>
                 </td>
                 <td>
@@ -131,7 +197,7 @@ if (
             </tr>
             <tr>
                 <td>
-                    <label for="Date_expiration">Expiration Date:
+                    <label for="Date_expiration">Expiration Date
                     </label>
                 </td>
                 <td>

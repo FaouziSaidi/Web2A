@@ -95,4 +95,9 @@ class Contrat
     {
         return $this->Date_expiration;
     }
+
+    public function set_id(int $id):void
+    {
+        $this->id=$id;
+    }
 }

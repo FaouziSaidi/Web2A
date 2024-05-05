@@ -4,6 +4,8 @@ $contratC = new ContratC();
 $list = $contratC->listContrats();
 
 ?>
+
+
 <html>
 
 <head>
@@ -40,23 +42,17 @@ th {
         text-decoration: none; /* Supprime le soulignement du lien */
         color: #00BFA6; /* Définit la couleur du texte sur bleu */
     }
-    </style>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-        <!----======== CSS ======== -->
-        <link rel="stylesheet" href="../assets/css/styleDash.css">
-        <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-<style>
-.search-box{
+    .search-box {
     position: relative;
     height: 45px;
     max-width: 600px;
     width: 100%;
     margin: 0 30px;
 }
-.search-box input{
+
+.search-box input {
     position: absolute;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--border-color); /* Ajout de la bordure ici */
     background-color: var(--panel-color);
     padding: 0 25px 0 50px;
     border-radius: 17px;
@@ -67,7 +63,8 @@ th {
     font-weight: 400;
     outline: none;
 }
-.search-box i{
+
+.search-box i {
     position: absolute;
     left: 15px;
     font-size: 22px;
@@ -77,13 +74,54 @@ th {
     color: var(--black-light-color);
 }
 
-</style>
+.icon-button {
+    background-color: transparent; /* Fond transparent */
+    border: none; /* Pas de bord */
+    cursor: pointer; /* Curseur pointeur */
+    padding: 8px 16px; /* Espacement intérieur */
+    font-size: 16px; /* Taille du texte */
+    color: #00BFA6; /* Couleur du texte */
+    transition: color 0.3s ease; /* Transition de couleur douce */
+    outline: none; /* Pas de contour */
+}
+
+.icon-button:hover {
+    color: #0056b3; /* Couleur du texte au survol */
+}
+
+.icon {
+    margin-right: 8px; /* Marge à droite de l'icône */
+    font-size: 20px; /* Taille de l'icône */
+}
+
+#chartContainer {
+    width: 60%;
+    height: 60%;
+    margin: auto; /* Centre le div horizontalement */
+    display: flex; /* Utilise un affichage flex pour centrer verticalement */
+    justify-content: center; /* Centre les éléments horizontalement */
+    align-items: center; /* Centre les éléments verticalement */
+}
+
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        
+        <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+
+
 </head>
 
 <body>
 <div class="search-box">
   <input id="searchInput" type="text" placeholder="Search...">
+
 </div>
+<button class="icon-button" onclick="sortTableAsc()"><i class="fas fa-arrow-up"></i></button>
+<button class="icon-button" onclick="sortTableDesc()"><i class="fas fa-arrow-down"></i></button>
+<button class="icon-button" onclick="resetTable()"><i class="fas fa-sync-alt"></i></button>
+       
     <center>
         <h1>List of contracts</h1>
         <h4>
@@ -92,9 +130,10 @@ th {
             Add Contract
         </a>
     </h4>
+ 
     </center>
 
-    <table border="1" align="center" width="70%">*
+    <table border="1" align="center" width="70%">
 
     <thead>
         <tr>
@@ -109,7 +148,7 @@ th {
             <th>Expiration Date</th>
             <th>Update</th>
             <th>Delete</th>
-        </tr>
+           
     </thead>
     <tbody>
         <?php
@@ -145,12 +184,15 @@ th {
         }
         
         ?>
+       
+   
      </tbody>
     </table>
     
 
 <script>
-<script>
+
+console.log("1");
 document.addEventListener("DOMContentLoaded", function() {
   const searchInput = document.getElementById('searchInput');
   const rows = document.querySelectorAll('table tbody tr');
@@ -161,11 +203,12 @@ document.addEventListener("DOMContentLoaded", function() {
     rows.forEach(row => {
       const cells = row.querySelectorAll('td');
       let found = false;
-
+      console.log("2");
       cells.forEach(cell => {
         const cellText = cell.textContent.toLowerCase();
         if (cellText.includes(searchTerm)) {
           found = true;
+          console.log("3");
         }
       });
 
@@ -177,12 +220,54 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
 });
+
+
+function sortTableAsc() {
+    const table = document.querySelector('table');
+    const tbody = table.querySelector('tbody');
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+
+    rows.sort((a, b) => {
+        const dateA = new Date(a.cells[8].textContent);
+        const dateB = new Date(b.cells[8].textContent);
+        return dateA - dateB;
+    });
+
+    tbody.innerHTML = '';
+    rows.forEach(row => tbody.appendChild(row));
+}
+
+function sortTableDesc() {
+    const table = document.querySelector('table');
+    const tbody = table.querySelector('tbody');
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+
+    rows.sort((a, b) => {
+        const dateA = new Date(a.cells[8].textContent);
+        const dateB = new Date(b.cells[8].textContent);
+        return dateB - dateA;
+    });
+
+    tbody.innerHTML = '';
+    rows.forEach(row => tbody.appendChild(row));
+}
+
+function resetTable() {
+            // Actualisez la page pour réinitialiser le tableau (vous pouvez implémenter une réinitialisation plus spécifique si nécessaire)
+            location.reload();
+        }
+
 </script>
 
 
 </script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div id="chartContainer" >
+    <canvas id="myChart" width="400" height="500"></canvas>
+    <canvas id="workHoursChart" width="400" height="400"></canvas>
+</div>
 
-
+<script src="../assets/stats.js"></script>
 
 
 

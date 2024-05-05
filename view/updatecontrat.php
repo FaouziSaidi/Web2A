@@ -42,12 +42,15 @@ if (
             new DateTime($_POST["Date_de_debut"]),
             new DateTime($_POST["Date_expiration"])
         );
-        $contratC->updateContrat($contrat, $_POST["id"]);
+        $updated = $contratC->updateContrat($contrat, $_POST["id"]);
+        
         $versionController = new VersionC();
-        $id_contrat = $contratC->getLastInsertedID();
+        $id_contrat = $_POST["id"];
         $date_modification = date('Y-m-d H:i:s');
-        $versionController->ajouterVersion($id_contrat,$date_modification);
-        header('Location: Dashboard.html');
+        $id_version=$versionController->getLastInsertedID();
+        $filename_path = $contratC->createContractPDF_mod($contrat,$id_version);
+        $versionController->ajouterVersion($id_contrat,$date_modification,$filename_path);
+        header('Location: recherche.php');
     } else {
         $error = "Missing information";
     }
@@ -59,10 +62,71 @@ if (
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Display</title>
+    <style>
+    form {
+        margin-top: 20px;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 80%;
+        margin: 0 auto;
+        border: white;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    input[type="number"],
+    input[type="text"],
+    input[type="date"] {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[type="submit"],
+    input[type="reset"] {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 15px;
+        background-color: #00BFA6;
+        color: white;
+        cursor: pointer;
+    }
+
+    input[type="submit"]:hover,
+    input[type="reset"]:hover {
+        background-color: #17645a;
+    }
+
+    td {
+        padding: 10px;
+        border-bottom: none;
+    }
+    th, td {
+    padding: 10px; 
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    border-bottom: none;
+}
+    span {
+        color: red;
+    }
+
+    /* Style pour la première colonne */
+    td:first-child {
+        background-color: #f2f2f2; /* Gris clair */
+        width: auto; /* Taille ajustée aux informations */
+    }
+</style>
 </head>
 
 <body>
-    <button><a href="Dashboard.html">Back to list</a></button>
+    <button><a href="recherche.php">Back to list</a></button>
     <hr>
 
     <div id="error">

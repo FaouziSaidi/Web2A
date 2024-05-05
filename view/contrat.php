@@ -1,7 +1,7 @@
 <?php
 
 include '../controller/contratC.php';
-
+include '../controller/VersionC.php';
 $error = "";
 
 // create contrat
@@ -43,6 +43,10 @@ if (
             new DateTime($_POST["Date_expiration"])
         );
         $contratC->addContrat($contrat);
+        $versionController = new VersionC();
+        $id_contrat = $contratC->getLastInsertedID();
+        $date_modification = date('Y-m-d H:i:s');
+        $versionController->ajouterVersion($id_contrat,$date_modification);
         header('Location: index.html');
     } else {
         $error = "Missing information";
