@@ -1,7 +1,14 @@
 <?php
 include '../config.php';
 include '../model/contrat.php';
+<<<<<<< HEAD
 require_once('../tcpdf/tcpdf.php');
+=======
+<<<<<<< HEAD
+require_once('../tcpdf/tcpdf.php');
+=======
+>>>>>>> e8a46e4650dcaf814d49380350c4f07a146724e2
+>>>>>>> 292799292cbf7465c66642ebf8383cc594d09d63
 
 class ContratC
 {
@@ -57,6 +64,10 @@ class ContratC
     {
         try {
             $db = config::getConnexion();
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 292799292cbf7465c66642ebf8383cc594d09d63
             // Vérifiez d'abord si le contrat existe avant de le mettre à jour
             $check_query = $db->prepare('SELECT id FROM contrat WHERE id = :id');
             $check_query->execute(['id' => $id]);
@@ -90,11 +101,48 @@ class ContratC
             } else {
                 echo "Error: Contract with ID $id does not exist.";
             }
+<<<<<<< HEAD
+=======
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
         }
     }
     
+=======
+            $query = $db->prepare(
+                'UPDATE contrat SET 
+                    ID_employe = :ID_employe, 
+                    ID_employeur = :ID_employeur, 
+                    Titre_poste = :Titre_poste, 
+                    temps_travail = :temps_travail, 
+                    salaire = :salaire, 
+                    typec = :typec, 
+                    Date_de_debut = :Date_de_debut, 
+                    Date_expiration = :Date_expiration 
+                WHERE id = :id'
+            );
+            $query->execute([
+                'id' => $id,
+                'ID_employe' => $contrat->getIdEmploye(),
+                'ID_employeur' => $contrat->getIdEmployeur(),
+                'Titre_poste' => $contrat->getTitrePoste(),
+                'temps_travail' => $contrat->getTempsTravail(),
+                'salaire' => $contrat->getSalaire(),
+                'typec' => $contrat->getTypec(),
+                'Date_de_debut' => $contrat->getDateDeDebut()->format('Y-m-d'),
+                'Date_expiration' => $contrat->getDateExpiration()->format('Y-m-d')
+            ]);
+            echo $query->rowCount() . " records UPDATED successfully <br>";
+>>>>>>> 292799292cbf7465c66642ebf8383cc594d09d63
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    }
+<<<<<<< HEAD
+    
+=======
+>>>>>>> e8a46e4650dcaf814d49380350c4f07a146724e2
+>>>>>>> 292799292cbf7465c66642ebf8383cc594d09d63
 
     function showContrat($id)
     {
@@ -123,6 +171,10 @@ class ContratC
     }
 }
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 292799292cbf7465c66642ebf8383cc594d09d63
 
 
 
@@ -167,10 +219,17 @@ function createContractPDF($Contrat) {
     $pdf->writeHTML($content, true, false, true, false, '');
 
     // Nom du fichier PDF de sortie
+<<<<<<< HEAD
     $filename = 'contract_' . $Contrat->getIDContrat(). '.pdf';
 
        // Chemin complet du dossier où le fichier sera enregistré
        $output_dir = 'C:/xampp/htdocs/met/view/pdf/';
+=======
+    $filename = 'contract_' . $Contrat->getIDEmploye() . '.pdf';
+
+       // Chemin complet du dossier où le fichier sera enregistré
+       $output_dir = 'C:/xampp/htdocs/gestion des contrats metier/pdf/';
+>>>>>>> 292799292cbf7465c66642ebf8383cc594d09d63
 
        // Création du dossier s'il n'existe pas
        if (!file_exists($output_dir)) {
@@ -180,7 +239,11 @@ function createContractPDF($Contrat) {
        // Sauvegarde du fichier PDF dans le dossier spécifié
        $pdf->Output($output_dir . $filename, 'F');
     
+<<<<<<< HEAD
     // Retourne le chemin complet du fichier PDF créé
+=======
+    // Retourne le nom du fichier PDF créé
+>>>>>>> 292799292cbf7465c66642ebf8383cc594d09d63
     return $filename;
 }
 
@@ -188,6 +251,7 @@ function createContractPDF($Contrat) {
 
 
 
+<<<<<<< HEAD
 function searchContratById($id)
 {
     try {
@@ -304,6 +368,8 @@ public function affiche($id_contrat)
         die('Error: ' . $e->getMessage());
     }
 }
+=======
+>>>>>>> 292799292cbf7465c66642ebf8383cc594d09d63
 
 
 
@@ -312,5 +378,11 @@ public function affiche($id_contrat)
 
 
 
+<<<<<<< HEAD
+=======
+
+=======
+>>>>>>> e8a46e4650dcaf814d49380350c4f07a146724e2
+>>>>>>> 292799292cbf7465c66642ebf8383cc594d09d63
 }
 ?>

@@ -42,10 +42,23 @@ if (
             new DateTime($_POST["Date_de_debut"]),
             new DateTime($_POST["Date_expiration"])
         );
+<<<<<<< HEAD
         $updated = $contratC->updateContrat($contrat, $_POST["id"]);
         
         $versionController = new VersionC();
         $id_contrat = $_POST["id"];
+=======
+<<<<<<< HEAD
+        $updated = $contratC->updateContrat($contrat, $_POST["id"]);
+        
+        $versionController = new VersionC();
+        $id_contrat = $_POST["id"];
+=======
+        $contratC->updateContrat($contrat, $_POST["id"]);
+        $versionController = new VersionC();
+        $id_contrat = $contratC->getLastInsertedID();
+>>>>>>> e8a46e4650dcaf814d49380350c4f07a146724e2
+>>>>>>> 292799292cbf7465c66642ebf8383cc594d09d63
         $date_modification = date('Y-m-d H:i:s');
         $id_version=$versionController->getLastInsertedID();
         $filename_path = $contratC->createContractPDF_mod($contrat,$id_version);
@@ -62,6 +75,10 @@ if (
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Display</title>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 292799292cbf7465c66642ebf8383cc594d09d63
     <style>
     form {
         margin-top: 20px;
@@ -123,6 +140,11 @@ if (
         width: auto; /* Taille ajustée aux informations */
     }
 </style>
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> e8a46e4650dcaf814d49380350c4f07a146724e2
+>>>>>>> 292799292cbf7465c66642ebf8383cc594d09d63
 </head>
 
 <body>

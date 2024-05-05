@@ -60,6 +60,10 @@ if (
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Display</title>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 292799292cbf7465c66642ebf8383cc594d09d63
     <style>
     form {
         margin-top: 20px;
@@ -124,6 +128,11 @@ if (
 
 
 
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> e8a46e4650dcaf814d49380350c4f07a146724e2
+>>>>>>> 292799292cbf7465c66642ebf8383cc594d09d63
 </head>
 
 <body>
@@ -139,7 +148,15 @@ if (
 
             <tr>
                 <td>
+<<<<<<< HEAD
                     <label for="ID_employe">Employee ID
+=======
+<<<<<<< HEAD
+                    <label for="ID_employe">Employee ID
+=======
+                    <label for="ID_employe">Employee ID:
+>>>>>>> e8a46e4650dcaf814d49380350c4f07a146724e2
+>>>>>>> 292799292cbf7465c66642ebf8383cc594d09d63
                     </label>
                 </td>
                 <td><input type="number" name="ID_employe" id="ID_employe"></td>
@@ -147,7 +164,15 @@ if (
             </tr>
             <tr>
                 <td>
+<<<<<<< HEAD
                     <label for="ID_employeur">Employer ID
+=======
+<<<<<<< HEAD
+                    <label for="ID_employeur">Employer ID
+=======
+                    <label for="ID_employeur">Employer ID:
+>>>>>>> e8a46e4650dcaf814d49380350c4f07a146724e2
+>>>>>>> 292799292cbf7465c66642ebf8383cc594d09d63
                     </label>
                 </td>
                 <td><input type="number" name="ID_employeur" id="ID_employeur"></td>
@@ -155,7 +180,15 @@ if (
             </tr>
             <tr>
                 <td>
+<<<<<<< HEAD
                     <label for="Titre_poste">Job Title
+=======
+<<<<<<< HEAD
+                    <label for="Titre_poste">Job Title
+=======
+                    <label for="Titre_poste">Job Title:
+>>>>>>> e8a46e4650dcaf814d49380350c4f07a146724e2
+>>>>>>> 292799292cbf7465c66642ebf8383cc594d09d63
                     </label>
                 </td>
                 <td><input type="text" name="Titre_poste" id="Titre_poste" maxlength="50"></td>
@@ -163,7 +196,15 @@ if (
             </tr>
             <tr>
                 <td>
+<<<<<<< HEAD
                     <label for="temps_travail">Work Hours
+=======
+<<<<<<< HEAD
+                    <label for="temps_travail">Work Hours
+=======
+                    <label for="temps_travail">Work Hours:
+>>>>>>> e8a46e4650dcaf814d49380350c4f07a146724e2
+>>>>>>> 292799292cbf7465c66642ebf8383cc594d09d63
                     </label>
                 </td>
                 <td><input type="number" name="temps_travail" id="temps_travail"></td>
@@ -171,7 +212,15 @@ if (
             </tr>
             <tr>
                 <td>
+<<<<<<< HEAD
                     <label for="salaire">Salary
+=======
+<<<<<<< HEAD
+                    <label for="salaire">Salary
+=======
+                    <label for="salaire">Salary:
+>>>>>>> e8a46e4650dcaf814d49380350c4f07a146724e2
+>>>>>>> 292799292cbf7465c66642ebf8383cc594d09d63
                     </label>
                 </td>
                 <td><input type="number" name="salaire" id="salaire"></td>
@@ -179,7 +228,15 @@ if (
             </tr>
             <tr>
                 <td>
+<<<<<<< HEAD
                     <label for="typec">Contract Type
+=======
+<<<<<<< HEAD
+                    <label for="typec">Contract Type
+=======
+                    <label for="typec">Contract Type:
+>>>>>>> e8a46e4650dcaf814d49380350c4f07a146724e2
+>>>>>>> 292799292cbf7465c66642ebf8383cc594d09d63
                     </label>
                 </td>
                 <td><input type="text" name="typec" id="typec" maxlength="20"></td>
@@ -187,7 +244,15 @@ if (
             </tr>
             <tr>
                 <td>
+<<<<<<< HEAD
                     <label for="Date_de_debut">Start Date
+=======
+<<<<<<< HEAD
+                    <label for="Date_de_debut">Start Date
+=======
+                    <label for="Date_de_debut">Start Date:
+>>>>>>> e8a46e4650dcaf814d49380350c4f07a146724e2
+>>>>>>> 292799292cbf7465c66642ebf8383cc594d09d63
                     </label>
                 </td>
                 <td>
@@ -197,7 +262,15 @@ if (
             </tr>
             <tr>
                 <td>
+<<<<<<< HEAD
                     <label for="Date_expiration">Expiration Date
+=======
+<<<<<<< HEAD
+                    <label for="Date_expiration">Expiration Date
+=======
+                    <label for="Date_expiration">Expiration Date:
+>>>>>>> e8a46e4650dcaf814d49380350c4f07a146724e2
+>>>>>>> 292799292cbf7465c66642ebf8383cc594d09d63
                     </label>
                 </td>
                 <td>

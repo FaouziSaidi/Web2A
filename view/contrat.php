@@ -1,7 +1,15 @@
 <?php
 
 include '../controller/contratC.php';
+<<<<<<< HEAD
 include '../controller/VersionC.php';
+=======
+<<<<<<< HEAD
+include '../controller/VersionC.php';
+=======
+
+>>>>>>> e8a46e4650dcaf814d49380350c4f07a146724e2
+>>>>>>> 292799292cbf7465c66642ebf8383cc594d09d63
 $error = "";
 
 // create contrat
@@ -43,10 +51,19 @@ if (
             new DateTime($_POST["Date_expiration"])
         );
         $contratC->addContrat($contrat);
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 292799292cbf7465c66642ebf8383cc594d09d63
         $versionController = new VersionC();
         $id_contrat = $contratC->getLastInsertedID();
         $date_modification = date('Y-m-d H:i:s');
         $versionController->ajouterVersion($id_contrat,$date_modification);
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> e8a46e4650dcaf814d49380350c4f07a146724e2
+>>>>>>> 292799292cbf7465c66642ebf8383cc594d09d63
         header('Location: index.html');
     } else {
         $error = "Missing information";
