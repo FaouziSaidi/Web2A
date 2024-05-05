@@ -1,19 +1,16 @@
-
 <?php
-
 include '../../controller/reclamationC.php';
 
-
-if (isset($_GET['id'])) {
+if (isset($_GET['ids'])) {
     $reclamationC = new reclamationC();
 
-    $reclamationC->supprimerreclamation($_GET['id']);
-
-    
+    $ids = explode(",", $_GET['ids']);
+    foreach ($ids as $id) {
+        $reclamationC->supprimerreclamation($id);
+    }
     header('Location: afficherreclamation.php');
     exit;
 } else {
-    
     header('Location: afficherreclamation.php'); 
     exit;
 }

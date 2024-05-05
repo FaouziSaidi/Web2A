@@ -76,7 +76,7 @@
 
 
 
-function getrecbyid($id) {
+public function getrecbyid($id) {
     $sql = "SELECT * FROM reclamation WHERE id = :id";
     $db = config::getConnexion();
     try {
@@ -88,5 +88,14 @@ function getrecbyid($id) {
         die('Error: ' . $e->getMessage());
     }
 }
- 
- }
+
+public function updateReclamationEtat($id, $etat) {
+    $reclamation = $this->getrecbyid($id);
+    if ($reclamation) {
+        $reclamation->setetat($etat);
+    }
+}
+
+
+}
+

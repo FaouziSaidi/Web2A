@@ -115,7 +115,12 @@
             <a class="btn btn-primary" href="afficherreclamation.php" role="button">Reclamation</a>
             <a class="btn btn-primary" href="ajouterReponse.php" role="button">Add</a>
             <br>
-            <table class="table"> 
+            <div class="mb-3">
+            <br>
+            <input type="text" id="searchInput" class="form-control" placeholder="Search by ID" onkeyup="searchTable()">
+            </div>
+            <h3>Reponses</h3>
+            <table class="table" id="reponseTable"> 
                 <thead>
                     <tr>
                         <th>
@@ -140,26 +145,103 @@
         foreach ($liste as $Reponse) {
         ?>
                     <tr>
-                        <td><?= $Reponse['id_réponse']; ?></td>
+                        <td><?= $Reponse['id_reponse']; ?></td>
                         <td><?= $Reponse['email']; ?></td>
                         <td><?= $Reponse['objet']; ?></td>
                         <td><?= $Reponse['contenu']; ?></td>
                         <td><?= $Reponse['id_reclamation']; ?></td>
                         <td>
-                        <a class="btn btn-danger btn-sm " href="supprimerReponse.php?id=<?php echo $Reponse['id_réponse']; ?>" role="button">
+                        <a class="btn btn-danger btn-sm " href="supprimerReponse.php?id=<?php echo $Reponse['id_reponse']; ?>" role="button">
                 Delete
             </a>
-            <a class="btn btn-secondary btn-sm " href="modifierReponse.php?id=<?php echo $Reponse['id_réponse']; ?>" role="button">
+            <a class="btn btn-secondary btn-sm " href="modifierReponse.php?id=<?php echo $Reponse['id_reponse']; ?>" role="button">
                 Update
             </a>
+            
             </td>
                     </tr>
                 </tbody>
                 <?php }?>
             </table>
         </div>
+        <div style="text-align: center;">
+                <button id="prevPageButton" class="btn btn-secondary">Previous Page</button>
+                <button id="nextPageButton" class="btn btn-secondary">Next Page</button>
+            </div>
         </section>
 
         <script src="../assets/scriptDash.js"></script>
+        <script>
+    function searchTable() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("reponseTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0]; // Change index if ID is not the first column
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+
+
+    document.getElementById("prevPageButton").addEventListener("click", showPrevPage);
+document.getElementById("nextPageButton").addEventListener("click", showNextPage);
+
+var currentPage = 0;
+var rowsPerPage = 10;
+var table = document.getElementById("reponseTable");
+var rows = table.rows;
+
+function showPrevPage() {
+    if (currentPage > 0) {
+        currentPage--;
+        updateTable();
+    }
+}
+
+function showNextPage() {
+    if (currentPage < Math.ceil(rows.length / rowsPerPage) - 1) {
+        currentPage++;
+        updateTable();
+    }
+}
+
+function updateTable() {
+    var startIndex = currentPage * rowsPerPage;
+    var endIndex = startIndex + rowsPerPage;
+    for (var i = 0; i < rows.length; i++) {
+        if (i >= startIndex && i < endIndex) {
+            rows[i].style.display = "";
+        } else {
+            rows[i].style.display = "none";
+        }
+    }
+}
+
+// Initial update to show the first page
+updateTable();
+
+
+
+
+
+
+
+
+
+
+    </script>
     </body>
 </html>

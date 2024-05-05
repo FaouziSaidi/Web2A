@@ -114,8 +114,14 @@
             <h2>List of Reclamations : </h2>
             <br>
             <a class="btn btn-primary" href="afficherReponse.php" role="button">Reponse</a>
+            <div class="mb-3">
             <br>
-            <table class="table"> 
+            <input type="text" id="searchInput" class="form-control" placeholder="Search by ID" onkeyup="searchTable()">
+            </div>
+            
+
+            <h3>Reclamations</h3>
+            <table class="table" id="reclamationTable"> 
                 <thead>
                     <tr>
                         <th>
@@ -136,6 +142,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    
                 <?php
         foreach ($liste as $Reclamation) {
         ?>
@@ -146,18 +153,153 @@
                         <td><?= $Reclamation['contenu']; ?></td>
                         <td><?= $Reclamation['etat']; ?></td>
                         <td>
-            <a class="btn btn-danger btn-sm " href="supprimerreclamation.php?id=<?php echo $Reclamation['id']; ?>" role="button">
-                Delete
-            </a>
+            <td>
+                <input type="checkbox" class="record-checkbox" value="<?php echo $Reclamation['id']; ?>"></td>
             </td>
                     </tr>
                 </tbody>
                 <?php }?>
             </table>
+            <br>
+            <div style="text-align: center;">
+                <button id="prevPageButton" class="btn btn-secondary">Previous Page</button>
+                <button id="nextPageButton" class="btn btn-secondary">Next Page</button>
+            </div>
+            <br>
+            <td>
+
+                <button id="deleteSelectedButton" class="btn btn-danger">Delete Selected</button>
+                <button id="sortObjetButton" class="btn btn-secondary">Sort by Object</button>
+
         </div>
         
         </section>
 
         <script src="../assets/scriptDash.js"></script>
+
+
+        <script>
+
+            //recherche
+
+
+
+        function searchTable() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("reclamationTable");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0]; // Change index if ID is not the first column
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+}
+    
+
+
+//pages
+
+
+
+document.getElementById("prevPageButton").addEventListener("click", showPrevPage);
+document.getElementById("nextPageButton").addEventListener("click", showNextPage);
+
+var currentPage = 0;
+var rowsPerPage = 10;
+var table = document.getElementById("reclamationTable");
+var rows = table.rows;
+
+function showPrevPage() {
+    if (currentPage > 0) {
+        currentPage--;
+        updateTable();
+    }
+}
+
+function showNextPage() {
+    if (currentPage < Math.ceil(rows.length / rowsPerPage) - 1) {
+        currentPage++;
+        updateTable();
+    }
+}
+
+function updateTable() {
+    var startIndex = currentPage * rowsPerPage;
+    var endIndex = startIndex + rowsPerPage;
+    for (var i = 0; i < rows.length; i++) {
+        if (i >= startIndex && i < endIndex) {
+            rows[i].style.display = "";
+        } else {
+            rows[i].style.display = "none";
+        }
+    }
+}
+
+// Initial update to show the first page
+updateTable();
+
+
+
+
+//multidelete
+
+
+document.getElementById("deleteSelectedButton").addEventListener("click", function() {
+    var selectedRecords = document.querySelectorAll(".record-checkbox:checked");
+    if (selectedRecords.length > 0) {
+        var confirmation = confirm("Are you sure you want to delete the selected records?");
+        if (confirmation) {
+            var ids = [];
+            selectedRecords.forEach(function(record) {
+                ids.push(record.value); // Collect the IDs of selected records
+            });
+            // Redirect to the PHP script to handle deletion with selected IDs
+            window.location.href = "supprimerreclamation.php?ids=" + ids.join(",");
+        }
+    } else {
+        alert("Please select at least one record to delete.");
+    }
+});
+
+
+
+//sort by
+
+document.getElementById("sortObjetButton").addEventListener("click", function() {
+    // Send an AJAX request to a PHP script to sort the data by "objet"
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                // Replace the entire table with the sorted data returned by the server
+                document.querySelector("#reclamationTable").innerHTML = xhr.responseText;
+                // Reset currentPage to the first page
+                currentPage = 0;
+                // Update the table pagination
+                updateTable();
+            } else {
+                // Handle error
+                console.error("Failed to sort reclamations: " + xhr.status);
+            }
+        }
+    };
+    xhr.open("GET", "trierreclamation.php?sort=objet", true);
+    xhr.send();
+});
+
+
+
+    </script>
+     
+
     </body>
 </html>

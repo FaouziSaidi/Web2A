@@ -3,16 +3,16 @@ class Reponse
 {
 
   
-	private $id_réponse;
+	private $id_reponse;
 	private $email;
 	private $objet;
 	private $contenu;
 	private $id_reclamation;
 
-	function __construct($id_réponse,$email,$objet,$contenu,$id_reclamation)
+	function __construct($id_reponse,$email,$objet,$contenu,$id_reclamation)
 	{
     
-		$this->id_réponse= $id_réponse;
+		$this->id_reponse= $id_reponse;
         $this->email=$email ;
         $this->objet=$objet;
 		$this->contenu=$contenu;
@@ -22,7 +22,7 @@ class Reponse
 
 	function getid_réponse()
 	{
-		return $this->id_réponse;
+		return $this->id_reponse;
 	}
     function getemail(){
 		return $this->email;

@@ -7,6 +7,7 @@
     font-family: 'Poppins', sans-serif;
 }
 
+
 .image-container {
     position: relative; /* Permet de positionner l'image par rapport à son conteneur */
 }
@@ -466,4 +467,7 @@ nav.close ~ .dashboard .top{
         left: 0;
         width: 100%;
     }
+
+    
+
 }

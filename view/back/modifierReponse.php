@@ -2,7 +2,7 @@
 include_once '../../controller/RéponseC.php';
 
 $error = "";
-
+$id_reponse ="";
 $email = "";
 $objet = '';
 $contenu = '';
@@ -13,33 +13,38 @@ $reponseC = new reponseC();
 $Reponse = null; 
 
 
-if (isset($_GET["id_réponse"]) && !empty($_GET["id_réponse"])) {
-    $repId = $_GET["id_réponse"];
+if (isset($_GET["id"]) && !empty($_GET["id"] )) {
+    $repId = $_GET["id"];
     $Reponse = $reponseC->getrepById($repId); 
-    
+
 }
+    else{
+        echo "no id reponse";
+    }
+    
+
 
 
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (
-        !empty($_POST["id_réponse"]) &&
-        !empty($_POST["email"]) &&
-        !empty($_POST["objet"]) &&
-        !empty($_POST["contenu"]) &&
-        !empty($_POST["id_reclamation"]) 
+        !empty($_POST["id_rep"]) &&
+        !empty($_POST["emailL"]) &&
+        !empty($_POST["objetT"]) &&
+        !empty($_POST["contenuU"]) &&
+        !empty($_POST["id_rec"]) 
     ) {
         
         $repToUpdate = new Reponse(
-            $_POST['id_réponse'],
-            $_POST['email'],
-            $_POST['objet'],
-            $_POST['contenu'],
-            $_POST['id_reclamation']
+            $_POST['id_rep'],
+            $_POST['emailL'],
+            $_POST['objetT'],
+            $_POST['contenuU'],
+            $_POST['id_rec']
         );
-        $reponseC->updaterep($repToUpdate, $_POST["id_réponse"]);
+        $reponseC->updaterep($repToUpdate, $_POST["id_rep"]);
         header('Location: afficherReponse.php'); 
-        
+        var_dump($_POST["id_rep"]);
         exit;
     } else {
         $error = "Missing information";
@@ -74,25 +79,26 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         <?php echo $error; ?>
     </div>
 
-    <?php if ($Reponse): ?>
-        <?php echo "test"; ?>
+    <?php if ($Reponse):
+         ?>
+        
         <form action="" method="POST">
-            <input type="hidden" name="id_réponse" id="id_réponse" value="<?php echo $Reponse['id_réponse']; ?>">
+            <input type="hidden" name="id_rep" id="id_rep" value="<?php echo $Reponse['id_reponse']; ?>">
             <div>
                 <label for="email">Email :</label>
-                <input type="text" name="email" id="email" value="<?php echo $Reponse['email']; ?>">
+                <input type="text" name="emailL" id="emailL" value="<?php echo $Reponse['email']; ?>">
             </div>
             <div>
                 <label for="objet">Objet :</label>
-                <input type="text" name="objet" id="objet" value="<?php echo $Reponse['objet']; ?>">
+                <input type="text" name="objetT" id="objetT" value="<?php echo $Reponse['objet']; ?>">
             </div>
             <div>
                 <label for="contenu">Contenu:</label>
-                <input type="text" name="contenu"  id="contenu"  value="<?php echo $Reponse['contenu']; ?>">
+                <input type="text" name="contenuU"  id="contenuU"  value="<?php echo $Reponse['contenu']; ?>">
             </div>
             <div>
                 <label for="id_reclamation">ID reclamation:</label>
-                <input type="text" name="id_reclamation"  id="id_reclamation"  value="<?php echo $Reponse['id_reclamation']; ?>">
+                <input type="number" name="id_rec"  id="id_rec"  value="<?php echo $Reponse['id_reclamation']; ?>">
             </div>
             <div>
                 <input type="submit" value="Update">

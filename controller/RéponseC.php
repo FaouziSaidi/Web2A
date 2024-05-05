@@ -60,7 +60,7 @@
      
 
     function supprimerréponse($id){
-        $sql="DELETE FROM réponse WHERE id_réponse= :id";
+        $sql="DELETE FROM réponse WHERE id_reponse= :id";
         $db = config::getConnexion();
         $req=$db->prepare($sql);
         $req->bindValue(':id',$id);
@@ -74,8 +74,8 @@
 
 
     
-    function modifierreponse($Reponse, $id_réponse){
-        $sql="UPDATE réponse set email =:email ,objet=:objet ,contenu=:contenu ,id_reclamation:=id_reclamation where id_réponse=".$id_réponse;
+    function modifierreponse($Reponse, $id_reponse){
+        $sql="UPDATE réponse set email =:email ,objet=:objet ,contenu=:contenu ,id_reclamation:=id_reclamation where id_reponse=".$id_reponse;
             $db = config::getConnexion();
             try{
                 $query = $db->prepare($sql);
@@ -95,12 +95,12 @@
 
     
     
-    function getrepbyid($id_réponse) {
-        $sql = "SELECT * FROM réponse WHERE id_réponse = :id_réponse";
+    function getrepbyid($id_reponse) {
+        $sql = "SELECT * FROM réponse WHERE id_reponse = :id_reponse";
         $db = config::getConnexion();
         try {
             $query = $db->prepare($sql);
-            $query->execute([':id_réponse' => $id_réponse]);
+            $query->execute([':id_reponse' => $id_reponse]);
             $Reponse = $query->fetch(PDO::FETCH_ASSOC);
             return $Reponse;
         } catch (Exception $e) {
@@ -110,18 +110,19 @@
 		
 
 
-function updaterep($reponse, $id_réponse) {
+function updaterep($reponse, $id_reponse) {
     $db = config::getConnexion();
+    var_dump($reponse);
     $sql="UPDATE réponse SET 
     email = :email, 
     objet = :objet, 
     contenu = :contenu, 
     id_reclamtion = :id_reclamtion
-WHERE id_réponse = :id_réponse";
+WHERE id_reponse = :id_reponse";
     try {
         $query = $db->prepare($sql);
         $query->execute([
-            'id_réponse' => $id_réponse,
+            'id_reponse' => $id_reponse,
             'email' => $reponse->getemail(), 
             'objet' => $reponse->getobjet(),
             'contenu' => $reponse->getcontenu(),

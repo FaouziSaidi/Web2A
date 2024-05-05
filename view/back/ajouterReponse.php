@@ -1,8 +1,10 @@
 
 
 <?php
+include_once '../../model/Reclamation.php';
 include_once '../../model/réponse.php';
 include '../../controller/RéponseC.php';
+include_once '../../controller/reclamationC.php';
 
 $error = "";
 
@@ -15,7 +17,9 @@ $id_reclamation = '';
 
 
 $Reponse = null;
+$reclamation = null;
 
+$reclamationC = new reclamationC();
 
 $reponseC = new reponseC();
 if (
@@ -40,6 +44,8 @@ if (
             $_POST['id_rec']
             ) ;
         $reponseC->ajouterréponse($Reponse);
+        $recId = $_GET["id_rec"];
+        $reclamationC->updateReclamationEtat($recId, 1);
         header('Location:afficherReponse.php');
     } else {
         $error = "Missing information";
