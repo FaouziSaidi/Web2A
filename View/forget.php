@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>Forgot Password</title>
     <link rel="stylesheet" href="../assets/css/register.css">
     <style>
          .container {
@@ -79,7 +79,7 @@ require '../View/mail.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($_POST["email"]) && isset($_POST["email"])) {
         $email = $_POST["email"];
-
+        if (emailExists($email)) {
         $token = bin2hex(random_bytes(16));
         $token_hash = hash("sha256", $token);
         $expiry = date("Y-m-d H:i:s", time() + 60 * 30);
@@ -107,7 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 ";
 
                 $mail->send();
-                echo "Message sent, please check your inbox.";
+                echo "<script>alert('Message sent, please check your inbox.');</script>";
             } else {
                 echo "Error updating record: " . $pdo->errorInfo()[2];
             }
@@ -116,6 +116,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } catch (Exception $e) {
             echo "Email error: " . $e->getMessage();
         }
+    } else {
+        // L'e-mail n'existe pas, affichez un message d'erreur
+        echo "<script>alert('Email does not exist.');</script>";
+    }
     }
 }
 ?>

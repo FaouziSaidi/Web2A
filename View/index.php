@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>home</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="../assets/css/style.css" rel="stylesheet">
     <style>
@@ -55,8 +55,11 @@
           
           <?php
           if (!isset($_SESSION["fullname"])) {
-              echo '<button class="login-button" onclick="window.location.href=\'login.php\'">Login</button>';
-              echo '<button class="login-button" onclick="window.location.href=\'register.php\'">Sign-Up</button>';
+            
+            echo '<button class="login-button" onclick="window.location.href=\'login.php\'">Log in</button>';
+            echo '<button class="login-button" style="margin-left: 10px;" onclick="window.location.href=\'register.php\'">Sign-Up</button>';
+            
+            
           } else {
               echo '<div class="dropdown">';
               echo '<span class="username">'.$_SESSION["fullname"].'</span>';

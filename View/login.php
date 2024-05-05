@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>Login</title>
     <link rel="stylesheet" href="../assets/css/register.css">
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    
 </head>
 <body>
     <div class="container">
@@ -17,12 +18,7 @@
     
           <input placeholder="Password" id="password" name="password" type="password" class="input" required=""/>
           <br>
-          <br>
-          <label for="rememberMe" style="display: flex; align-items: center; font-size: 12px; line-height: 1.5; margin-top: 5px; margin-bottom: -12px;">
-                <input type="checkbox" id="rememberMe" name="rememberMe" style="margin-right: 5px;">
-                Remember me
-            </label>
-          <br>
+          
           <br>
           <div class="g-recaptcha" data-sitekey="6LdDWx4pAAAAADcWOAOv76zKmKlf3Ul3fKzmHNp3" data-type="image" data-callback="recaptchaCallback"></div>
           <input value="Login" type="submit" class="login-button" />
@@ -106,22 +102,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
           echo "Email: " . $_POST["email"] . "<br>";
           echo "Password: " . $_POST["password"] . "<br>";
-          // Hache le mot de passe
-          //$passwordHash = password_hash($password, PASSWORD_DEFAULT);
+          
           $uC = new UserC();
-          $userData = $uC->checkEmailPassword($email, $password); // Envoie le mot de passe haché
+          $userData = $uC->checkEmailPassword($email, $password); 
           echo "userData: " .$userData . "<br>";
           if ($userData) {
               $_SESSION["id"] = $userData["id"];
               $_SESSION["fullname"] = $userData["first_name"] . " " . $userData["last_name"];
-              /*if (isset($_POST["rememberMe"]) && $_POST["rememberMe"] == "on") {
-                $payload = array(
-                    "id" => $array["id"],
-                    "fullname" => $array["name"]." ".$array["last_name"]
-                );
-                $jwt = encryptJWT($payload);
-                setcookie("jwt_token", $jwt, time() + (7 * 24 * 60 * 60), "/");
-            }*/
               header("location:index.php");
               exit; // Assurez-vous qu'aucun autre code ne s'exécute après la redirection
           } else {

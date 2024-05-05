@@ -58,10 +58,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $stmt->execute();
 
         // Message de succès
-        echo "Mot de passe mis à jour. Vous pouvez maintenant vous connecter.";
+        echo "<script>alert('Mot de passe mis à jour. Vous pouvez maintenant vous connecter.');</script>";
+       
     } else {
         // Message d'erreur si le champ de mot de passe est manquant ou vide
-        echo "Veuillez fournir un nouveau mot de passe.";
+        echo "<script>alert('Veuillez fournir un nouveau mot de passe.');</script>";
     }
 }
 ?>
@@ -72,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>Reset Password</title>
     <link rel="stylesheet" href="../assets/css/register.css">
     <style>
          .container {

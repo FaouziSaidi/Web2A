@@ -20,7 +20,7 @@ if (isset($_POST["diplome"])) {
         $employeC->addEmploye($diplome,$id_user);
 
         // Redirection vers la même page pour le moment, mais vous pouvez ajuster l'action du formulaire si nécessaire
-        header('Location: index.html');
+        header('Location: index.PHP');
         exit; // Assure que le script se termine ici pour éviter toute exécution supplémentaire
     } else {
         $error = "Missing information";
@@ -40,7 +40,7 @@ if (isset($_POST["companyName"]) && isset($_POST["companyAddress"])) {
         $employeurC->addEmployeur($companyName, $companyAddress, $id_user);
 
         // Redirection vers la même page pour le moment, mais vous pouvez ajuster l'action du formulaire si nécessaire
-        header('Location: index.html');
+        header('Location: index.php');
         exit; // Assure que le script se termine ici pour éviter toute exécution supplémentaire
     } else {
         $error = "Missing information";

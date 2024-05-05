@@ -72,7 +72,7 @@ echo "La fonction updateEmploye a été appelée avec succès.";
             echo "La fonction updateEmploye a été appelée avec succès.";
         }
         $userC->updateUser($user, $_POST["id"]);
-        header('Location:Dashboard.html');
+        header('Location:dash.php');
     } else {
         $error = "Missing information";
     }
@@ -152,7 +152,7 @@ echo "La fonction updateEmploye a été appelée avec succès.";
 </head>
 
 <body>
-    <button><a href="Dashboard.html">Back to list</a></button>
+    <button><a href="dash.php">Back to list</a></button>
     <hr>
 
     <div id="error">

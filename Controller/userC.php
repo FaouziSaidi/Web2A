@@ -139,22 +139,7 @@ class UserC
     }
 
 
-    public function emailExists($email) {
-        $sql_request = "SELECT * FROM users WHERE email = :email";
-        $db = config::getConnexion();
-
-        $request = $db->prepare($sql_request);
-        $request->bindValue(":email", $email);
-
-        try {
-            $request->execute();
-            $result = $request->fetchAll();
-            return $result;
-        } catch (Exception $e) {
-            die('Error: ' . $e->getMessage());
-        }
-    }
-
+   
     function checkEmailPassword($email, $password) {
         $sql_request = "SELECT * FROM users WHERE email = :email AND password = :password";
         $db = config::getConnexion();
@@ -199,6 +184,21 @@ class UserC
 
 
 
+ function emailExists($email) {
+    $sql_request = "SELECT COUNT(*) FROM users WHERE email = :email";
+    $db = config::getConnexion();
+
+    $request = $db->prepare($sql_request);
+    $request->bindValue(":email", $email);
+
+    try {
+        $request->execute();
+        $count = $request->fetchColumn(); // Récupérer le nombre de lignes retournées
+        return $count > 0; // Renvoyer true si le nombre de lignes est supérieur à zéro, sinon false
+    } catch (Exception $e) {
+        die('Error: ' . $e->getMessage());
+    }
+}
 
 
 
