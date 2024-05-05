@@ -1,8 +1,19 @@
 <?php
 include '../config.php';
 include '../model/contrat.php';
+<<<<<<< HEAD
 require_once('../tcpdf/tcpdf.php');
 require_once('../phpqrcode/qrlib.php');
+=======
+<<<<<<< HEAD
+require_once('../tcpdf/tcpdf.php');
+=======
+<<<<<<< HEAD
+require_once('../tcpdf/tcpdf.php');
+=======
+>>>>>>> e8a46e4650dcaf814d49380350c4f07a146724e2
+>>>>>>> 292799292cbf7465c66642ebf8383cc594d09d63
+>>>>>>> 8b62deea393cdbc0a9b4a1644e3c5b6d462123c7
 
 class ContratC
 {
@@ -58,6 +69,13 @@ class ContratC
     {
         try {
             $db = config::getConnexion();
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 292799292cbf7465c66642ebf8383cc594d09d63
+>>>>>>> 8b62deea393cdbc0a9b4a1644e3c5b6d462123c7
             // Vérifiez d'abord si le contrat existe avant de le mettre à jour
             $check_query = $db->prepare('SELECT id FROM contrat WHERE id = :id');
             $check_query->execute(['id' => $id]);
@@ -91,11 +109,54 @@ class ContratC
             } else {
                 echo "Error: Contract with ID $id does not exist.";
             }
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> 8b62deea393cdbc0a9b4a1644e3c5b6d462123c7
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
         }
     }
     
+<<<<<<< HEAD
+=======
+=======
+            $query = $db->prepare(
+                'UPDATE contrat SET 
+                    ID_employe = :ID_employe, 
+                    ID_employeur = :ID_employeur, 
+                    Titre_poste = :Titre_poste, 
+                    temps_travail = :temps_travail, 
+                    salaire = :salaire, 
+                    typec = :typec, 
+                    Date_de_debut = :Date_de_debut, 
+                    Date_expiration = :Date_expiration 
+                WHERE id = :id'
+            );
+            $query->execute([
+                'id' => $id,
+                'ID_employe' => $contrat->getIdEmploye(),
+                'ID_employeur' => $contrat->getIdEmployeur(),
+                'Titre_poste' => $contrat->getTitrePoste(),
+                'temps_travail' => $contrat->getTempsTravail(),
+                'salaire' => $contrat->getSalaire(),
+                'typec' => $contrat->getTypec(),
+                'Date_de_debut' => $contrat->getDateDeDebut()->format('Y-m-d'),
+                'Date_expiration' => $contrat->getDateExpiration()->format('Y-m-d')
+            ]);
+            echo $query->rowCount() . " records UPDATED successfully <br>";
+>>>>>>> 292799292cbf7465c66642ebf8383cc594d09d63
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    }
+<<<<<<< HEAD
+    
+=======
+>>>>>>> e8a46e4650dcaf814d49380350c4f07a146724e2
+>>>>>>> 292799292cbf7465c66642ebf8383cc594d09d63
+>>>>>>> 8b62deea393cdbc0a9b4a1644e3c5b6d462123c7
 
     function showContrat($id)
     {
@@ -124,6 +185,13 @@ class ContratC
     }
 }
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 292799292cbf7465c66642ebf8383cc594d09d63
+>>>>>>> 8b62deea393cdbc0a9b4a1644e3c5b6d462123c7
 
 
 
@@ -147,12 +215,17 @@ function createContractPDF($Contrat) {
     $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
 
     // Définition de la police
+<<<<<<< HEAD
     $pdf->SetFont('helvetica', '', 15);
+=======
+    $pdf->SetFont('helvetica', '', 10);
+>>>>>>> 8b62deea393cdbc0a9b4a1644e3c5b6d462123c7
 
     // Ajout d'une page
     $pdf->AddPage();
 
     // Contenu du contrat
+<<<<<<< HEAD
     $content = '<h1 style="color: #4169E1; text-align: center; margin-bottom: 20px;">Contract Information</h1><br>';
     $content .= '<p><span style="color: #000000;">Le présent contrat est établi entre l\'employeur identifié par l\'ID </span><span style="color: #4169E1;">' . $Contrat->getIDEmployeur() . '</span><span style="color: #000080;">, ci-après désigné "l\'Employeur", et l\'employé identifié par l\'ID </span><span style="color: #4169E1;">' . $Contrat->getIDEmploye() . '</span><span style="color: #000080;">, ci-après désigné "l\'Employé".</span></p>';
     $content .= '<p style="color: #000000;">Article 1: Objet du contrat</p>';
@@ -165,11 +238,23 @@ function createContractPDF($Contrat) {
     
     // Ajoutez d'autres articles du contrat si nécessaire...
     
+=======
+    $content = '<h1>Contract Information</h1>';
+    $content .= '<p>Employee ID: ' . $Contrat->getIDEmploye() . '</p>';
+    $content .= '<p>Employer ID: ' . $Contrat->getIDEmployeur() . '</p>';
+    $content .= '<p>Title: ' . $Contrat->getTitrePoste() . '</p>';
+    $content .= '<p>Work Hours: ' . $Contrat->getTempsTravail() . '</p>';
+    $content .= '<p>Salary: ' . $Contrat->getSalaire() . '</p>';
+    $content .= '<p>Type: ' . $Contrat->getTypec() . '</p>';
+    $content .= '<p>Start Date: ' . $Contrat->getDateDeDebut()->format('Y-m-d')  . '</p>';
+    $content .= '<p>Expiration Date: ' . $Contrat->getDateExpiration()->format('Y-m-d') . '</p>';
+>>>>>>> 8b62deea393cdbc0a9b4a1644e3c5b6d462123c7
     // Ajoutez d'autres informations du contrat ici...
 
     // Écriture du contenu dans le fichier PDF
     $pdf->writeHTML($content, true, false, true, false, '');
 
+<<<<<<< HEAD
     $qrCodeEmployeur = generateQRCode($Contrat->getIDEmployeur());
 
     // Générer le code QR pour l'ID de l'employé
@@ -196,6 +281,20 @@ function createContractPDF($Contrat) {
 
        // Chemin complet du dossier où le fichier sera enregistré
        $output_dir = 'C:/xampp/htdocs/met/view/pdf/';
+=======
+    // Nom du fichier PDF de sortie
+<<<<<<< HEAD
+    $filename = 'contract_' . $Contrat->getIDContrat(). '.pdf';
+
+       // Chemin complet du dossier où le fichier sera enregistré
+       $output_dir = 'C:/xampp/htdocs/met/view/pdf/';
+=======
+    $filename = 'contract_' . $Contrat->getIDEmploye() . '.pdf';
+
+       // Chemin complet du dossier où le fichier sera enregistré
+       $output_dir = 'C:/xampp/htdocs/gestion des contrats metier/pdf/';
+>>>>>>> 292799292cbf7465c66642ebf8383cc594d09d63
+>>>>>>> 8b62deea393cdbc0a9b4a1644e3c5b6d462123c7
 
        // Création du dossier s'il n'existe pas
        if (!file_exists($output_dir)) {
@@ -204,14 +303,28 @@ function createContractPDF($Contrat) {
    
        // Sauvegarde du fichier PDF dans le dossier spécifié
        $pdf->Output($output_dir . $filename, 'F');
+<<<<<<< HEAD
     // Retourne le chemin complet du fichier PDF créé
     return  $filename;
+=======
+    
+<<<<<<< HEAD
+    // Retourne le chemin complet du fichier PDF créé
+=======
+    // Retourne le nom du fichier PDF créé
+>>>>>>> 292799292cbf7465c66642ebf8383cc594d09d63
+    return $filename;
+>>>>>>> 8b62deea393cdbc0a9b4a1644e3c5b6d462123c7
 }
 
 
 
 
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 8b62deea393cdbc0a9b4a1644e3c5b6d462123c7
 function searchContratById($id)
 {
     try {
@@ -255,12 +368,17 @@ function createContractPDF_mod($Contrat,$id_version) {
     $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
 
     // Définition de la police
+<<<<<<< HEAD
     $pdf->SetFont('helvetica', '', 15);
+=======
+    $pdf->SetFont('helvetica', '', 10);
+>>>>>>> 8b62deea393cdbc0a9b4a1644e3c5b6d462123c7
 
     // Ajout d'une page
     $pdf->AddPage();
 
     // Contenu du contrat
+<<<<<<< HEAD
     $content = '<h1 style="color: #4169E1; text-align: center; margin-bottom: 20px;">Contract Information</h1><br>';
     $content .= '<br>';
     $content .= '<p><span style="color: #000000;">Le présent contrat est établi entre l\'employeur identifié par l\'ID </span><span style="color: #4169E1;">' . $Contrat->getIDEmployeur() . '</span><span style="color: #000080;">, ci-après désigné "l\'Employeur", et l\'employé identifié par l\'ID </span><span style="color: #4169E1;">' . $Contrat->getIDEmploye() . '</span><span style="color: #000080;">, ci-après désigné "l\'Employé".</span></p>';
@@ -274,11 +392,23 @@ function createContractPDF_mod($Contrat,$id_version) {
     
     // Ajoutez d'autres articles du contrat si nécessaire...
     
+=======
+    $content = '<h1>Contract Information</h1>';
+    $content .= '<p>Employee ID: ' . $Contrat->getIDEmploye() . '</p>';
+    $content .= '<p>Employer ID: ' . $Contrat->getIDEmployeur() . '</p>';
+    $content .= '<p>Title: ' . $Contrat->getTitrePoste() . '</p>';
+    $content .= '<p>Work Hours: ' . $Contrat->getTempsTravail() . '</p>';
+    $content .= '<p>Salary: ' . $Contrat->getSalaire() . '</p>';
+    $content .= '<p>Type: ' . $Contrat->getTypec() . '</p>';
+    $content .= '<p>Start Date: ' . $Contrat->getDateDeDebut()->format('Y-m-d')  . '</p>';
+    $content .= '<p>Expiration Date: ' . $Contrat->getDateExpiration()->format('Y-m-d') . '</p>';
+>>>>>>> 8b62deea393cdbc0a9b4a1644e3c5b6d462123c7
     // Ajoutez d'autres informations du contrat ici...
 
     // Écriture du contenu dans le fichier PDF
     $pdf->writeHTML($content, true, false, true, false, '');
 
+<<<<<<< HEAD
     $qrCodeEmployeur = generateQRCode($Contrat->getIDEmployeur());
 
     // Générer le code QR pour l'ID de l'employé
@@ -299,6 +429,8 @@ function createContractPDF_mod($Contrat,$id_version) {
  $pdf->Image($qrCodeEmploye, 130, 200, 50, '', 'PNG', '', 'T', true, 300, '', false, false, 0, false, false, false);
  $pdf->Text(135, 190, 'QR Code Employé');
 
+=======
+>>>>>>> 8b62deea393cdbc0a9b4a1644e3c5b6d462123c7
     // Nom du fichier PDF de sortie
     $filename = 'contract_' . $Contrat->getIDContrat() . '_version_' . $id_version . '.pdf';
 
@@ -352,6 +484,11 @@ public function affiche($id_contrat)
         die('Error: ' . $e->getMessage());
     }
 }
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 292799292cbf7465c66642ebf8383cc594d09d63
+>>>>>>> 8b62deea393cdbc0a9b4a1644e3c5b6d462123c7
 
 
 
@@ -360,6 +497,7 @@ public function affiche($id_contrat)
 
 
 
+<<<<<<< HEAD
 }
 function generateQRCode($text) {
     // Chemin où enregistrer le fichier temporaire du code QR
@@ -375,5 +513,13 @@ function generateQRCode($text) {
     QRcode::png($text, $qrCodeFile, QR_ECLEVEL_L, 10, 2);
     
     return $qrCodeFile;
+=======
+<<<<<<< HEAD
+=======
+
+=======
+>>>>>>> e8a46e4650dcaf814d49380350c4f07a146724e2
+>>>>>>> 292799292cbf7465c66642ebf8383cc594d09d63
+>>>>>>> 8b62deea393cdbc0a9b4a1644e3c5b6d462123c7
 }
 ?>

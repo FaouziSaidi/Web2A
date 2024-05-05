@@ -6,9 +6,12 @@ include '../controller/versionC.php';
 $id_contrat = null;
 $versionController = new VersionC();
 
+<<<<<<< HEAD
 // Vérifier si l'ID du contrat est passé en paramètre GET
 
 
+=======
+>>>>>>> 8b62deea393cdbc0a9b4a1644e3c5b6d462123c7
 function affiche($id_contrat)
 {
     $sql = "SELECT v.id_version, v.date_de_modification, v.pdf, c.ID_employe, c.ID_employeur
@@ -26,7 +29,10 @@ function affiche($id_contrat)
     }
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8b62deea393cdbc0a9b4a1644e3c5b6d462123c7
 if(isset($_POST['id_contrat'])) {
     $id_contrat = $_POST['id_contrat'];
 
@@ -59,6 +65,7 @@ if(isset($_POST['delete_version'])) {
             color: red;
             cursor: pointer;
         }
+<<<<<<< HEAD
         .icon-button {
     background-color: transparent; /* Fond transparent */
     border: none; /* Pas de bord */
@@ -87,6 +94,13 @@ if(isset($_POST['delete_version'])) {
 
     <h1>Dates de Modification d'un Contrat</h1>
     
+=======
+    </style>
+</head>
+<body>
+    <center>
+    <h1>Dates de Modification d'un Contrat</h1>
+>>>>>>> 8b62deea393cdbc0a9b4a1644e3c5b6d462123c7
     <form method="post" action="">
         <label for="id_contrat">ID du Contrat </label>
         <input type="text" id="id_contrat" name="id_contrat">
@@ -105,6 +119,10 @@ if(isset($_POST['delete_version'])) {
                     <th>idantifiant de l'employe</th>
                     <th>idantifiant de l'employeur</th>
                     <th>pdf</th>
+<<<<<<< HEAD
+=======
+                    <th>ppp</th>
+>>>>>>> 8b62deea393cdbc0a9b4a1644e3c5b6d462123c7
                 </tr>
             </thead>
             <tbody>
@@ -114,6 +132,10 @@ if(isset($_POST['delete_version'])) {
                         <td><?php echo $data['date_de_modification']; ?></td>
                         <td><?php echo $data['ID_employe']; ?></td>
                         <td><?php echo $data['ID_employeur']; ?></td>
+<<<<<<< HEAD
+=======
+                        <td><?php echo $data['pdf']; ?></td>
+>>>>>>> 8b62deea393cdbc0a9b4a1644e3c5b6d462123c7
                         <?php $filename = $data['pdf'];
                               $path = 'http://localhost/met/view/pdf/' . $filename;  ?>
                         <td>

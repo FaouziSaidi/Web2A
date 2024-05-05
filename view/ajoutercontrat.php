@@ -44,8 +44,12 @@ if (
         $versionController = new VersionC();
         $id_contrat = $contratC->getLastInsertedID();
         $date_modification = date('Y-m-d H:i:s');
+<<<<<<< HEAD
         $filename_path = $contratC->createContractPDF($contrat);
         $versionController->ajouterVersion($id_contrat,$date_modification,$filename_path);
+=======
+        $versionController->ajouterVersion($id_contrat,$date_modification);
+>>>>>>> 8b62deea393cdbc0a9b4a1644e3c5b6d462123c7
         header('Location: ajoutercontrat.php');
     } else
         $error = "Missing information";
@@ -123,12 +127,28 @@ if (
       </div>
     </section>
 
+<<<<<<< HEAD
 
 
 <script src="../assets/contrat.js"></script>
 <button class="icon-button" onclick="window.location.href='version_front.php?id_contrat=42'">
     <i>Consulter des versions antérieures de mon contrat</i>
 </button>
+=======
+<section class="form-section" style="margin-top: 100px;">
+  <div id="Form" class="form-container cdd">
+    <!-- Votre formulaire ici -->
+
+    <div class="btn-container">
+    <label class="switch btn-color-mode-switch">
+        <input value="1" id="color_mode" name="color_mode" type="checkbox">
+        <label class="btn-color-mode-switch-inner" data-off="CDD" data-on="CDI" for="color_mode"></label>
+    </label>
+</div>
+
+<script src="../assets/contrat.js"></script>
+
+>>>>>>> 8b62deea393cdbc0a9b4a1644e3c5b6d462123c7
 <div id="Form" class="form-container cdd" >
 <form class="form" action="contrat.php" method="POST">
 <p class="title">Contrat </p>
@@ -181,6 +201,7 @@ input[type="submit"]:hover, input[type="reset"]:hover {
 label{
     color:#fff;
 }
+<<<<<<< HEAD
 .icon-button {
     background-color: transparent; /* Fond transparent */
     border: none; /* Pas de bord */
@@ -202,6 +223,9 @@ label{
 }
 </style> 
 
+=======
+</style> 
+>>>>>>> 8b62deea393cdbc0a9b4a1644e3c5b6d462123c7
     <form action="" method="POST" >
         <table border="1" align="center">
 

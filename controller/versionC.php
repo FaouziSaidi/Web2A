@@ -107,6 +107,10 @@ class VersionC
             die('Error: ' . $e->getMessage());
             return false; 
         }
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 8b62deea393cdbc0a9b4a1644e3c5b6d462123c7
     }
 
     public function ajouterVersionParUpdate($id_contrat, $date_de_modification, $pdf)
@@ -144,6 +148,33 @@ class VersionC
 
     
    
+<<<<<<< HEAD
+=======
+=======
+<<<<<<< HEAD
+
+        public function ajouterVersionParUpdate($id_contrat, $date_de_modification)
+{
+    $sql = "INSERT INTO ver  VALUES (NULL,:id_contrat, :date_de_modification)";
+    $db = config::getConnexion();
+    try {
+        $query = $db->prepare($sql);
+        $query->bindParam(':id_contrat', $id_contrat, PDO::PARAM_INT);
+        $query->bindParam(':date_de_modification', $date_de_modification);
+        $query->execute();
+        return true;
+    } catch (Exception $e) {
+        // Log the error instead of terminating the script
+        error_log('Error in ajouterVersion: ' . $e->getMessage());
+        return false;
+    }
+}
+
+=======
+>>>>>>> e8a46e4650dcaf814d49380350c4f07a146724e2
+        
+>>>>>>> 292799292cbf7465c66642ebf8383cc594d09d63
+>>>>>>> 8b62deea393cdbc0a9b4a1644e3c5b6d462123c7
 }
 
 

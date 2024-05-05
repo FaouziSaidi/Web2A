@@ -108,12 +108,17 @@ th {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         
         <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+<<<<<<< HEAD
           <link rel="stylesheet" href="../assets/css/styleDash.css">
+=======
+
+>>>>>>> 8b62deea393cdbc0a9b4a1644e3c5b6d462123c7
 
 
 </head>
 
 <body>
+<<<<<<< HEAD
 <nav>
         <div class="image-container">
             <img src="../img/masar.png" alt="Logo Masar" width="80">
@@ -172,6 +177,8 @@ th {
         </div>
     </nav>
     <section class="dashboard">
+=======
+>>>>>>> 8b62deea393cdbc0a9b4a1644e3c5b6d462123c7
 <div class="search-box">
   <input id="searchInput" type="text" placeholder="Search...">
 
@@ -179,8 +186,12 @@ th {
 <button class="icon-button" onclick="sortTableAsc()"><i class="fas fa-arrow-up"></i></button>
 <button class="icon-button" onclick="sortTableDesc()"><i class="fas fa-arrow-down"></i></button>
 <button class="icon-button" onclick="resetTable()"><i class="fas fa-sync-alt"></i></button>
+<<<<<<< HEAD
 <button id="versionButton" class="icon-button"><i>Consulter les versions des contrats</i></button>
 
+=======
+       
+>>>>>>> 8b62deea393cdbc0a9b4a1644e3c5b6d462123c7
     <center>
         <h1>List of contracts</h1>
         <h4>
@@ -247,6 +258,7 @@ th {
    
      </tbody>
     </table>
+<<<<<<< HEAD
     </section>   
 
 <script>
@@ -255,6 +267,11 @@ document.addEventListener("DOMContentLoaded", function() {
         window.location.href = 'version.php';
     });
 });
+=======
+    
+
+<script>
+>>>>>>> 8b62deea393cdbc0a9b4a1644e3c5b6d462123c7
 
 console.log("1");
 document.addEventListener("DOMContentLoaded", function() {
