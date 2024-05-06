@@ -48,7 +48,7 @@ class cvC
         }
     }
 
-    function updateCv(Cv $cv, $id_cv) {
+    function updateCv($cv, $id_cv) {
         $db = config::getConnexion();
         $sql="UPDATE cv SET 
         id_utl = :id_utl, 

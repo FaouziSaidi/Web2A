@@ -11,7 +11,7 @@ $formation = '';
 $cvC = new cvC();
 $cv = null; 
 
-
+// jwha behi
 if (isset($_GET["id"]) && !empty($_GET["id"])) {
     $cvId = $_GET["id"];
     $cv = $cvC->getCvById($cvId); 
@@ -20,24 +20,24 @@ if (isset($_GET["id"]) && !empty($_GET["id"])) {
 
 
 
-if (isset($_POST["cv"]) && isset($_POST["utl"]) && isset($_POST["exp"]) && isset($_POST["dipl"]) && isset($_POST["forma"])) {
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (
-        !empty($_POST["cv"]) &&
-        !empty($_POST["utl"]) &&
-        !empty($_POST["exp"]) &&
-        !empty($_POST["dipl"]) &&
-        !empty($_POST["forma"])
+        !empty($_POST["id_cv"]) &&
+        !empty($_POST["id_utl"]) &&
+        !empty($_POST["id_exp"]) &&
+        !empty($_POST["diplome"]) &&
+        !empty($_POST["formation"])
     ) {
         
-        
         $cvToUpdate = new Cv(
-            $_POST['cv'],
-            $_POST['utl'],
-            $_POST['exp'],
-            $_POST['dipl'],
-            $_POST['forma']
+
+            $_POST['id_cv'],
+            $_POST['id_utl'],
+            $_POST['id_exp'],
+            $_POST['diplome'],
+            $_POST['formation']
         );
-        $cvC->updateCv($cvToUpdate, $_POST["id"]);
+        $cvC->updateCv($cvToUpdate, $_POST["id_cv"]);
         header('Location: listCv.php'); 
         
         exit;
@@ -76,22 +76,22 @@ if (isset($_POST["cv"]) && isset($_POST["utl"]) && isset($_POST["exp"]) && isset
 
     <?php if ($cv): ?>
         <form action="" method="POST">
-            <input type="hidden" name="cv" value="<?php echo $cv['id_cv']; ?>">
+            <input type="hidden" name="id_cv" id="id_cv" value="<?php echo $cv['id_cv']; ?>">
             <div>
                 <label for="id_utl">User ID:</label>
-                <input type="number" name="utl" value="<?php echo $cv['id_utl']; ?>">
+                <input type="number" name="id_utl" id="id_utl" value="<?php echo $cv['id_utl']; ?>">
             </div>
             <div>
                 <label for="id_exp">Exp ID:</label>
-                <input type="number" name="exp" value="<?php echo $cv['id_exp']; ?>">
+                <input type="number" name="id_exp"  id="id_exp"  value="<?php echo $cv['id_exp']; ?>">
             </div>
             <div>
                 <label for="dip">Diplome:</label>
-                <input type="text" name="dipl" value="<?php echo $cv['diplome']; ?>">
+                <input type="text" name="diplome"  id="diplome"  value="<?php echo $cv['diplome']; ?>">
             </div>
             <div>
                 <label for="forma">Formation:</label>
-                <input type="text" name="Forma" value="<?php echo $cv['formation']; ?>">
+                <input type="text" name="formation"  id="formation"  value="<?php echo $cv['formation']; ?>">
             </div>
             <div>
                 <input type="submit" value="Update">
@@ -99,7 +99,7 @@ if (isset($_POST["cv"]) && isset($_POST["utl"]) && isset($_POST["exp"]) && isset
             </div>
         </form>
     <?php else: ?>
-        <p>CV not found.</p>
+        no cv found
     <?php endif; ?>
 </body>
 </html>

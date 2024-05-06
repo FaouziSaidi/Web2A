@@ -109,6 +109,11 @@ $list = $cvC->listCv();
             <br>
             <a class="btn btn-primary" href="/Gestion_Cv/View/listexp.php" role="button">Experience</a>
             <br>
+            <div class="container my-5">
+                <form method="post" action="/Gestion_Cv/View/search.php">
+                    <a class="btn btn-dark btn-sm" name="submit" role="button" href="/Gestion_Cv/View/search.php">click here to Search</a>
+                </form>
+            </div>
             <table class="table"> 
                 <thead>
                     <tr>
@@ -131,26 +136,83 @@ $list = $cvC->listCv();
                 </thead>
                 <tbody>
                 <?php
-        foreach ($list as $cv) {
-        ?>
+                $sql = 'SELECT COUNT(*) AS nb_cv FROM `cv`;';
+                $db = config::getConnexion();
+                
+                $query = $db->prepare($sql);
+                
+                $query->execute();
+                
+            
+                $result = $query->fetch();
+                
+                $nbcv = (int) $result['nb_cv'];
+                //echo $nbcv;
+                $numbdata=3;
+                $nbpage=ceil($nbcv/$numbdata);
+
+
+                for($btn=1;$btn<=$nbpage;$btn++)
+                {
+                    echo '<button class="btn btn-dark mx-1 my-3"><a href="/Gestion_Cv/View/listCV.php?page='.$btn.'" class="text-light">'.$btn.'</a></button>';
+                }
+                
+                //mahouch yodkhol lil if hadhy
+                if(isset($_GET['page']))
+                {
+                    $page = (int)$_GET['page'];
+                    //echo $page;
+                    //echo 'a';
+                }
+                else   
+                {
+                    $page=1;
+                    //echo 'b';
+                }
+                
+                
+                $slimit=($page*$numbdata)-$numbdata;
+                echo "SLimit: $slimit"; 
+
+                $con=getdb();
+                $sql = "SELECT * FROM cv LIMIT :slimit,:numbdata; ";
+                //$result=mysqli_query($con,$sql);
+                $db = config::getConnexion();
+                
+                $query = $db->prepare($sql);
+                
+                $query->bindValue(':slimit', $slimit, PDO::PARAM_INT);
+                $query->bindValue(':numbdata', $numbdata, PDO::PARAM_INT);               
+
+                $query->execute();
+                
+            
+                
+
+    
+            $res = $query->fetchAll(PDO::FETCH_ASSOC);
+        
+
+            foreach($res as $row){
+                    
+                        ?>
                     <tr>
-                        <td><?= $cv['id_cv']; ?></td>
-                        <td><?= $cv['id_utl']; ?></td>
-                        <td><?= $cv['id_exp']; ?></td>
-                        <td><?= $cv['diplome']; ?></td>
-                        <td><?= $cv['formation']; ?></td>
+                        <td><?= $row['id_cv']; ?></td>
+                        <td><?= $row['id_utl']; ?></td>
+                        <td><?= $row['id_exp']; ?></td>
+                        <td><?= $row['diplome']; ?></td>
+                        <td><?= $row['formation']; ?></td>
                         <td>
-            <a class="btn btn-danger btn-sm " href="/Gestion_CV/View/deleteCV.php?id=<?php echo $cv['id_cv']; ?>" role="button">
+            <a class="btn btn-danger btn-sm " href="/Gestion_CV/View/deleteCV.php?id=<?php echo $row['id_cv']; ?>" role="button">
                 Delete
             </a>
             </td>
                     </tr>
                 </tbody>
-                <?php }?>
+                <?php } ?>
             </table>
         </div>
         </section>
-
         <script src="scriptDash.js"></script>
     </body>
 </html>

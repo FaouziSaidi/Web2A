@@ -63,10 +63,10 @@ $list = $expC->listexp();
                         <td><?= $exp['dofs']; ?></td>
                         <td><?= $exp['dofe']; ?></td>
                         <td>
-            <a class="btn btn-danger btn-sm " href="/gestion_exp/View/deleteExp.php?id=<?php echo $exp['id_exp']; ?>" role="button">
+            <a class="btn btn-danger btn-sm " href="/gestion_cv_homepage/View/deleteExp.php?id=<?php echo $exp['id_exp']; ?>" role="button">
                 Delete
             </a>
-            <a class="btn btn-danger btn-sm " href="/gestion_exp/View/updateExp.php?id=<?php echo $exp['id_exp']; ?>" role="button">
+            <a class="btn btn-danger btn-sm " href="/gestion_cv_homepage/View/updateExp.php?id=<?php echo $exp['id_exp']; ?>" role="button">
                 edit
             </a>
                         </td>

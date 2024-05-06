@@ -94,12 +94,12 @@ class expC
 
 
 
-function getexpById($id_exp) {
-    $sql = "SELECT * FROM experience WHERE id_exp = :id_exp";
+function getexpById($id) {
+    $sql = "SELECT * FROM experience WHERE id_exp = :id";
     $db = config::getConnexion();
     try {
         $query = $db->prepare($sql);
-        $query->execute([':id_cv' => $id_exp]);
+        $query->execute([':id' => $id]);
         $exp = $query->fetch(PDO::FETCH_ASSOC);
         return $exp;
     } catch (Exception $e) {

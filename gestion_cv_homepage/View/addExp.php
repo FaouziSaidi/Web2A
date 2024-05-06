@@ -55,6 +55,16 @@ if (
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>Add Exp</title>
+    <script>
+        function validateForm() {
+            var etablissement = document.getElementById('etablissement').value;
+            if (etablissement.trim() === '') {
+                alert('Etablissement field cannot be empty.');
+                return false;
+            }
+            return true;
+        }
+    </script>
 </head>
 <body>
     <div>
@@ -62,7 +72,7 @@ if (
         <div id="error">
         <?php echo $error; ?>
     </div>
-    <form action="" method="POST">
+    <form action="" method="POST" onsubmit="return validateForm();">
         <div class="row mb-3">
             <label class="col-sm-3 col-form-label">ID Exp:</label>
             <div class="col-sm-6">
@@ -78,7 +88,7 @@ if (
         <div class="row mb-3">
             <label class="col-sm-3 col-form-label">Etablissement:</label>
             <div class="col-sm-6">
-                <input type="text" class="form-control" name ="etabl" value="<?php echo $etablissement; ?>">
+                <input type="text" class="form-control" name ="etabl" id="etablissement"  value="<?php echo $etablissement; ?>">
             </div>
         </div>
         <div class="row mb-3">

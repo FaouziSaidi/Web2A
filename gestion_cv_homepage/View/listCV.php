@@ -33,7 +33,26 @@ $list = $cvC->listCv();
             <a class="btn btn-primary" href="/gestion_cv_homepage/View/addCV.php" role="button">New cv</a>
             <a class="btn btn-primary" href="/gestion_cv_homepage/View/listexp.php" role="button">Exp</a>
             <br>
-            <table class="table"> 
+
+            <form action="/gestion_cv_homepage/View/import.php" method="post" enctype="multipart/form-data">
+            <fieldset>
+                <legend>Import And export CVS</legend>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="filebutton">Select File</label>
+                    <div class="col-md-4">
+                        <input type="file" name="file" id="file" class="input-large" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="singlebutton">Import Data</label>
+                    <div class="col-md-4">
+                        <button type="submit" id="submit" name="import" class="btn btn-primary button-loading" data-loading-text="Loading...">Upload</button>
+                    </div>
+                </div>
+                </fieldset>
+            </form>
+            
+            <table class="table my-5"> 
                 <thead>
                     <tr>
                         <th>
@@ -73,9 +92,15 @@ $list = $cvC->listCv();
                 </tbody>
                 <?php }?>
             </table>
+            <form class="form_horizontal" action="/gestion_cv_homepage/View/import.php" method="post" 
+            enctype="multipart/form-data">
+            <div class="form-group">
+                <div class="col-md-offset-4 col-md-offset-4">
+                    <input type="submit" name="Export" class="btn btn-success" value="Export"/>
+                </div>
+            </div>
+            </form>
         </div>
         </section>
-
-        
     </body>
 </html>
