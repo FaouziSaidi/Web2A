@@ -163,5 +163,50 @@ class ArticleC
         $req->bindValue(':id_article', $_POST['ID_article']);
         $req->execute();
     }
+
+    public function fetchAllTags() {
+        $db = database_configuration::getConnexion();
+        $sql = "SELECT DISTINCT tags FROM articles"; // Assuming tags are stored in a single column, separated by commas
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+        $tags = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+        // Split tags and remove duplicates
+        $allTags = [];
+        foreach ($tags as $tagString) {
+            $tagArray = explode(',', $tagString);
+            $allTags = array_merge($allTags, $tagArray);
+        }
+        return array_unique($allTags);
+    }
+
+    public function fetchArticlesByTags($selectedTags) {
+        $db = database_configuration::getConnexion();
+        $tagConditions = [];
+        $sql = "SELECT * FROM articles WHERE ";
+
+        // Generate unique placeholders for each tag
+        foreach ($selectedTags as $index => $tag) {
+            $tagConditions[] = "FIND_IN_SET(:tag$index, tags)";
+        }
+
+        // Append the conditions to the SQL query
+        $sql .= implode(' OR ', $tagConditions);
+
+        $stmt = $db->prepare($sql);
+
+        // Bind each tag to its unique placeholder
+        foreach ($selectedTags as $index => $tag) {
+            $stmt->bindValue(":tag$index", $tag);
+        }
+
+        try {
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            die('Erreur : ' . $e->getMessage());
+        }
+    }
+
 }
 ?>

@@ -1,7 +1,6 @@
 <?php
 require_once '../../Controller/Blog/CommentaireC.php';
 $commentaireController = new CommentaireC();
-#TODO : Add bad words filter and controle de séisie inputs
 $ID_article = $_POST['ID_article'];
 $ID_auteur = $_POST['ID_auteur'];
 $nom_auteur = $_POST['nom_auteur'];

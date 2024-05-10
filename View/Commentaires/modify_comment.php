@@ -14,7 +14,6 @@ require_once '../../Controller/Blog/CommentaireC.php';
 $blogController = new ArticleC();
 $commentaireController = new CommentaireC();
 
-// Check if it's an article modification request
 if (isset($_GET['ID_article'])) {
     $ID_article = $_GET['ID_article'];
     $article = $blogController->fetchArticleById($ID_article);
@@ -31,12 +30,12 @@ if (isset($_GET['ID_article'])) {
     echo '</form>';
     echo '<a href="../blogs_frontpage.php">Cancel</a>';
 } 
-// Check if it's a comment modification request
+
 elseif (isset($_GET['ID_commentaire'])) {
     $ID_commentaire = $_GET['ID_commentaire'];
-    $comment = $commentaireController->fetchCommentById($ID_commentaire); // Assume fetchCommentById() is a method to get comment details
+    $comment = $commentaireController->fetchCommentById($ID_commentaire); /
 
-    echo '<form action="update_comment.php" method="post">'; // Assume update_comment.php handles the comment update
+    echo '<form action="update_comment.php" method="post">'; 
     echo '<input type="hidden" name="ID_commentaire" value="' . htmlspecialchars($comment['ID_commentaire']) . '"/>';
     echo 'Content:<br/><textarea name="contenu">' . htmlspecialchars($comment['contenu']) . '</textarea><br/>';
     echo 'Author ID: <input type="text" name="ID_auteur" value="' . htmlspecialchars($comment['ID_auteur']) . '"/><br/>';

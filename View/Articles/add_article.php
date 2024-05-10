@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajouter_article']))
     $date_publication = $_POST['date_publication']; 
     $id_auteur = $_POST['id_auteur'];
     $nom_auteur_article = $_POST['nom_auteur_article'];
-    $nbr_vues = $_POST['nbr_vues'];
+    $nbr_vues = $_POST['nbr_vues'] ?? 0; // Use the null coalescing operator to set a default value
     $tags = isset($_POST['tags']) ? explode(',', $_POST['tags']) : []; // Splitting tags by comma
 
 

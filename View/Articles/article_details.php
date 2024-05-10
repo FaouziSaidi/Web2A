@@ -14,10 +14,27 @@ session_start();
 $blogController = new ArticleC();
 $commentaireController = new CommentaireC();
 
-if (isset($_GET['ID_article']))
+// Initialize $ID_article to null to avoid undefined variable errors
+$ID_article = null;
+
+// Check if ID_article is set in the URL (GET request)
+if (isset($_GET['ID_article'])) {
     $ID_article = $_GET['ID_article'];
+} elseif (isset($_POST['ID_article'])) { // Check if ID_article is set in the form submission (POST request)
+    $ID_article = $_POST['ID_article'];
+}
+
+// Proceed only if $ID_article is not null
+if ($ID_article !== null) {
     // Fetch the article data based on ID_article
     $article = $blogController->fetchArticleById($ID_article);
+
+    // Additional logic for handling form submissions, displaying the article, etc.
+    // ...
+} else {
+    echo 'Article ID not provided.';
+    // Consider adding additional logic here, such as redirecting the user or displaying an error message
+}
 
 if (isset($_POST['submit_comment'])) {
     $ID_auteur = $_POST['ID_auteur'];
@@ -65,7 +82,7 @@ if ($article) {
         echo '<p>Tags: ' . htmlspecialchars($article['tags']) . '</p>';
     }
     // Form pour adding a comment
-    echo '<form action="../Commentaires/add_comment.php" method="post">';
+    echo '<form id="commentForm" action="../Commentaires/add_comment.php" method="post">';   
     echo '<input type="hidden" name="ID_article" value="' . htmlspecialchars($ID_article) . '"/>';
     echo '<input type="text" name="ID_auteur" placeholder="Your ID"/>';
     echo '<input type="text" name="nom_auteur" placeholder="Your Name"/>';
@@ -120,4 +137,27 @@ function deleteComment(commentId, articleId) {
     };
     xhr.send("ID_commentaire=" + commentId + "&ID_article=" + articleId);
 }
+document.addEventListener("DOMContentLoaded", function() {
+    function checkForBadWords(content) {
+        const badWords = [
+            "badword1", "badword2", "badword3", "badword4", "badword5",
+            "badword6", "badword7", "badword8", "badword9", "badword10",
+            "badword11", "badword12", "badword13", "badword14", "badword15",
+            "badword16", "badword17", "badword18", "badword19", "badword20"
+        ];
+        const contentLowerCase = content.toLowerCase();
+        return badWords.some(word => contentLowerCase.includes(word));
+    }
+
+    const form = document.getElementById("commentForm");
+    const commentInput = document.querySelector("textarea[name='contenu']");
+
+    form.addEventListener("submit", function(event) {
+        const commentText = commentInput.value;
+        if (checkForBadWords(commentText)) {
+            alert("Your comment contains inappropriate language. Please remove it to proceed.");
+            event.preventDefault(); // Prevent form submission
+        }
+    });
+});
 </script>

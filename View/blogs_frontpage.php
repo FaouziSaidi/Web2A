@@ -25,6 +25,9 @@
         <button type="button" onclick="sortArticles()">Sort</button>
     </form>
 
+    <a href="Articles/article_suggestion.php" class="btn btn-primary">Suggest Articles</a>
+
+
 <?php
 require_once '../Controller/Blog/ArticleC.php';
 require_once 'mistral-tard.php';
