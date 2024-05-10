@@ -87,7 +87,7 @@ $listEmployeur = $employeurC->listEmployeur();
                 </a></li>
                 <li><a href="#">
                     <i class="uil uil-comment-alt-lines"></i>
-                    <span class="link-name">blog manegemnt</span>
+                    <span class="link-name">Blog maangement</span>
                 </a></li>
                 <li><a href="recherche.php">
                     <i class="uil uil-file-contract"></i>

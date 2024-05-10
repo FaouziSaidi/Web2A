@@ -33,7 +33,7 @@ if (isset($_GET['ID_article'])) {
 
 elseif (isset($_GET['ID_commentaire'])) {
     $ID_commentaire = $_GET['ID_commentaire'];
-    $comment = $commentaireController->fetchCommentById($ID_commentaire); /
+    $comment = $commentaireController->fetchCommentById($ID_commentaire);
 
     echo '<form action="update_comment.php" method="post">'; 
     echo '<input type="hidden" name="ID_commentaire" value="' . htmlspecialchars($comment['ID_commentaire']) . '"/>';

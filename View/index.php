@@ -51,7 +51,7 @@
                 }
                 ?>
                 <li class="nav-item">
-                    <a class="nav-link mx_lg_2" href="#">Blog</a>
+                    <a class="nav-link mx_lg_2" href="blogs_frontpage.php">Blog</a>
                 </li>
               </ul>
             </div>
