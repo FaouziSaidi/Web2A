@@ -11,6 +11,7 @@ h1 {
     font-size: 36px;
     color: #00BFA6;
     margin-bottom: 50px;
+    margin-top: 200px; /* Updated this line */
 }
 
 .navbar-placeholder {
