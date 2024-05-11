@@ -1,0 +1,48 @@
+.profile-form {
+    display: none;
+}
+/* Style pour tous les boutons */
+button {
+    /* Couleur de fond */
+    background-color: rgba(0, 191, 166, 0.8784313725);
+    /* Couleur du texte */
+    color: #fff;
+    /* Taille de la police */
+    font-size: 14px;
+    /* Espacement intérieur */
+    padding: 10px 20px;
+    /* Bord arrondi */
+    border-radius: 4px;
+    /* Bordure */
+    border: none;
+    /* Style du curseur au survol */
+    cursor: pointer;
+    /* Transition pour un effet fluide */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Style au survol des boutons */
+button:hover {
+    background-color: rgba(0, 191, 166, 0.8784313725);
+}
+
+/* Style pour tous les champs de saisie */
+input[type="text"] {
+    /* Taille de la police */
+    font-size: 14px;
+    /* Espacement intérieur */
+    padding: 8px;
+    /* Bord arrondi */
+    border-radius: 4px;
+    /* Bordure */
+    border: 1px solid #ccc;
+    /* Transition pour un effet fluide */
+    transition: border-color 0.3s;
+}
+
+/* Style au survol des champs de saisie */
+input[type="text"]:hover,
+input[type="text"]:focus {
+    border-color: rgba(0, 191, 166, 0.8784313725);
+}
+
