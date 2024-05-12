@@ -1,6 +1,6 @@
 <?php
-	include_once "../../config.php";
-	require_once '../../model/réponse.php';
+	include_once "../config.php";
+	require_once '../Model/réponse.php';
 
 
  class reponseC{

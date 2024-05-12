@@ -1,7 +1,7 @@
 
 <?php
-include_once '../../../Model/Reclamation/Reclamation.php';
-include '../../../Controller/Reclamation/ReclamationC.php';
+include_once '../Model/Reclamation.php';
+include '../Controller/ReclamationC.php';
 
 $error = "";
 

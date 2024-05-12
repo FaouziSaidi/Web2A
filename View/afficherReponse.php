@@ -1,9 +1,8 @@
 <?php
-    include '../../../Model/Reclamation/Reclamation.php';
-    include '../../../Controller/Reclamation/ReclamationC.php';
-	$reclamationC = new reclamationC();
-    $liste = $reclamationC->afficherreclamation();
-
+    include '../Model/réponse.php';
+    include '../Controller/RéponseC.php';
+	$reponseC = new reponseC();
+    $liste = $reponseC->afficherreponse();
 ?>
 
 
@@ -15,7 +14,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         <!----======== CSS ======== -->
-        <link rel="stylesheet" href="../../styleDash.css" />
+        <link rel="stylesheet" href="styleDash.css" />
 
         <!----===== Iconscout CSS ===== -->
         <link
@@ -28,7 +27,7 @@
     <body>
         <nav>
             <div class="image-container">
-                <img src="../../../img/masar.png" alt="Logo Masar" width="80" />
+                <img src="../img/masar.png" alt="Logo Masar" width="80" />
             </div>
 
             <div class="menu-items">
@@ -76,7 +75,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="afficherreclamation.php">
                             <i class="uil uil-exclamation"></i>
                             <span class="link-name">reclamation management</span>
                         </a>
@@ -113,19 +112,19 @@
             <div class="container">
             <h2>List of Reclamations : </h2>
             <br>
-            <a class="btn btn-primary" href="afficherReponse.php" role="button">Reponse</a>
+            <a class="btn btn-primary" href="afficherreclamation.php" role="button">Reclamation</a>
+            <a class="btn btn-primary" href="ajouterReponse.php" role="button">Add</a>
+            <br>
             <div class="mb-3">
             <br>
             <input type="text" id="searchInput" class="form-control" placeholder="Search by ID" onkeyup="searchTable()">
             </div>
-            
-
-            <h3>Reclamations</h3>
-            <table class="table" id="reclamationTable"> 
+            <h3>Reponses</h3>
+            <table class="table" id="reponseTable"> 
                 <thead>
                     <tr>
                         <th>
-                            ID reclamation
+                            ID reponse
                         </th>
                         <th>
                             email
@@ -137,85 +136,72 @@
                             contenu
                         </th>
                         <th>
-                            etat
+                            ID reclamation
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    
                 <?php
-        foreach ($liste as $Reclamation) {
+        foreach ($liste as $Reponse) {
         ?>
                     <tr>
-                        <td><?= $Reclamation['id']; ?></td>
-                        <td><?= $Reclamation['email']; ?></td>
-                        <td><?= $Reclamation['objet']; ?></td>
-                        <td><?= $Reclamation['contenu']; ?></td>
-                        <td><?= $Reclamation['etat']; ?></td>
+                        <td><?= $Reponse['id_reponse']; ?></td>
+                        <td><?= $Reponse['email']; ?></td>
+                        <td><?= $Reponse['objet']; ?></td>
+                        <td><?= $Reponse['contenu']; ?></td>
+                        <td><?= $Reponse['id_reclamation']; ?></td>
                         <td>
-            <td>
-                <input type="checkbox" class="record-checkbox" value="<?php echo $Reclamation['id']; ?>"></td>
+                        <a class="btn btn-danger btn-sm " href="supprimerReponse.php?id=<?php echo $Reponse['id_reponse']; ?>" role="button">
+                Delete
+            </a>
+            <a class="btn btn-secondary btn-sm " href="modifierReponse.php?id=<?php echo $Reponse['id_reponse']; ?>" role="button">
+                Update
+            </a>
+            
             </td>
                     </tr>
                 </tbody>
                 <?php }?>
             </table>
-            <br>
-            <div style="text-align: center;">
+        </div>
+        <div style="text-align: center;">
                 <button id="prevPageButton" class="btn btn-secondary">Previous Page</button>
                 <button id="nextPageButton" class="btn btn-secondary">Next Page</button>
             </div>
-            <br>
-            <td>
-
-                <button id="deleteSelectedButton" class="btn btn-danger">Delete Selected</button>
-                <button id="sortObjetButton" class="btn btn-warning">Sort by Object</button>
-
-        </div>
-        
         </section>
 
-        <script src="../../scriptDash.js"></script>
-
-
+        <script src="scriptDash.js"></script>
         <script>
+    function searchTable() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("reponseTable");
+        tr = table.getElementsByTagName("tr");
 
-            //recherche
-
-
-
-        function searchTable() {
-            var input, filter, table, tr, td, i, txtValue;
-            input = document.getElementById("searchInput");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("reclamationTable");
-            tr = table.getElementsByTagName("tr");
-
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[0]; // Change index if ID is not the first column
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0]; // Change index if ID is not the first column
+            if (td) {
+                txtValue = td.textContent || td.innerText;
                 if (txtValue.toUpperCase().indexOf(filter) > -1) {
                     tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
+                } else {
+                    tr[i].style.display = "none";
+                }
             }
         }
     }
-}
-    
-
-
-//pages
 
 
 
-document.getElementById("prevPageButton").addEventListener("click", showPrevPage);
+    document.getElementById("prevPageButton").addEventListener("click", showPrevPage);
 document.getElementById("nextPageButton").addEventListener("click", showNextPage);
 
 var currentPage = 0;
 var rowsPerPage = 10;
-var table = document.getElementById("reclamationTable");
+var table = document.getElementById("reponseTable");
 var rows = table.rows;
 
 function showPrevPage() {
@@ -250,56 +236,12 @@ updateTable();
 
 
 
-//multidelete
-
-
-document.getElementById("deleteSelectedButton").addEventListener("click", function() {
-    var selectedRecords = document.querySelectorAll(".record-checkbox:checked");
-    if (selectedRecords.length > 0) {
-        var confirmation = confirm("Are you sure you want to delete the selected records?");
-        if (confirmation) {
-            var ids = [];
-            selectedRecords.forEach(function(record) {
-                ids.push(record.value); // Collect the IDs of selected records
-            });
-            // Redirect to the PHP script to handle deletion with selected IDs
-            window.location.href = "supprimerreclamation.php?ids=" + ids.join(",");
-        }
-    } else {
-        alert("Please select at least one record to delete.");
-    }
-});
 
 
 
-//sort by
-
-document.getElementById("sortObjetButton").addEventListener("click", function() {
-    // Send an AJAX request to a PHP script to sort the data by "objet"
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-                // Replace the entire table with the sorted data returned by the server
-                document.querySelector("#reclamationTable").innerHTML = xhr.responseText;
-                // Reset currentPage to the first page
-                currentPage = 0;
-                // Update the table pagination
-                updateTable();
-            } else {
-                // Handle error
-                console.error("Failed to sort reclamations: " + xhr.status);
-            }
-        }
-    };
-    xhr.open("GET", "trierreclamation.php?sort=objet", true);
-    xhr.send();
-});
 
 
 
     </script>
-     
-
     </body>
 </html>

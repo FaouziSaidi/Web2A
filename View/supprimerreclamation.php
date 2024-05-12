@@ -1,5 +1,5 @@
 <?php
-include '../../../Controller/Reclamation/reclamationC.php';
+include '../Controller/reclamationC.php';
 
 if (isset($_GET['ids'])) {
     $reclamationC = new reclamationC();

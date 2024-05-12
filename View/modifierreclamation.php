@@ -1,8 +1,8 @@
 <?php
-include_once '../../../Model/Reclamation/Reclamation.php';
-include_once '../../../Controller/Reclamation/ReclamationC.php';
-include_once '../../../Model/Reclamation/Réponse.php';
-include_once '../../../Controller/Reclamation/RéponseC.php';
+include_once '../Model/Reclamation.php';
+include_once '../Controller/ReclamationC.php';
+include_once '../Model/Réponse.php';
+include_once '../Controller/RéponseC.php';
 
 $error = "";
 

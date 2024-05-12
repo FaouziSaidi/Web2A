@@ -1,10 +1,10 @@
 
 
 <?php
-include_once '../../../Model/Reclamation/Reclamation.php';
-include_once '../../../Model/Reclamation/réponse.php';
-include '../../../Controller/Reclamation/RéponseC.php';
-include_once '../../../Controller/Reclamation/reclamationC.php';
+include_once '../Model/Reclamation.php';
+include_once '../Model/réponse.php';
+include '../Controller/RéponseC.php';
+include_once '../Controller/reclamationC.php';
 
 $error = "";
 
@@ -65,7 +65,7 @@ if (
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         <!----======== CSS ======== -->
-        <link rel="stylesheet" href="../../styleDash.css" />
+        <link rel="stylesheet" href="styleDash.css" />
 
         <!----===== Iconscout CSS ===== -->
         <link
@@ -78,7 +78,7 @@ if (
     <body>
         <nav>
             <div class="image-container">
-                <img src="../../../img/masar.png" alt="Logo Masar" width="80" />
+                <img src="../img/masar.png" alt="Logo Masar" width="80" />
             </div>
 
             <div class="menu-items">
@@ -126,7 +126,7 @@ if (
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="afficherreclamation.php">
                             <i class="uil uil-exclamation"></i>
                             <span class="link-name">reclamation management</span>
                         </a>
@@ -280,7 +280,7 @@ if (
     });
 </script>
 
-        <script src="../../scriptDash.js"></script>
+        <script src="scriptDash.js"></script>
     </body>
 </html>
 

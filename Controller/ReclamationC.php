@@ -1,6 +1,6 @@
 <?php
-	include_once "../../config.php";
-	require_once '../../model/Reclamation.php';
+	include_once "../config.php";
+	require_once '../Model/Reclamation.php';
 
 
  class reclamationC {

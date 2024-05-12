@@ -1,6 +1,6 @@
 <?php
-include '../../../Model/Reclamation/Reclamation.php';
-include '../../../Controller/Reclamation/ReclamationC.php';
+include '../Model/Reclamation.php';
+include '../Controller/ReclamationC.php';
 
 // Create an instance of the ReclamationC class
 $reclamationC = new ReclamationC();

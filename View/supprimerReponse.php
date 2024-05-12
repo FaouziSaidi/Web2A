@@ -1,7 +1,7 @@
 
 <?php
 
-include '../../../Controller/Reclamation/RéponseC.php';
+include '../Controller/RéponseC.php';
 
 
 if (isset($_GET['id'])) {
