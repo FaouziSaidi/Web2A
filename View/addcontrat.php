@@ -1,9 +1,9 @@
 <?php
-
+ 
 include '../controller/contratC.php';
 include '../controller/VersionC.php';
 $error = "";
-
+//burh
 // create contrat
 $contrat = null;
 
