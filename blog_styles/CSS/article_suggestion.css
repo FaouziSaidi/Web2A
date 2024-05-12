@@ -1,0 +1,255 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(0deg, rgb(255, 255, 255) 0%, rgb(244, 247, 251) 100%);
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+
+h2 {
+    text-align: center;
+    font-size: 28px;
+    color: #00BFA6;
+    margin-bottom: 30px;
+}
+
+form {
+    background-color: #f8f9fd;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: rgba(0, 191, 166, 0.2) 0px 4px 6px -1px, rgba(0, 191, 166, 0.12) 0px 2px 4px -1px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #00BFA6;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: rgb(18, 177, 209);
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+a {
+    color: #00BFA6;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: rgb(18, 177, 209);
+    text-decoration: underline;
+}
+
+/* Styling for article suggestions list */
+ul.articles-list {
+    margin-top: 20px;
+    padding-left: 0;
+}
+
+ul.articles-list li {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-shadow: rgba(0, 191, 166, 0.2) 0px 4px 6px -1px, rgba(0, 191, 166, 0.12) 0px 2px 4px -1px;
+}
+
+ul.articles-list li:not(:last-child) {
+    margin-bottom: 15px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .article {
+        flex-direction: column;
+        margin-right: 10px; /* Adjust for smaller screens */
+    }
+
+    .post_thumbnail {
+        width: 100%;
+        height: auto;
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .article-content {
+        flex-direction: column;
+    }
+}
+
+/* Custom Checkbox Button Styles */
+input[type="checkbox"] {
+    display: none; /* Hide the default checkbox */
+}
+
+input[type="checkbox"] + label {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #ddd; /* Default non-selected background */
+    color: #333; /* Default text color */
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+input[type="checkbox"]:checked + label {
+    background-color: #00BFA6; /* Background color for selected/toggled */
+    color: white; /* Text color for selected/toggled */
+}
+
+input[type="checkbox"]:checked + label:hover,
+input[type="checkbox"] + label:hover {
+    background-color: rgb(18, 177, 209); /* Darker green on hover */body {
+        font-family: 'Arial', sans-serif;
+        background: linear-gradient(0deg, rgb(255, 255, 255) 0%, rgb(244, 247, 251) 100%);
+        margin: 0;
+        padding: 20px;
+        color: #333;
+    }
+    
+    h2 {
+        text-align: center;
+        font-size: 28px;
+        color: #00BFA6;
+        margin-bottom: 30px;
+    }
+    
+    form {
+        background-color: #f8f9fd;
+        padding: 20px;
+        border-radius: 20px;
+        box-shadow: rgba(0, 191, 166, 0.2) 0px 4px 6px -1px, rgba(0, 191, 166, 0.12) 0px 2px 4px -1px;
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    input[type="checkbox"] {
+        margin-right: 10px;
+    }
+    
+    button {
+        padding: 10px 15px;
+        background-color: #00BFA6;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        font-size: 16px;
+        margin-top: 20px;
+    }
+    
+    button:hover {
+        background-color: rgb(18, 177, 209);
+    }
+    
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+    
+    li {
+        margin-bottom: 10px;
+    }
+    
+    a {
+        color: #00BFA6;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+    
+    a:hover {
+        color: rgb(18, 177, 209);
+        text-decoration: underline;
+    }
+    
+    /* Styling for article suggestions list */
+    ul.articles-list {
+        margin-top: 20px;
+        padding-left: 0;
+    }
+    
+    ul.articles-list li {
+        background-color: #f9f9f9;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        box-shadow: rgba(0, 191, 166, 0.2) 0px 4px 6px -1px, rgba(0, 191, 166, 0.12) 0px 2px 4px -1px;
+    }
+    
+    ul.articles-list li:not(:last-child) {
+        margin-bottom: 15px;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .article {
+            flex-direction: column;
+            margin-right: 10px; /* Adjust for smaller screens */
+        }
+    
+        .post_thumbnail {
+            width: 100%;
+            height: auto;
+            margin-right: 0;
+            margin-bottom: 20px;
+        }
+    
+        .article-content {
+            flex-direction: column;
+        }
+    }
+    
+    /* Custom Checkbox Button Styles */
+    input[type="checkbox"] {
+        display: none; /* Hide the default checkbox */
+    }
+    
+    input[type="checkbox"] + label {
+        display: inline-block;
+        padding: 10px 15px;
+        background-color: #ddd; /* Default non-selected background */
+        color: #333; /* Default text color */
+        text-align: center;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    
+    input[type="checkbox"]:checked + label {
+        background-color: #00BFA6; /* Background color for selected/toggled */
+        color: white; /* Text color for selected/toggled */
+    }
+    
+    input[type="checkbox"]:checked + label:hover,
+    input[type="checkbox"] + label:hover {
+        background-color: rgb(18, 177, 209); /* Darker green on hover */
+    }
+}
