@@ -1,0 +1,96 @@
+.btn {
+    background-color: transparent;
+    position: relative;
+    border: none;
+    cursor: pointer;
+}
+
+.icon {
+    transform: scale(1.2);
+    transition: transform 0.2s linear;
+}
+
+.btn:hover .icon {
+    transform: scale(1.5);
+}
+
+.btn:hover .icon path {
+    fill: rgb(168, 7, 7);
+}
+
+.btn-text {
+    position: absolute;
+    top: -130%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: fit-content;
+    height: fit-content;
+    background-color: rgb(168, 7, 7);
+    padding: 4px 8px;
+    border-radius: 5px;
+    transition: opacity 0.2s linear;
+    transition-delay: 0.2s;
+    color: white;
+    text-transform: uppercase;
+    font-size: 12px;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.btn:hover .btn-text {
+    visibility: visible;
+    opacity: 1;
+    top: -160%;
+}
+
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 10px; 
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+#id_contrat {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 16px;
+    
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+    content:"id contrat";
+  }
+  
+  #id_contrat:focus {
+    outline: none;
+    border-color: #6c63ff;
+    content:"";
+  }
+  #boutton {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 16px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(10, 199, 148); /* Couleur de fond du bouton */
+    color: white; /* Couleur du texte */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Transition de couleur de fond */
+  }
+  
+  #boutton:hover {
+    background-color: #54c09f; /* Couleur de fond au survol */
+  }
+  
+  #boutton:active {
+    background-color: #54c09f; /* Couleur de fond au clic */
+  }
+  

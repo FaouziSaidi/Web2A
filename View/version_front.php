@@ -1,0 +1,315 @@
+<?php
+
+session_start();
+
+error_reporting(E_ALL);
+include '../config.php';
+include '../controller/versionC.php';
+
+$id_contrat = null;
+$versionController = new VersionC();
+
+// Vérifier si l'ID du contrat est passé en paramètre GET
+if(isset($_GET['id_contrat'])) {
+    $id_contrat = $_GET['id_contrat'];
+
+    // Récupérer les versions du contrat avec l'ID correspondant
+    $dates_modification = affiche($id_contrat);
+} else {
+    // Rediriger l'utilisateur vers la page recherche.php si aucun ID de contrat n'est fourni
+    header("Location: ajoutercontrat.php");
+    exit;
+}
+
+function affiche($id_employeur_employe)
+{
+    $sql = "SELECT v.id_version, v.date_de_modification, v.pdf, c.ID_employe, c.ID_employeur
+            FROM version v
+            INNER JOIN contrat c ON v.id_contrat = c.id
+            WHERE c.ID_employe = :id_employeur_employe OR c.ID_employeur = :id_employeur_employe";
+    $db = config::getConnexion();
+    try {
+        $query = $db->prepare($sql);
+        $query->bindParam(':id_employeur_employe', $id_employeur_employe, PDO::PARAM_INT);
+        $query->execute();
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    } catch (Exception $e) {
+        die('Error: ' . $e->getMessage());
+    }
+}
+
+
+
+if(isset($_SESSION["id"])) {
+    $id_employeur_employe = $_SESSION["id"];
+
+
+        $dates_modification = affiche($id_employeur_employe);
+        //var_dump($dates_modification);
+    
+}
+
+if(isset($_POST['delete_version'])) {
+    $id_version = $_POST['delete_version'];
+    $versionController->supprimerVersion($id_version);
+    header("Location: version.php");
+    exit;
+}
+?>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>  Dates de Modification</title>
+    
+    <link rel="stylesheet" href="../assets/css/style_version.css">
+    <style>
+        .delete-link {
+            color: red;
+            cursor: pointer;
+        }
+        .icon-button {
+    background-color: transparent; /* Fond transparent */
+    border: none; /* Pas de bord */
+    cursor: pointer; /* Curseur pointeur */
+    padding: 8px 16px; /* Espacement intérieur */
+    font-size: 16px; /* Taille du texte */
+    color: #00BFA6; /* Couleur du texte */
+    transition: color 0.3s ease; /* Transition de couleur douce */
+    outline: none; /* Pas de contour */
+}
+
+.icon-button:hover {
+    color: #0056b3; /* Couleur du texte au survol */
+}
+
+.icon {
+    margin-right: 8px; /* Marge à droite de l'icône */
+    font-size: 20px; /* Taille de l'icône */
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+    border: none;
+}
+
+th, td {
+    padding: 10px; 
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    border-bottom: none;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+    </style>
+      <link rel="stylesheet" href="../assets/css/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="../assets/css/style.css" rel="stylesheet">
+</head>
+<header>
+<nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container"> 
+          <img src="../img/masar.png" alt="Logo Masar" width="100">
+          
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="index.php">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link mx_lg_2" href="#">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mx_lg_2" href="#">Service</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mx_lg_2" href="#">CV</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link mx_lg_2" href="contrat.html">contrat</a>
+              </li>
+                <li class="nav-item">
+                    <a class="nav-link mx_lg_2" href="#">blog</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <?php
+          if (!isset($_SESSION["fullname"])) {
+            
+            echo '<button class="login-button" onclick="window.location.href=\'login.php\'">Log in</button>';
+            echo '<button class="login-button" style="margin-left: 10px;" onclick="window.location.href=\'register.php\'">Sign-Up</button>';
+            
+            
+          } else {
+              echo '<div class="dropdown">';
+              echo '<span class="username">'.$_SESSION["fullname"].'</span>';
+              echo '<a href="profile.php"><img src="../img/profil.png" class="profile-image"></a>';
+              echo '<a href="logout.php"><img src="../img/logout.png" class="logout-image"></a>';
+              echo '</div>';
+          }
+          ?>
+          <button class="navbar-toggler pe-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+    </nav>
+    <script src="../assets/js/script1.js"></script>
+   
+
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+</header>
+<section class="section">
+
+
+      <div class="container d-flex align-items-center justify-content-center fs-1 text-white flex-culumn">
+        <h1>Explorez des opportunités d'emploi sur mesure</h1>
+        <img src="../img/téléchargement (2).png" width=30% >
+       
+
+      </div>
+    </section>
+<body>
+<section class="section">   
+<button class="icon-button" onclick=window.location.href='ajoutercontrat.php'><i>Back to contrat</i></button>
+    <center>
+   
+    <h1>Dates de Modification de mes Contrats</h1>
+
+    <?php if(isset($message)): ?>
+        <p><?php echo $message; ?></p>
+    <?php elseif(isset($dates_modification) && !empty($dates_modification)): ?>
+        <h2>Les versions du Contrat</h2>
+        <table align="center" width="70%">
+            <thead>
+                <tr>
+                    <th>id version</th>
+                    <th>Date de Modification</th>
+                    <th>idantifiant de l'employe</th>
+                    <th>idantifiant de l'employeur</th>
+                    <th>pdf</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($dates_modification as $data): ?>
+                    <tr>
+                        <td><?php echo $data['id_version']; ?></td>
+                        <td><?php echo $data['date_de_modification']; ?></td>
+                        <td><?php echo $data['ID_employe']; ?></td>
+                        <td><?php echo $data['ID_employeur']; ?></td>
+                        <?php $filename = $data['pdf'];
+                              $path = 'http://localhost/integration_finale/view/pdf/' . $filename;  ?>
+                        <td>
+                            
+                            <a href="<?= $path; ?>" target="_blank">
+                            <svg viewBox="0 0 24 24" height="24" width="24" xmlns="http://www.w3.org/2000/svg" class="icon">
+                                <path d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M18 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-5 15h-4v-2h4v2zm4-4H7v-2h10v2zm0-3H7V8h10v2z" fill="red"/> <!-- Ajout de la propriété fill="red" -->
+                            </svg>
+
+                        </td>
+
+                        <td>
+                            <!-- Ajout d'un formulaire pour supprimer la version -->
+                            <form method="post" action="">
+                                <input type="hidden" name="delete_version" value="<?php echo $data['id_version']; ?>">
+                                <button type="submit" class="btn">
+                                <svg viewBox="0 0 15 17.5" height="17.5" width="15" xmlns="http://www.w3.org/2000/svg" class="icon">
+                                    <path transform="translate(-2.5 -1.25)" d="M15,18.75H5A1.251,1.251,0,0,1,3.75,17.5V5H2.5V3.75h15V5H16.25V17.5A1.251,1.251,0,0,1,15,18.75ZM5,5V17.5H15V5Zm7.5,10H11.25V7.5H12.5V15ZM8.75,15H7.5V7.5H8.75V15ZM12.5,2.5h-5V1.25h5V2.5Z" id="Fill"></path>
+                                </svg>
+                                
+                                </button>
+
+                            </form>
+                        </td>
+
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+        </section>
+    <?php endif; ?>
+    </center>
+                </section>
+<footer class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="footer-col">
+        <h4>Explorer</h4>
+        <ul>
+            <li><a href="#">Offres d'emploi</a></li>
+            <li><a href="#">Entreprises</a></li>
+            <li><a href="#">Salons de l'emploi</a></li>
+            <li><a href="#">Conseils carrière</a></li>
+        </ul>
+    </div>
+    <div class="footer-col">
+        <h4>Assistance</h4>
+        <ul>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Contactez-nous</a></li>
+            <li><a href="#">Conditions d'utilisation</a></li>
+            <li><a href="#">Politique de confidentialité</a></li>
+        </ul>
+    </div>
+    <div class="footer-col">
+        <h4>Ressources</h4>
+        <ul>
+            <li><a href="#">CV et lettres de motivation</a></li>
+            <li><a href="#">Modèles d'entretiens</a></li>
+            <li><a href="#">Formations en ligne</a></li>
+            <li><a href="#">Guides de recherche d'emploi</a></li>
+        </ul>
+    </div>
+    
+      <div class="footer-col">
+        <h4>follow us</h4>
+        <div class="social-buttons">
+          <a href="#" class="social-button github">
+            <svg class="cf-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="-2.5 0 19 19"><path d="M9.464 17.178a4.506 4.506 0 0 1-2.013.317 4.29 4.29 0 0 1-2.007-.317.746.746 0 0 1-.277-.587c0-.22-.008-.798-.012-1.567-2.564.557-3.105-1.236-3.105-1.236a2.44 2.44 0 0 0-1.024-1.348c-.836-.572.063-.56.063-.56a1.937 1.937 0 0 1 1.412.95 1.962 1.962 0 0 0 2.682.765 1.971 1.971 0 0 1 .586-1.233c-2.046-.232-4.198-1.023-4.198-4.554a3.566 3.566 0 0 1 .948-2.474 3.313 3.313 0 0 1 .091-2.438s.773-.248 2.534.945a8.727 8.727 0 0 1 4.615 0c1.76-1.193 2.532-.945 2.532-.945a3.31 3.31 0 0 1 .092 2.438 3.562 3.562 0 0 1 .947 2.474c0 3.54-2.155 4.32-4.208 4.548a2.195 2.195 0 0 1 .625 1.706c0 1.232-.011 2.227-.011 2.529a.694.694 0 0 1-.272.587z"></path></svg>
+              
+                    </g>
+                </g>
+            </svg>
+          </a>
+          <a href="#" class="social-button facebook">
+            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 310 310" xml:space="preserve">
+        <g id="XMLID_834_">
+          <path id="XMLID_835_" d="M81.703,165.106h33.981V305c0,2.762,2.238,5,5,5h57.616c2.762,0,5-2.238,5-5V165.765h39.064
+            c2.54,0,4.677-1.906,4.967-4.429l5.933-51.502c0.163-1.417-0.286-2.836-1.234-3.899c-0.949-1.064-2.307-1.673-3.732-1.673h-44.996
+            V71.978c0-9.732,5.24-14.667,15.576-14.667c1.473,0,29.42,0,29.42,0c2.762,0,5-2.239,5-5V5.037c0-2.762-2.238-5-5-5h-40.545
+            C187.467,0.023,186.832,0,185.896,0c-7.035,0-31.488,1.381-50.804,19.151c-21.402,19.692-18.427,43.27-17.716,47.358v37.752H81.703
+            c-2.762,0-5,2.238-5,5v50.844C76.703,162.867,78.941,165.106,81.703,165.106z"></path>
+        </g>
+        </svg>
+          </a>
+          <a href="#" class="social-button instagram">
+            <svg width="800px" height="800px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g id="Page-1" stroke="none" stroke-width="1">
+                <g id="Dribbble-Light-Preview" transform="translate(-340.000000, -7439.000000)">
+                    <g id="icons" transform="translate(56.000000, 160.000000)">
+                        <path d="M289.869652,7279.12273 C288.241769,7279.19618 286.830805,7279.5942 285.691486,7280.72871 C284.548187,7281.86918 284.155147,7283.28558 284.081514,7284.89653 C284.035742,7285.90201 283.768077,7293.49818 284.544207,7295.49028 C285.067597,7296.83422 286.098457,7297.86749 287.454694,7298.39256 C288.087538,7298.63872 288.809936,7298.80547 289.869652,7298.85411 C298.730467,7299.25511 302.015089,7299.03674 303.400182,7295.49028 C303.645956,7294.859 303.815113,7294.1374 303.86188,7293.08031 C304.26686,7284.19677 303.796207,7282.27117 302.251908,7280.72871 C301.027016,7279.50685 299.5862,7278.67508 289.869652,7279.12273 M289.951245,7297.06748 C288.981083,7297.0238 288.454707,7296.86201 288.103459,7296.72603 C287.219865,7296.3826 286.556174,7295.72155 286.214876,7294.84312 C285.623823,7293.32944 285.819846,7286.14023 285.872583,7284.97693 C285.924325,7283.83745 286.155174,7282.79624 286.959165,7281.99226 C287.954203,7280.99968 289.239792,7280.51332 297.993144,7280.90837 C299.135448,7280.95998 300.179243,7281.19026 300.985224,7281.99226 C301.980262,7282.98483 302.473801,7284.28014 302.071806,7292.99991 C302.028024,7293.96767 301.865833,7294.49274 301.729513,7294.84312 C300.829003,7297.15085 298.757333,7297.47145 289.951245,7297.06748 M298.089663,7283.68956 C298.089663,7284.34665 298.623998,7284.88065 299.283709,7284.88065 C299.943419,7284.88065 300.47875,7284.34665 300.47875,7283.68956 C300.47875,7283.03248 299.943419,7282.49847 299.283709,7282.49847 C298.623998,7282.49847 298.089663,7283.03248 298.089663,7283.68956 M288.862673,7288.98792 C288.862673,7291.80286 291.150266,7294.08479 293.972194,7294.08479 C296.794123,7294.08479 299.081716,7291.80286 299.081716,7288.98792 C299.081716,7286.17298 296.794123,7283.89205 293.972194,7283.89205 C291.150266,7283.89205 288.862673,7286.17298 288.862673,7288.98792 M290.655732,7288.98792 C290.655732,7287.16159 292.140329,7285.67967 293.972194,7285.67967 C295.80406,7285.67967 297.288657,7287.16159 297.288657,7288.98792 C297.288657,7290.81525 295.80406,7292.29716 293.972194,7292.29716 C292.140329,7292.29716 290.655732,7290.81525 290.655732,7288.98792" id="instagram-[#167]">
+        
+        </path>
+                    </g>
+                </g>
+            </g>
+        </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
