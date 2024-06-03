@@ -1,3 +1,7 @@
+<?php
+session_start();
+
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -11,45 +15,44 @@
 
   </head>
   <body>
-  <nav class="navbar navbar-expand-lg fixed-top">
-        <div class="container"> 
-          <img src="../img/masar.png" width="100">
-          
-     
-          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-            <div class="offcanvas-header">
-              <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-              <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link mx_lg_2" href="../view/Reclamation/front/ajouterreclamation.php">reclamation</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link mx_lg_2" href="#">CV</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link mx_lg_2" href="frontjob.php">job</a>
-                </li>
-                <?php
+  <header class="header">
+            <nav class="navbar navbar-expand-lg fixed-top">
+                <div class="container"> 
+                  <img src="../img/masar.png" alt="Logo Masar" width="100">
+                  
+                  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                    <div class="offcanvas-header">
+                      <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                      <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
+                        <li class="nav-item">
+                          <a class="nav-link active main-nav-link" aria-current="page" href="#home">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link mx_lg_2 main-nav-link" href="#service">Service</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link mx_lg_2 main-nav-link" href="ajouterreclamation.php">reclamation</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link mx_lg_2 main-nav-link" href="listCV.php">CV</a>
+                        </li>
+                        <?php
                 if (isset($_SESSION["fullname"])) {
                 echo'<li class="nav-item">
-                    <a class="nav-link mx_lg_2" href="ajoutercontrat.php">contrat</a>
+                    <a class="nav-link mx_lg_2 main-nav-link" href="ajoutercontrat.php">contrat</a>
                 </li>';
                 }
                 ?>
-                <li class="nav-item">
-                    <a class="nav-link mx_lg_2" href="blogs_frontpage.php">Blog</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          
-          <?php
+                        <li class="nav-item">
+                            <a class="nav-link mx_lg_2 main-nav-link" href="blogs_frontpage.php">Blog</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <?php
           if (!isset($_SESSION["fullname"])) {
             
             echo '<button class="login-button" onclick="window.location.href=\'login.php\'">Log in</button>';
@@ -64,13 +67,11 @@
               echo '</div>';
           }
           ?>
-          <button class="navbar-toggler pe-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-        </div>
-      </nav>
-
-      <script>
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                </div>
+            </nav>
+            <script>
         window.onscroll = function() {scrollFunction()};
       
         function scrollFunction() {
@@ -81,6 +82,22 @@
           }
         }
       </script>
+            <script src="../assets/js/script1.js"></script>
+           
+        
+              <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+              <style>
+  .navbar {
+            box-shadow: 0 4px 8px rgba(0, 191, 166, 0.7); /* Custom color shadow */
+            
+        }
+
+        .navbar.scroll {
+            box-shadow: 0 4px 12px rgba(0, 191, 166, 0.9); /* Darker custom color shadow when scrolling */
+        }
+
+                </style>
+        </header>
 
 <br><br><br><br>
 
@@ -157,7 +174,7 @@ function extractPercentage($inputString) {
             if ($responseData !== null) {
                 $resultText = $responseData['response']; // Extract the 'text' field from the JSON response
                 
-            echo '<table>
+            echo '<table style="margin-left:10%;margin-right:10%;">
                 <tr>
                     <td>
                         <a href="frontjob.php" class="btn btn-success">Back</a>

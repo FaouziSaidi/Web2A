@@ -80,6 +80,7 @@
 .cdd {
     background-color: #ffffff; 
     color: #000000; 
+     padding: 15px;
 }
 
 
@@ -93,10 +94,10 @@
     flex-direction: column;
     gap: 10px;
     max-width: 400px;
-    padding: 5px;
+    padding: 15px;
     border-radius: 20px;
     position: relative;
-    background-color: #1a1a1a;
+    background-color: #000000;
     color: #fff;
     border: 1px solid #333;
     top: 20%;

@@ -40,7 +40,7 @@ $list = $cvC->listCv();
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="dash.php">
                             <i class="uil uil-user"></i>
                             <span class="link-name">users</span>
                         </a>
@@ -52,13 +52,13 @@ $list = $cvC->listCv();
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="recherche.php">
                             <i class="uil uil-file-contract"></i>
                             <span class="link-name">contrat manegement</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="listejob.php">
                             <i class="uil uil-briefcase"></i>
                             <span class="link-name">job manegment</span>
                         </a>
@@ -69,12 +69,7 @@ $list = $cvC->listCv();
                             <span class="link-name">cv manegement</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="#">
-                            <i class="uil uil-medal"></i>
-                            <span class="link-name">badge manegement</span>
-                        </a>
-                    </li>
+                   
                 </ul>
 
                 <ul class="logout-mode">
@@ -174,7 +169,6 @@ $list = $cvC->listCv();
                 $slimit=($page*$numbdata)-$numbdata;
                 //echo "SLimit: $slimit"; 
 
-                $con=getdb();
                 $sql = "SELECT * FROM cv LIMIT :slimit,:numbdata; ";
                 //$result=mysqli_query($con,$sql);
                 $db = config::getConnexion();

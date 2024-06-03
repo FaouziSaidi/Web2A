@@ -1,3 +1,7 @@
+<?php
+session_start();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,39 +14,92 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg fixed-top">
-        <div class="container"> 
-          <img src="../img/masar.png" width="100">
-          
-     
-          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-            <div class="offcanvas-header">
-              <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-              <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link mx_lg_2" href="#">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link mx_lg_2" href="#">CV</a>
-                </li>
-                                <li class="nav-item">
-                    <a class="nav-link mx_lg_2" href="blogs_frontpage.php">Blog</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          
-          <button class="login-button" onclick="window.location.href='login.php'">Log in</button><button class="login-button" style="margin-left: 10px;" onclick="window.location.href='register.php'">Sign-Up</button>          <button class="navbar-toggler pe-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-        </div>
+<header class="header">
+            <nav class="navbar navbar-expand-lg fixed-top">
+                <div class="container"> 
+                  <img src="../img/masar.png" alt="Logo Masar" width="100">
+                  
+                  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                    <div class="offcanvas-header">
+                      <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                      <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
+                        <li class="nav-item">
+                          <a class="nav-link mx_lg_2 main-nav-link"  href="index.php">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link mx_lg_2 main-nav-link" href="frontjob.php">jobs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link mx_lg_2 main-nav-link" href="ajouterreclamation.php">reclamation</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link mx_lg_2 main-nav-link" href="listCV.php">CV</a>
+                        </li>
+                        <?php
+                if (isset($_SESSION["fullname"])) {
+                echo'<li class="nav-item">
+                    <a class="nav-link mx_lg_2 main-nav-link" href="ajoutercontrat.php">contrat</a>
+                </li>';
+                }
+                ?>
+                        <li class="nav-item">
+                            <a class="nav-link active main-nav-link" aria-current="page" href="blogs_frontpage.php">Blog</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <?php
+          if (!isset($_SESSION["fullname"])) {
+            
+            echo '<button class="login-button" onclick="window.location.href=\'login.php\'">Log in</button>';
+            echo '<button class="login-button" style="margin-left: 10px;" onclick="window.location.href=\'register.php\'">Sign-Up</button>';
+            
+            
+          } else {
+              echo '<div class="dropdown">';
+              echo '<span class="username">'.$_SESSION["fullname"].'</span>';
+              echo '<a href="profile.php"><img src="../img/profil.png" class="profile-image"></a>';
+              echo '<a href="logout.php"><img src="../img/logout.png" class="logout-image"></a>';
+              echo '</div>';
+          }
+          ?>
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                </div>
+            </nav>
+            <script>
+        window.onscroll = function() {scrollFunction()};
+      
+        function scrollFunction() {
+          if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+            document.querySelector('.navbar').classList.add('scroll');
+          } else {
+            document.querySelector('.navbar').classList.remove('scroll');
+          }
+        }
+      </script>
+            <script src="../assets/js/script1.js"></script>
+           
+        
+              <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+              <style>
+  .navbar {
+            box-shadow: 0 4px 8px rgba(0, 191, 166, 0.7); /* Custom color shadow */
+            
+        }
+
+        .navbar.scroll {
+            box-shadow: 0 4px 12px rgba(0, 191, 166, 0.9); /* Darker custom color shadow when scrolling */
+        }
+
+                </style>
+        </header>
+            
 </nav>    
+<br><br><br><br>
 <!-- Search form -->
     <form id="searchForm">
         <input type="text" id="searchBox" placeholder="Search articles by title...">
@@ -64,7 +121,7 @@
 <?php
 require_once '../Controller/Blog/ArticleC.php';
 require_once 'mistral-tard.php';
-session_start();
+
 // Check if this is a new session by looking for a specific session variable, e.g., 'session_started'
 if (!isset($_SESSION['session_started'])) {
     // This is a new session, so reset 'last_visited_articles'
@@ -200,7 +257,7 @@ $(document).ready(function() {
         ?>
     </ul>
 </div>
-
+<br><br><br><br>
 <footer class="footer">
         <div class="container">
           <div class="row">

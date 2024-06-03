@@ -6,8 +6,7 @@ $error = "";
 
 // create contrat
 $contrat = null;
-echo("your id ");
-echo($_SESSION["id"]);
+
 // create an instance of the controller
 $contratC = new ContratC();
 if (
@@ -68,40 +67,44 @@ if (
     <link href="../assets/css/style.css" rel="stylesheet">
 
 </head>
-<header>
-<nav class="navbar navbar-expand-lg fixed-top">
-        <div class="container"> 
-          <img src="../img/masar.png" alt="Logo Masar" width="100">
-          
-          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-            <div class="offcanvas-header">
-              <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-              <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="index.php">Home</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link mx_lg_2" href="#">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link mx_lg_2" href="#">Service</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link mx_lg_2" href="#">CV</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link mx_lg_2" href="contrat.html">contrat</a>
-              </li>
-                <li class="nav-item">
-                    <a class="nav-link mx_lg_2" href="#">blog</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <?php
+<header class="header">
+            <nav class="navbar navbar-expand-lg fixed-top">
+                <div class="container" > 
+                  <img src="../img/masar.png" alt="Logo Masar" width="100">
+                  
+                  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                    <div class="offcanvas-header">
+                      <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                      <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
+                        <li class="nav-item">
+                          <a class="nav-link mx_lg_2 main-nav-link" href="index.php">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link mx_lg_2 main-nav-link" href="frontjob.php">jobs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link mx_lg_2 main-nav-link" href="ajouterreclamation.php">reclamation</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link mx_lg_2 main-nav-link" href="listCV.php">CV</a>
+                        </li>
+                        <?php
+                if (isset($_SESSION["fullname"])) {
+                echo'<li class="nav-item">
+                    <a class="nav-link active main-nav-link" aria-current="page" href="ajoutercontrat.php">contrat</a>
+                </li>';
+                }
+                ?>
+                        <li class="nav-item">
+                            <a class="nav-link mx_lg_2 main-nav-link" href="blogs_frontpage.php">Blog</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <?php
           if (!isset($_SESSION["fullname"])) {
             
             echo '<button class="login-button" onclick="window.location.href=\'login.php\'">Log in</button>';
@@ -116,17 +119,37 @@ if (
               echo '</div>';
           }
           ?>
-          <button class="navbar-toggler pe-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-        </div>
-    </nav>
-    <script src="../assets/js/script1.js"></script>
-   
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                </div>
+            </nav>
+            <script>
+        window.onscroll = function() {scrollFunction()};
+      
+        function scrollFunction() {
+          if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+            document.querySelector('.navbar').classList.add('scroll');
+          } else {
+            document.querySelector('.navbar').classList.remove('scroll');
+          }
+        }
+      </script>
+            <script src="../assets/js/script1.js"></script>
+           
+        
+              <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+              <style>
+  .navbar {
+            box-shadow: 0 4px 8px rgba(0, 191, 166, 0.7); /* Custom color shadow */
+            
+        }
 
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        .navbar.scroll {
+            box-shadow: 0 4px 12px rgba(0, 191, 166, 0.9); /* Darker custom color shadow when scrolling */
+        }
 
-</header>
+                </style>
+        </header>
 
 <section class="section">
 
@@ -147,8 +170,8 @@ if (
 </button>
 <div id="Form" class="form-container cdd" >
 <form class="form" action="ajoutercontrat.php" method="POST">
-<p class="title">Contrat </p>
-        <p class="message">Remplissez le formulaire </p>
+<p class="title" >Contrat </p>
+   
 <body>
    
     <hr>
@@ -216,6 +239,7 @@ label{
     margin-right: 8px; /* Marge à droite de l'icône */
     font-size: 20px; /* Taille de l'icône */
 }
+
 </style> 
 
     <form action="" method="POST" >
@@ -223,7 +247,7 @@ label{
 
             <tr>
                 <td>
-                    <label for="ID_employe">Employee ID:
+                    <label for="ID_employe">Employee ID
                     </label>
                 </td>
                 <td><input type="number" name="ID_employe" id="ID_employe"></td>
@@ -231,7 +255,7 @@ label{
             </tr>
             <tr>
                 <td>
-                    <label for="ID_employeur">Employer ID:
+                    <label for="ID_employeur">Employer ID
                     </label>
                 </td>
                 <td><input type="number" name="ID_employeur" id="ID_employeur"></td>
@@ -239,7 +263,7 @@ label{
             </tr>
             <tr>
                 <td>
-                    <label for="Titre_poste">Job Title:
+                    <label for="Titre_poste">Job Title
                     </label>
                 </td>
                 <td><input type="text" name="Titre_poste" id="Titre_poste" maxlength="50"></td>
@@ -247,7 +271,7 @@ label{
             </tr>
             <tr>
                 <td>
-                    <label for="temps_travail">Work Hours:
+                    <label for="temps_travail">Work Hours
                     </label>
                 </td>
                 <td><input type="number" name="temps_travail" id="temps_travail"></td>
@@ -255,7 +279,7 @@ label{
             </tr>
             <tr>
                 <td>
-                    <label for="salaire">Salary:
+                    <label for="salaire">Salary
                     </label>
                 </td>
                 <td><input type="number" name="salaire" id="salaire"></td>
@@ -263,7 +287,7 @@ label{
             </tr>
             <tr>
                 <td>
-                    <label for="typec">Contract Type:
+                    <label for="typec">Contract Type
                     </label>
                 </td>
                 <td><input type="text" name="typec" id="typec" maxlength="20"></td>
@@ -271,7 +295,7 @@ label{
             </tr>
             <tr>
                 <td>
-                    <label for="Date_de_debut">Start Date:
+                    <label for="Date_de_debut">Start Date
                     </label>
                 </td>
                 <td>
@@ -281,7 +305,7 @@ label{
             </tr>
             <tr>
                 <td>
-                    <label for="Date_expiration">Expiration Date:
+                    <label for="Date_expiration">Expiration Date
                     </label>
                 </td>
                 <td>
@@ -299,6 +323,7 @@ label{
             </tr>
         </table>
     </form>
+    <br><br><br><br><br><br>
     <script>
 document.addEventListener("DOMContentLoaded", function() {
     var formulaire = document.querySelector("form");

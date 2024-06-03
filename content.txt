@@ -1,0 +1,46 @@
+about us : 
+est une plateforme en ligne spécialisée dans l'emploi et le recrutement. 
+Elle offre aux utilisateurs la possibilité de créer des profils détaillés, de rechercher des offres d'emploi, de postuler facilement et de suivre leurs candidatures. Les employeurs peuvent quant à eux publier des offres, recevoir des candidatures et gérer le processus de recrutement de manière efficace.
+
+
+branding : find a perfect job and take the next step in your career journey with us !
+
+branding color : #37b24d / # 2b8a3e
+
+summary :
+It offers users the ability to create detailed profiles, search for jobs, easily apply and track their applications.
+
+
+
+featuers : 
+Personalized Job Recommendations: Utilize advanced algorithms to offer job seekers personalized job recommendations based on their skills, experience, and interests.
+
+One-Click Application: Enable users to apply for jobs with a single click using their saved profiles, making the application process faster and more efficient.
+Automated Screening Questions: Allow employers to set up customized screening questions for each job posting to quickly identify the most qualified candidates.
+Feedback System: Include a feedback system where users can rate their interactions with employers/candidates, contributing to the trust and transparency of your platform
+
+
+Search for  the perfect job :
+ welcome to your ultimate job destination ! find your ideal opportunity ,upload your CV and get hired hassle-free. Start your journey to success today!
+search ,post , get hired 
+
+submit your CV now !
+take the first steps towards exciting career prospects by submitting your CV now !
+upload your CV 
+
+choose a Sector 
+Engineering 
+Accounting 
+finance 
+marketing 
+healthcare Services 
+Human Resources 
+Training 
+Media & Communication 
+
+TESTIMONIALS
+
+
+
+
+nav bar : home , sectors , contact , profile , sign in 

@@ -154,6 +154,7 @@ ul{
     width: 95%;
 }
 
+
 .hero-section::before{
     background-color: rgba(0,0,0,0.6);
     content: "";
@@ -322,5 +323,6 @@ ul{
   .instagram:hover svg {
     fill: #c13584;
   }
+  
   
 
